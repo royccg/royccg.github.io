@@ -410,7 +410,7 @@ height:50vh;
 <h1 id="二、安装FlexGet"><a href="#二、安装FlexGet" class="headerlink" title="二、安装FlexGet"></a>二、安装FlexGet</h1><p>依次执行：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">apt-get</span> <span class="string">install</span> <span class="bullet">-y</span> <span class="string">python-pip</span> <span class="string">python-setuptools</span></span><br><span class="line"><span class="string">pip</span> <span class="string">install</span> <span class="bullet">--upgrade</span> <span class="string">pip</span></span><br><span class="line"><span class="string">pip</span> <span class="string">install</span> <span class="string">flexget</span></span><br></pre></td></tr></table></figure></p>
 <p>配置FlexGet:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">/root/.flexget</span></span><br><span class="line"><span class="string">vim</span> <span class="string">/root/.flexget/config.yml</span></span><br></pre></td></tr></table></figure></p>
 <p>其中，编辑文本时，可以采用vi、vim和nano，看个人喜好。</p>
-<p>FlexGet的配置文件示例：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="attr">  mt:</span></span><br><span class="line"><span class="attr">    rss:</span> <span class="attr">https://tp.m-team.cc/torrentrss.php?https=1&amp;rows=10&amp;linktype=dl&amp;passkey=xxxxxxxxxxxxxx</span></span><br><span class="line"><span class="attr">    accept_all:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    content_size:</span></span><br><span class="line"><span class="attr">      min:</span> <span class="number">256</span></span><br><span class="line"><span class="attr">      max:</span> <span class="number">4000</span></span><br><span class="line"><span class="attr">    download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line"><span class="attr">    transmission:</span></span><br><span class="line"><span class="attr">      host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">9091</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">username</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">password</span></span><br><span class="line"><span class="attr">  ttg:</span></span><br><span class="line"><span class="attr">    rss:</span> <span class="attr">https://totheglory.im/putrss.php?par=xxxxxxx&amp;ssl=yes</span></span><br><span class="line"><span class="attr">    accept_all:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    content_size:</span></span><br><span class="line"><span class="attr">      min:</span> <span class="number">256</span></span><br><span class="line"><span class="attr">      max:</span> <span class="number">4000</span></span><br><span class="line"><span class="attr">    download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line"><span class="attr">    transmission:</span></span><br><span class="line"><span class="attr">      host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">9091</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">username</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">"password"</span></span><br></pre></td></tr></table></figure></p>
+<p>FlexGet的配置文件示例：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line"><span class="attr">  mt:</span></span><br><span class="line"><span class="attr">    rss:</span> <span class="attr">https://tp.m-team.cc/torrentrss.php?https=1&amp;rows=10&amp;linktype=dl&amp;passkey=xxxxxxxxxxxxxx</span></span><br><span class="line"><span class="attr">    accept_all:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    content_size:</span></span><br><span class="line"><span class="attr">      min:</span> <span class="number">256</span></span><br><span class="line"><span class="attr">      max:</span> <span class="number">4000</span></span><br><span class="line"><span class="attr">    download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line"><span class="attr">    transmission:</span></span><br><span class="line"><span class="attr">      host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">9091</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">username</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">"password"</span></span><br><span class="line"><span class="attr">  ttg:</span></span><br><span class="line"><span class="attr">    rss:</span> <span class="attr">https://totheglory.im/putrss.php?par=xxxxxxx&amp;ssl=yes</span></span><br><span class="line"><span class="attr">    accept_all:</span> <span class="literal">yes</span></span><br><span class="line"><span class="attr">    content_size:</span></span><br><span class="line"><span class="attr">      min:</span> <span class="number">256</span></span><br><span class="line"><span class="attr">      max:</span> <span class="number">4000</span></span><br><span class="line"><span class="attr">    download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line"><span class="attr">    transmission:</span></span><br><span class="line"><span class="attr">      host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">9091</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">username</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">"password"</span></span><br></pre></td></tr></table></figure></p>
 <p>以上内容表示，只下载文件大小在256MB和4000MB之间的种子，用户名和密码为之前配置的transmission的。rss为pt网站订阅的rss地址。一般选择所有的就行了，TTG等网站需要注意最好不要覆盖那些带H&amp;R的内容（剧集）。</p>
 <p><strong><a href="https://www.tok9.com/archives/285/" target="_blank" rel="noopener">要注意的是，由于配置文件是YAML格式，需要遵循YAML语法，也就是说，千万不要使用tab来缩进，一定要用空格。缩进是一定要遵守的，每个层级之间用两个空格缩进。</a></strong></p>
 <p>多个任务，在后面添加即可。</p>
@@ -438,7 +438,7 @@ height:50vh;
             <p>原文作者：<a href="https://royccg.github.io">Roy ccg</a>
             </p><p>原文链接：<a href="https://royccg.github.io/2019/05/02/Vps刷PT流量/">https://royccg.github.io/2019/05/02/Vps刷PT流量/</a>
             </p><p>发表日期：<a href="https://royccg.github.io/2019/05/02/Vps刷PT流量/">May 2nd 2019, 2:58:41 pm</a>
-            </p><p>更新日期：<a href="https://royccg.github.io/2019/05/02/Vps刷PT流量/">May 3rd 2019, 9:04:54 pm</a>
+            </p><p>更新日期：<a href="https://royccg.github.io/2019/05/02/Vps刷PT流量/">May 4th 2019, 9:18:37 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -635,6 +635,8 @@ top:50vh;
     
     
     
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 4
@@ -647,20 +649,6 @@ top:50vh;
     
     
     
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/03/17/hello-world/">Hello World</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
@@ -678,6 +666,20 @@ top:50vh;
     
         <li class="archive-post-item">
             <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/my-first-blog/">my first blog</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/03/17/hello-world/">Hello World</a>
         </li>
     
     </ul></div>
