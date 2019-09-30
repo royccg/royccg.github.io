@@ -12,7 +12,7 @@ social:
   # wechat and qq should be a path of qr-code image
   wechat: /assets/ma.jpg
   qq: 
-  telegram: 
+  telegram: https://t.me/Muzilir
   weibo: 
   zhihu: 
   douban: 
@@ -30,8 +30,8 @@ social:
   rss: 
 # friends
 friends:
-  friendA: https://www.moerats.com/
-  friendB: https://yangyang.im/post/CGy0NfhY6/
+  moerats: https://www.moerats.com/
+  yangyang: https://yangyang.im/post/CGy0NfhY6/
   friendC: 
 about:
   enable: true

@@ -94,7 +94,7 @@ jsonContent:
     excerpt: false
     categories: true
     tags: true
-
+    
 deploy:
   type: git
   # repository: https://github.com/royccg/royccg.github.io.git
