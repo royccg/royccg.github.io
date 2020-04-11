@@ -7,6 +7,7 @@ abstract: 使用VPS来完成PT站的新手任务。
 ---
 最近迷上了使用PT做种，其中很多PT站都需要完成新手任务。为了完成新手任务，并且是自动做种，考虑使用vps来自动做种。网上有很多不同的工具，本文章使用Transmission和FlexGet自动刷PT流量，使用Debian和Ubuntu的系统，在CentOS上的刷PT流量教程，考虑在后面重新做一期。
 **本文章只适用Debian9和Ubuntu16以上的系统**
+<!-- more -->
 # 一、安装Transmission
 ```yaml
     apt-get update

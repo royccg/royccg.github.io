@@ -10,7 +10,7 @@ abstract: 基于Onedrive网盘的在线网盘搭建教程
 ---------------------
 ![picture](pyone网盘图.jpg)
 ![picture](pyone网盘图2.jpg)
-
+<!-- more -->
 # Demo地址
 -------------------
 https://www.pyone.me
