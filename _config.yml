@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Roy 's Home
 subtitle:
 description:
 keywords:
 author: Roy ccg
-language:
+language: zh-CN
 timezone:
 
 # URL
@@ -17,6 +17,12 @@ url: https://royccg.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
+pretty_urls:
+trailing_index: true # Set to false to remove trailing index.html from permalinks
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
 
 # Directory
 source_dir: source
@@ -32,7 +38,10 @@ skip_render:
 new_post_name: :title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
-external_link: true # Open external links in new tab
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude:
 filename_case: 0
 render_drafts: false
 post_asset_folder: true
@@ -50,7 +59,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 10
+  per_page: 5
   order_by: -date
   
 # Category & Tag
@@ -58,12 +67,18 @@ default_category: uncategorized
 category_map:
 tag_map:
 
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
+
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
+## Use post's date for updated date unless set in front-matter
+use_date_for_updated: false
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -74,26 +89,28 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: landscape
-theme: archer
-# theme:hexo-huweihuang
-jsonContent:
-  meta: true
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: false
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: true
-    excerpt: false
-    categories: true
-    tags: true
+# theme: archer
+theme: next
+
+# # theme:hexo-huweihuang
+# jsonContent:
+#   meta: true
+#   pages: false
+#   posts:
+#     title: true
+#     date: true
+#     path: true
+#     text: false
+#     raw: false
+#     content: false
+#     slug: false
+#     updated: false
+#     comments: false
+#     link: false
+#     permalink: true
+#     excerpt: false
+#     categories: true
+#     tags: true
     
 deploy:
   type: git
@@ -105,12 +122,17 @@ deploy:
 
 # 视音频的代码
 aplayer:
-  script_dir: assets/js                       # Public 目录下脚本目录路径，默认: 'assets/js'
-  style_dir: assets/css                       # Public 目录下样式目录路径，默认: 'assets/css'
-  cdn: http://xxx/aplayer.min.js                # 引用 APlayer.js 外部 CDN 地址 (默认不开启)
-  style_cdn: http://xxx/aplayer.min.css         # 引用 APlayer.css 外部 CDN 地址 (默认不开启)
   meting: true                                  # MetingJS 支持
-  meting_api: http://xxx/api.php                # 自定义 Meting API 地址
-  meting_cdn: http://xxx/Meing.min.js           # 引用 Meting.js 外部 CDN 地址 (默认不开启)
-  asset_inject: false                            # 自动插入 Aplayer.js 与 Meting.js 资源脚本, 默认开启
-  externalLink: http://xxx/aplayer.min.js       # 老版本参数，功能与参数 cdn 相同
+
+
+note:
+  # Note tag style values:
+  #  - simple    bs-callout old alert style. Default.
+  #  - modern    bs-callout new (v2-v3) alert style.
+  #  - flat      flat callout style with background, like on Mozilla or StackOverflow.
+  #  - disabled  disable all CSS styles import of note tag.
+  style: simple
+  icons: false
+  # Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).
+  # Offset also applied to label tag variables. This option can work with disabled note tag.
+  light_bg_offset: 0
