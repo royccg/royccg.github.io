@@ -38,10 +38,10 @@ tags:
 9. 下方 客户端密码 - 新客户端密码
 10. 说明： `onedrive`
 11. 截止期限：默认 `1年内`
-![](http://www.royonedrive.tk/2020021807494729.png
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807494729.png
 )
 12. 点击 添加，`值` 客户端密码 **复制client_secret保存**
-![](http://www.royonedrive.tk/2020021807502037-1024x251.png
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807502037-1024x251.png
 )
 13. 左侧找到 `API 权限` 点击
 14. 添加权限 - `Microsoft Graph` - 委托的权限 - `Files` (7)全部勾选
