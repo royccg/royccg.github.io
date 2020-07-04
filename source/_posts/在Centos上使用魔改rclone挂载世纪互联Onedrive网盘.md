@@ -1,7 +1,7 @@
 ---
 title: 在Centos上使用魔改rclone挂载实际互联Onedrive网盘
 date: 2020-05-31 18:37:05
-tags: 
+tags:
     - vps
     - onedrive
     - 在线网盘
@@ -12,13 +12,13 @@ tags:
 本教程使用 魔改的Rclone 挂载世纪互联版本的[Onedrive网盘](https://www.yiyi.one/aff.php?aff=141)。
 ## 魔改版的rclone下载地址
 + Rclone V1.50.2版：
-    + [window-64版](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-windows-amd64-21vianet.zip)
-    + [window-32位](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-windows-386-21vianet.zip) 
-    + [linux-64位](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-linux-amd64-21vianet.zip)
-    + [linux-32位](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-linux-386-21vianet.zip)
+    + [window-64版](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-windows-amd64-21vianet.zip)
+    + [window-32位](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-windows-386-21vianet.zip)
+    + [linux-64位](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-linux-amd64-21vianet.zip)
+    + [linux-32位](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-linux-386-21vianet.zip)
 + Rclone V1.51.0版：
-    + [window-64位](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.51.0-windows64-21vianet.zip)
-    + [linux-64位](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.51.0-linux-amd64-21vianet.zip)
+    + [window-64位](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.51.0-windows64-21vianet.zip)
+    + [linux-64位](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.51.0-linux-amd64-21vianet.zip)
 
 <!-- more -->
 
@@ -27,26 +27,26 @@ tags:
 1. 左侧找到 `Azure Active Directory`点击
 2. 左侧找到 `应用注册`
 3. 上方找到 `新注册`点击
-![](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807465068-1024x490.png)
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807465068-1024x490.png)
 4. 名字：`onedrive`（自取）
 5. 受支持的账户类型：`任何组织目录(任何 Azure AD 目录 - 多租户)中的帐户`（第二个)
-6. 重定向URL: `http://localhost:53682` 
-![](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807475042-1024x774.png)  
+6. 重定向URL: `http://localhost:53682`
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807475042-1024x774.png)
 7. 点击注册 找到`应用程序（客户端）ID` **复制Client_ID并保存**
-![](http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807490386.png)
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807490386.png)
 8. 左下方找到`证书和密码`点击
 9. 下方 客户端密码 - 新客户端密码
 10. 说明： `onedrive`
 11. 截止期限：默认 `1年内`
-![](http://www.royonedrive.tk/SJHL/2020021807494729.png
+![](http://www.royonedrive.tk/2020021807494729.png
 )
 12. 点击 添加，`值` 客户端密码 **复制client_secret保存**
-![](http://www.royonedrive.tk/SJHL/2020021807502037-1024x251.png
+![](http://www.royonedrive.tk/2020021807502037-1024x251.png
 )
 13. 左侧找到 `API 权限` 点击
 14. 添加权限 - `Microsoft Graph` - 委托的权限 - `Files` (7)全部勾选
 15. 选择应用程序权限 在下方Files里选择 `Files.Read.All`和`Files.ReadWrite.All`
-![](http://www.royonedrive.tk/SJHL/2020021807505553-1024x606.png
+![](http://www.royonedrive.tk/2020021807505553-1024x606.png
 )
 
 回到界面**如果**会发现该权限处于未授权状态，我们需要全局管理员点击 `代表XXXX授予管理员同意`
@@ -68,7 +68,7 @@ rclone authorize onedrive "应用程序(客户端) ID" "客户端密码值" --on
 ```
 
 之后会跳转到浏览器，登录账号之后返回 Windows 命令行，会返回 token，复制保存下来，后面要用。
-![](http://www.royonedrive.tk/SJHL/2020021807535362-1024x474.png
+![](http://www.royonedrive.tk/2020021807535362-1024x474.png
 )
 
 ## 安装配置VPS端的Rclone
