@@ -1,5 +1,5 @@
 ---
-title: 在Centos上使用魔改rclone挂载实际互联Onedrive网盘
+title: 在Centos上使用魔改rclone挂载世纪互联Onedrive网盘
 date: 2020-05-31 18:37:05
 tags:
     - vps
@@ -46,7 +46,7 @@ tags:
 13. 左侧找到 `API 权限` 点击
 14. 添加权限 - `Microsoft Graph` - 委托的权限 - `Files` (7)全部勾选
 15. 选择应用程序权限 在下方Files里选择 `Files.Read.All`和`Files.ReadWrite.All`
-![](http://www.royonedrive.tk/2020021807505553-1024x606.png
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807505553-1024x606.png
 )
 
 回到界面**如果**会发现该权限处于未授权状态，我们需要全局管理员点击 `代表XXXX授予管理员同意`
@@ -68,8 +68,7 @@ rclone authorize onedrive "应用程序(客户端) ID" "客户端密码值" --on
 ```
 
 之后会跳转到浏览器，登录账号之后返回 Windows 命令行，会返回 token，复制保存下来，后面要用。
-![](http://www.royonedrive.tk/2020021807535362-1024x474.png
-)
+![](http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807535362-1024x474.png)
 
 ## 安装配置VPS端的Rclone
 下载相应的版本，并上传解压到`/url/bin`目录，然后
@@ -102,7 +101,6 @@ rclone mount DriveName:Folder LocalFolder --copy-links --no-gzip-encoding --no-c
 如果挂载过程中出现`NOTICE: One drive root 'test': poll-interval is not supported by this remote`错误，可以无视该错误。
 
 挂载成功后，输入`df -h`命令查看即可！
-![](http://www.royonedrive.tk/a13/%E5%9B%BE%E5%BA%8A/d97c63036a12d8426914737644acfcf1.png)
 
 ### 卸载磁盘
 ```
