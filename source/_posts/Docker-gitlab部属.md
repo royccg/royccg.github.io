@@ -33,7 +33,7 @@ curl -sSL https://get.daocloud.io/docker | sh
 curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 ```
 
-注意： 辱国要使用 Docker作为非root用户使用，则应考虑使用以下方式将用户添加到`docker`组：
+注意： 如果要使用 Docker作为非root用户使用，则应考虑使用以下方式将用户添加到`docker`组：
 ```bash
 sudo usermod -aG docker your-user
 ```
