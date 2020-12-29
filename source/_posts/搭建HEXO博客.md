@@ -68,7 +68,6 @@ Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或�
 桌面右键鼠标，点击 `Git Bash Here`，输入一下命令安装
 ```yaml
 npm install hexo-cli -g
-npm install hexo-deployer-git --save
 ```
 第一句是安装Hexo，第二句是安装Hexo部署到git page的deployer，两个都需要安装。
 
@@ -188,18 +187,25 @@ npm install hexo-deployer-git --save
 + 在**blog的配置文件**`_config.yml`中的最后修改为
     ```yaml
     deploy:
-      type: 'git'
-      repository: git@github.com:username/username.github.io.git //username是github用户名
+      type: git
+      repository: git@github.com:username/username.github.io.git
+      # username是github用户名
       branch: master
    ```
 + 添加域名
     + 在blog的源目录下 创建`CNRME`文件，无后缀，内容添加为 `域名`
 
+
 4、部署运行
-在源目录下分别执行
-```cmd
-hexo clean //清理缓存
-hexo g  //生成静态页面
-hexo d  // 网站push 到github上
++ <font color=red size=5>**安装上传git的插件**</font>
+    ```git
+    npm install hexo-deployer-git --save
+    ```
+
++ 在源目录下分别执行
+    ```cmd
+    hexo clean //清理缓存
+    hexo g  //生成静态页面
+    hexo d  // 网站push 到github上
 ```
 这样就可在 你的域名上 欣赏你的blog了，加油，bloger！
