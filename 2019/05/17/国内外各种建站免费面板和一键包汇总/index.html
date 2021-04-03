@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#CC543A">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#CC543A">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"royccg.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#CC543A","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="面板类： 国外： VestaCP：http:&#x2F;&#x2F;vestacp.com&#x2F; （比较推荐的面板，自带中文）Kloxo-MR：https:&#x2F;&#x2F;github.com&#x2F;mustafaramadhan&#x2F;kloxo&#x2F; （7.0真的很强大，很好看，很实用，有中文包）Webmin&#x2F;Virtualmin：http:&#x2F;&#x2F;www.webmin.com&#x2F;virtualmin.html （很稳定，很安全，自带中文）Ispco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="国内外各种建站免费面板和一键包汇总">
+<meta property="og:url" content="https://royccg.github.io/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="Roy &#39;s Home">
+<meta property="og:description" content="面板类： 国外： VestaCP：http:&#x2F;&#x2F;vestacp.com&#x2F; （比较推荐的面板，自带中文）Kloxo-MR：https:&#x2F;&#x2F;github.com&#x2F;mustafaramadhan&#x2F;kloxo&#x2F; （7.0真的很强大，很好看，很实用，有中文包）Webmin&#x2F;Virtualmin：http:&#x2F;&#x2F;www.webmin.com&#x2F;virtualmin.html （很稳定，很安全，自带中文）Ispco">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-17T06:16:11.000Z">
+<meta property="article:modified_time" content="2021-04-03T07:55:23.014Z">
+<meta property="article:author" content="Roy ccg">
+<meta property="article:tag" content="建站">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://royccg.github.io/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>国内外各种建站免费面板和一键包汇总 | Roy 's Home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- APlayer start -->
+
+  <!-- Native Mode
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <div id="aplayer"></div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript" src="/js/music.js"></script>
+
+  -->
+
+  <!--MetingJS Mode-->
+ <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <div class="aplayer" 
+  data-id="123539059" 
+  data-server="netease" 
+  data-type="playlist" 
+  data-fixed="true" 
+  data-autoplay="true" 
+  data-order="random" 
+  data-volume="0.55" 
+  data-theme="#cc543a" 
+  data-preload="auto" >
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+  <meting-js
+    server="netease"
+    type="playlist"
+    id="123539059">
+  </meting-js> -->
+
+  <!---->
+
+  <!-- APlayer end -->
+
+<!-- <script>
+  (function(d) {
+    var config = {
+      kitId: 'tzu7ura',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+ -->
+
+
+  <!-- 引用依赖 -->
+  <link rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+
+  <!-- 我使用的APlayer本体 -->
+  <div class="aplayer" 
+    data-id="123539059" 
+    data-server="netease" 
+    data-type="playlist" 
+    data-fixed="true" 
+    data-autoplay="true" 
+    data-order="random" 
+    data-volume="0.55" 
+    data-theme="#cc543a" 
+    data-preload="auto" >
+    </div>
+  <!--如果将本体放在body里面导致页面加载出现问题，请尝试放到body体后面-->
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roy 's Home</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy ccg">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy 's Home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          国内外各种建站免费面板和一键包汇总
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-17 14:16:11" itemprop="dateCreated datePublished" datetime="2019-05-17T14:16:11+08:00">2019-05-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-03 15:55:23" itemprop="dateModified" datetime="2021-04-03T15:55:23+08:00">2021-04-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>面板类：</p>
+<p>国外：</p>
+<p>VestaCP：<a target="_blank" rel="noopener" href="http://vestacp.com/">http://vestacp.com/</a> （比较推荐的面板，自带中文）<br>Kloxo-MR：<a target="_blank" rel="noopener" href="https://github.com/mustafaramadhan/kloxo/">https://github.com/mustafaramadhan/kloxo/</a> （7.0真的很强大，很好看，很实用，有中文包）<br>Webmin/Virtualmin：<a target="_blank" rel="noopener" href="http://www.webmin.com/virtualmin.html">http://www.webmin.com/virtualmin.html</a> （很稳定，很安全，自带中文）<br>Ispconfig：<a target="_blank" rel="noopener" href="https://github.com/dclardy64/ISPConfig-3-Debian-Installer">https://github.com/dclardy64/ISPConfig-3-Debian-Installer</a> （官网没看懂这是一键包，有中文包）<br><a id="more"></a><br>i-MSCP：<a target="_blank" rel="noopener" href="http://i-mscp.net/">http://i-mscp.net/</a>  （简单易用，自带中文）</p>
+<p>EasySCP：<a target="_blank" rel="noopener" href="http://www.easyscp.net/">http://www.easyscp.net/</a>  （和i-MSCP一样来自Ispconfig，自带中文）<br>Ajenti：<a target="_blank" rel="noopener" href="http://ajenti.org/">http://ajenti.org/</a> （轻量级，类似Webmin，自带中文）<br>zPanel(sentora)：<a target="_blank" rel="noopener" href="http://www.zpanelcp.com/">http://www.zpanelcp.com/</a>  <a target="_blank" rel="noopener" href="http://www.sentora.org/（支持win，有中文包）">http://www.sentora.org/（支持win，有中文包）</a></p>
+<p>centos webpanel：<a target="_blank" rel="noopener" href="http://centos-webpanel.com/">http://centos-webpanel.com/</a> （据说比较有发展前途）<br>Froxlor：<a target="_blank" rel="noopener" href="http://www.froxlor.org/">http://www.froxlor.org/</a> （很轻量的，适应各种环境）<br>AlternC：<a target="_blank" rel="noopener" href="https://alternc.org/">https://alternc.org/</a> （简单）<br>Easy Hosting Control Panel：<a target="_blank" rel="noopener" href="http://ehcp.net/">http://ehcp.net/</a> （还不错的面板，有第三方汉化包）</p>
+<p>国内：</p>
+<p><a target="_blank" rel="noopener" href="http://amh.sh/">http://amh.sh/</a> （4.2版免费）<br><a target="_blank" rel="noopener" href="http://www.wdlinux.cn/bbs/">http://www.wdlinux.cn/bbs/</a> （简单易用，近来爆出严重安全漏洞）<br><a target="_blank" rel="noopener" href="http://www.zijidelu.org/">http://www.zijidelu.org/</a> （支持freeBSD）<br><a target="_blank" rel="noopener" href="http://www.kanglesoft.com/">http://www.kanglesoft.com/</a> （很好很强大）</p>
+<p>一键包：</p>
+<p>国外：</p>
+<p><a target="_blank" rel="noopener" href="http://centminmod.com/">http://centminmod.com/</a> （据说很适合wordpress）<br><a target="_blank" rel="noopener" href="http://tuxlite.com/">http://tuxlite.com/</a> （适用于Debian系列）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Xeoncross/lowendscript">https://github.com/Xeoncross/lowendscript</a>  （lowendscript演变来的）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ComfortVPS/Nginx-PHP-MySql-phpMyAdmin">https://github.com/ComfortVPS/Nginx-PHP-MySql-phpMyAdmin</a>  （SFTP即可添加域名）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mikegioia/Debian-Server">https://github.com/mikegioia/Debian-Server</a> （还是比较全面的）</p>
+<p>国内：</p>
+<p><a target="_blank" rel="noopener" href="http://lnmp.org/">http://lnmp.org/</a> （用的人很多，适应性很强）<br><a target="_blank" rel="noopener" href="http://teddysun.com/lamp">http://teddysun.com/lamp</a> （很好用的LAMP一键包） <a target="_blank" rel="noopener" href="http://teddysun.com/lamp-yum">http://teddysun.com/lamp-yum</a> （适合小内存≥64M）<br><a target="_blank" rel="noopener" href="http://bbs.aliyun.com/read/151729.html">http://bbs.aliyun.com/read/151729.html</a> （阿里云论坛看到的）</p>
+<p><a target="_blank" rel="noopener" href="http://blog.linuxeye.com/31.html">http://blog.linuxeye.com/31.html</a>  （多种配置，软件较新）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/wangyan/lanmp">https://github.com/wangyan/lanmp</a> （针对512M内存的VPS进行了优化）<br><a target="_blank" rel="noopener" href="http://www.hhvmc.com/thread-17-1-1.html">http://www.hhvmc.com/thread-17-1-1.html</a> （有hhvm的一键包）</p>
+<p><a target="_blank" rel="noopener" href="http://shuang.ca/llnmp/">http://shuang.ca/llnmp/</a>  <a target="_blank" rel="noopener" href="http://llsmp.cn/（有LiteSpeed的一键包）">http://llsmp.cn/（有LiteSpeed的一键包）</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.lxconfig.com/thread-69-1-1.html">https://www.lxconfig.com/thread-69-1-1.html</a> （有openresty的一键包）<br><a target="_blank" rel="noopener" href="http://blog.7qy.com/html/1575.html">http://blog.7qy.com/html/1575.html</a> （有cherokee的一键包）<br><a target="_blank" rel="noopener" href="http://lamp.phpstudy.net/">http://lamp.phpstudy.net/</a> （有Lighttpd的一键包）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/maxexcloo/Seervr">https://github.com/maxexcloo/Seervr</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/teddysun/lamp-yum/">https://github.com/teddysun/lamp-yum/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/teddysun/lamp/">https://github.com/teddysun/lamp/</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lj2007331/lnmp">https://github.com/lj2007331/lnmp</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/centos-bz/EZHTTP">https://github.com/centos-bz/EZHTTP</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ielnehc/ltmh">https://github.com/ielnehc/ltmh</a></p>
+<p><a target="_blank" rel="noopener" href="http://z.admin5.com/linux.php">http://z.admin5.com/linux.php</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.12345t.com/news/2014/0910/370.html">http://www.12345t.com/news/2014/0910/370.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.vpsmate.org/">http://www.vpsmate.org/</a></p>
+<p><a target="_blank" rel="noopener" href="http://isp-control.net/">http://isp-control.net/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.openpanel.com/">http://www.openpanel.com/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.webuzo.com/downloads">http://www.webuzo.com/downloads</a></p>
+<p><a target="_blank" rel="noopener" href="http://wp.geeklab.com.ar/gl/gnupanel/">http://wp.geeklab.com.ar/gl/gnupanel/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.blueonyx.it/">http://www.blueonyx.it/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.zentyal.org/">http://www.zentyal.org/</a></p>
+<p><a target="_blank" rel="noopener" href="http://dtcsupport.gplhost.com/PmWiki/">http://dtcsupport.gplhost.com/PmWiki/</a></p>
+<p><a target="_blank" rel="noopener" href="http://lxcenter.org/software/kloxo">http://lxcenter.org/software/kloxo</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ispconfig.org/files/file/2-ispconfig/">http://www.ispconfig.org/files/file/2-ispconfig/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.websitepanel.net/">http://www.websitepanel.net/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.west263.com/services/vhostsoft/">http://www.west263.com/services/vhostsoft/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.npointhost.com/index.html">http://www.npointhost.com/index.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.huweishen.com/soft/host/">http://www.huweishen.com/soft/host/</a></p>
+<p><a target="_blank" rel="noopener" href="http://winginx.com/en/">http://winginx.com/en/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.wampserver.com/en/">http://www.wampserver.com/en/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.upupw.net/">http://www.upupw.net/</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.phpstudy.net/">http://www.phpstudy.net/</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BB%BA%E7%AB%99/" rel="tag"># 建站</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/17/%E5%AE%89%E8%A3%85%E5%9F%BA%E4%BA%8Eonedrive%E7%9A%84%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%9B%98-%E2%80%94Pyone/" rel="prev" title="安装基于onedrive的在线网盘-—Pyone">
+      <i class="fa fa-chevron-left"></i> 安装基于onedrive的在线网盘-—Pyone
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/20/%E5%88%A9%E7%94%A8Heroku%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%90%AD%E5%BB%BAOLAINDEX/" rel="next" title="利用Heroku免费空间搭建OLAINDEX">
+      利用Heroku免费空间搭建OLAINDEX <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy ccg"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy ccg</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https://github.com/royccg" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy778555479@gmail.com" title="E-Mail → mailto:roy778555479@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https://t.me/Muzilir" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chennanzhang.github.io/" title="https://chennanzhang.github.io/" rel="noopener" target="_blank">极客斋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.moerats.com/" title="https://www.moerats.com/" rel="noopener" target="_blank">moerats</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yangyang.im/post/CGy0NfhY6/" title="https://yangyang.im/post/CGy0NfhY6/" rel="noopener" target="_blank">yangyang</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.viseator.com/" title="https://www.viseator.com/" rel="noopener" target="_blank">viseator</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.llgzone.com/" title="https://blog.llgzone.com/" rel="noopener" target="_blank">Lean</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://touhoudog.net/" title="http://touhoudog.net/" rel="noopener" target="_blank">充满魔力的土地下</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://kourindou.exblog.jp/" title="https://kourindou.exblog.jp/" rel="noopener" target="_blank">博麗幻想書譜</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy ccg</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ef2bf981f8440d3" async="async"></script>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var originalTitle = document.title;      // 1.
+var crashSwitched = false;               // 2.
+var titleTime;
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    if (Math.random() < parseFloat(0.25)) {         // 3.
+      crashSwitched = true;              // 2.a.
+      document.title = '╭(°A°`)╮ 页面崩溃啦~' + originalTitle;     // 1.a.
+      clearTimeout(titleTime);
+    }
+  } else {
+    if (crashSwitched == true) {
+      crashSwitched = false;             // 2.b.
+      document.title = '(ฅ>ω<*ฅ) 咦，又好了~' + originalTitle;   // 1.b.
+      titleTime = setTimeout(function () {
+        document.title = originalTitle;  // 1.c.
+      }, 2000);
+    }
+  }
+});
+</script>
+    <div id="pjax">
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BktA7Vr4r0Fk6bJC3ltXHDHl-gzGzoHsz',
+      appKey     : '32gX12bsowXSAbc1HAfuueeG',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+
+<!-- <div id="contentleft">
+  <div class="aplayer" 
+  data-fixed="true" 
+  data-autoplay="true" 
+  data-order="random" 
+  data-volume="0.55" 
+  data-theme="#cc543a" 
+  data-preload="auto" 
+  ></div>
+</div> -->
+
+
+
+</html>
+
+
+

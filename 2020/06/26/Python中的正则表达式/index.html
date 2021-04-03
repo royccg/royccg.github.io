@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#CC543A">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#CC543A">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"royccg.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#CC543A","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用python对字符串进行处理中，正则表达式的使用是十分有必要的，此处将小做归纳整理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中的正则表达式">
+<meta property="og:url" content="https://royccg.github.io/2020/06/26/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Roy &#39;s Home">
+<meta property="og:description" content="使用python对字符串进行处理中，正则表达式的使用是十分有必要的，此处将小做归纳整理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/5681f11896e22c99cc40ada93af72862.png">
+<meta property="og:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/b15536cab55bf243b3ef79660170f29b.png">
+<meta property="og:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/2c5d34f3af596ce2ef520f0edca49988.png">
+<meta property="og:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/f7627fa325b23d3d55e679680cf2566a.png">
+<meta property="og:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/004f1fd6d609e6c220fb12981b6bf2dd.png">
+<meta property="og:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/e373722ac039ec0e31aa5ba0146d28c8.png">
+<meta property="article:published_time" content="2020-06-26T13:51:07.000Z">
+<meta property="article:modified_time" content="2021-04-03T07:55:22.989Z">
+<meta property="article:author" content="Roy ccg">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="正则">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/5681f11896e22c99cc40ada93af72862.png">
+
+<link rel="canonical" href="https://royccg.github.io/2020/06/26/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python中的正则表达式 | Roy 's Home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- APlayer start -->
+
+  <!-- Native Mode
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <div id="aplayer"></div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript" src="/js/music.js"></script>
+
+  -->
+
+  <!--MetingJS Mode-->
+ <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <div class="aplayer" 
+  data-id="123539059" 
+  data-server="netease" 
+  data-type="playlist" 
+  data-fixed="true" 
+  data-autoplay="true" 
+  data-order="random" 
+  data-volume="0.55" 
+  data-theme="#cc543a" 
+  data-preload="auto" >
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+  <meting-js
+    server="netease"
+    type="playlist"
+    id="123539059">
+  </meting-js> -->
+
+  <!---->
+
+  <!-- APlayer end -->
+
+<!-- <script>
+  (function(d) {
+    var config = {
+      kitId: 'tzu7ura',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+ -->
+
+
+  <!-- 引用依赖 -->
+  <link rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+
+  <!-- 我使用的APlayer本体 -->
+  <div class="aplayer" 
+    data-id="123539059" 
+    data-server="netease" 
+    data-type="playlist" 
+    data-fixed="true" 
+    data-autoplay="true" 
+    data-order="random" 
+    data-volume="0.55" 
+    data-theme="#cc543a" 
+    data-preload="auto" >
+    </div>
+  <!--如果将本体放在body里面导致页面加载出现问题，请尝试放到body体后面-->
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roy 's Home</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2020/06/26/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy ccg">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy 's Home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python中的正则表达式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-26 21:51:07" itemprop="dateCreated datePublished" datetime="2020-06-26T21:51:07+08:00">2020-06-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-03 15:55:22" itemprop="dateModified" datetime="2021-04-03T15:55:22+08:00">2021-04-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/26/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/26/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用python对字符串进行处理中，正则表达式的使用是十分有必要的，此处将小做归纳整理。<br><a id="more"></a></p>
+<h1 id="正则表达式的概念"><a href="#正则表达式的概念" class="headerlink" title="正则表达式的概念"></a>正则表达式的概念</h1><ul>
+<li><p>正则表达式</p>
+<ul>
+<li><code>Regular Expression</code> <code>regex</code> <code>RE</code></li>
+<li>正则表达式是用来简洁表达一组字符串的表达式。<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/5681f11896e22c99cc40ada93af72862.png" alt><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/b15536cab55bf243b3ef79660170f29b.png" alt></li>
+<li>通用的字符串表达框架</li>
+<li>简洁表达一组字符串的表达式</li>
+<li>针对字符串表达“简洁”和“特征”思想的工具</li>
+<li>判断某字符串的特征归属</li>
+</ul>
+</li>
+<li><p>正则表达式在文本处理中十分常用</p>
+<ul>
+<li>表达文本类型的特征（病毒、入侵等）</li>
+<li>同时查找或替换一组字符串</li>
+<li>匹配字符串的全部或部分</li>
+</ul>
+</li>
+<li><p>正则表达式的使用</p>
+<ul>
+<li>编译：将符合正则表达式语法的字符串转换成正则表示特征<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/2c5d34f3af596ce2ef520f0edca49988.png" alt></li>
+</ul>
+</li>
+</ul>
+<h1 id="正则表达式的语法"><a href="#正则表达式的语法" class="headerlink" title="正则表达式的语法"></a>正则表达式的语法</h1><p>正则表达式是由字符和 操作符组成的</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作符</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.</code></td>
+<td style="text-align:center">表示任何单个字符</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[]</code></td>
+<td style="text-align:center">字符集，对单个字符给出取值范围</td>
+<td style="text-align:center"><code>[abc]</code>表示a、b、c，<code>[a-z]</code>表示a到z单个字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[^]</code></td>
+<td style="text-align:center">非字符集，对单个字符给出排除范围</td>
+<td style="text-align:center"><code>[^abc]</code>表示非a或b或c的单个字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>*</code></td>
+<td style="text-align:center">前一个字符0次或无限次扩展</td>
+<td style="text-align:center"><code>abc*</code>表示ab、abc、abcc、abccc等</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>+</code></td>
+<td style="text-align:center">前一个字符1次货无限次扩展</td>
+<td style="text-align:center"><code>abc+</code>表示abc、abcc、abccc等</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>?</code></td>
+<td style="text-align:center">前一个字符0次货1次扩展</td>
+<td style="text-align:center"><code>abc?</code>表示ab、abc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&amp;#124</code></td>
+<td style="text-align:center">左右表达式任意一个</td>
+<td style="text-align:center"><code>abc &amp;#124 def</code> `表示abc、def</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;m&#125;</code></td>
+<td style="text-align:center">扩展前一个字符m次</td>
+<td style="text-align:center"><code>ab&#123;2&#125;c</code>表示abbc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;m,n&#125;</code></td>
+<td style="text-align:center">扩展前一个字符m至n次（含n）</td>
+<td style="text-align:center"><code>ab&#123;1,2&#125;c</code>表示abc、abbc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>^</code></td>
+<td style="text-align:center">匹配字符串开头</td>
+<td style="text-align:center"><code>^abc</code>表示abc且在一个字符串的开头</td>
+</tr>
+<tr>
+<td style="text-align:left">$$`</td>
+<td style="text-align:center">匹配字符串结尾</td>
+<td style="text-align:center">`abc$$表示abc且在一个字符串的结尾</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>()</code></td>
+<td style="text-align:center">分组标记，内部职能使用 &amp;# 124 操作符</td>
+<td style="text-align:center"><code>(abc)</code>表示abc，<code>(abc&amp;#124 def)</code> 表示abc、def</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\d</code></td>
+<td style="text-align:center">数字，等价于 <code>[0-9]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\w</code></td>
+<td style="text-align:center">单词字符，等价于 <code>[A-Za-z0-9]</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="经典正则表达式实例"><a href="#经典正则表达式实例" class="headerlink" title="经典正则表达式实例"></a>经典正则表达式实例</h1><hr>
+<p><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/f7627fa325b23d3d55e679680cf2566a.png" alt></p>
+<h2 id="匹配IP地址的正则表达式"><a href="#匹配IP地址的正则表达式" class="headerlink" title="匹配IP地址的正则表达式"></a>匹配IP地址的正则表达式</h2><p>IP地址字符串形式的正则表达式<br>（IP地址分4段，每段0-255）</p>
+<ul>
+<li><p>精确写法</p>
+<ul>
+<li>0-99: <code>[1-9]?\d</code></li>
+<li>100-199: <code>1\d&#123;2&#125;</code></li>
+<li>200-249: <code>2[0-4]\d</code></li>
+<li><p>250-255：<code>25[0-5]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(([1-9]?\d|1\d&#123;2&#125;|2[0-4]\d|25[0-5]).)&#123;3&#125;([1-9]?\d|1\d&#123;2&#125;|2[0-4]\d|25[0-5])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Re库的使用"><a href="#Re库的使用" class="headerlink" title="Re库的使用"></a>Re库的使用</h1><hr>
+<p>Re库是Python的标准库，主要用于字符串匹配<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br></pre></td></tr></table></figure></p>
+<h2 id="正则表达式的表示类型"><a href="#正则表达式的表示类型" class="headerlink" title="正则表达式的表示类型"></a>正则表达式的表示类型</h2><h3 id="raw-string类型（原生字符串类型）"><a href="#raw-string类型（原生字符串类型）" class="headerlink" title="raw string类型（原生字符串类型）"></a>raw string类型（原生字符串类型）</h3><p>re库采用raw string类型表示正则表达式，表示为<code>r&quot;text&quot;</code><br>例如：</p>
+<ul>
+<li><code>r&#39;[1-9]\d&#123;5&#125;&#39;</code></li>
+<li><code>r&#39;\d&#123;3&#125;-\d&#123;8&#125;|\d&#123;4&#125;-\d&#123;7&#125;&#39;</code></li>
+</ul>
+<p>raw string是不包括转义符的字符串</p>
+<h3 id="string类型，更繁琐"><a href="#string类型，更繁琐" class="headerlink" title="string类型，更繁琐"></a>string类型，更繁琐</h3><p>例如</p>
+<ul>
+<li><code>&#39;[1-9]\\d&#123;5&#125;&#39;</code></li>
+<li><code>&#39;\\d&#123;3&#125;-\\d&#123;8&#125;|\\d&#123;4&#125;-\\d&#123;7&#125;&#39;</code></li>
+</ul>
+<h2 id="Re库主要功能函数"><a href="#Re库主要功能函数" class="headerlink" title="Re库主要功能函数"></a>Re库主要功能函数</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>re.search()</code></td>
+<td style="text-align:center">在一个字符串中搜索匹配正则表达式的第一个位置，返回<code>match</code>对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.match()</code></td>
+<td style="text-align:center">从一个字符串的开始位置起匹配正则表达式，返回<code>match</code>对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.findall</code></td>
+<td style="text-align:center">搜索字符串，以列表类型返回全部能匹配的子串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.split()</code></td>
+<td style="text-align:center">将一个字符串按照正则表达式匹配结果进行分割，返回列表类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.finditer()</code></td>
+<td style="text-align:center">搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是<code>match</code>对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.sub()</code></td>
+<td style="text-align:center">在一个字符串中替换所有匹配正则表达式的子串，返回替换后的字符串</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="re-search"><a href="#re-search" class="headerlink" title="re.search()"></a><code>re.search()</code></h3><p><code>re.search(pattern, string, flags=0)</code><br> 在一个字符串中搜索匹配正则表达式的第一个位置，返回<code>match</code>对象</p>
+<ul>
+<li><code>pattern</code>：正则表达式的字符串或原生字符串表示</li>
+<li><code>string</code>：待匹配字符串</li>
+<li><code>flags</code>：正则表达式使用时的控制标记</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">常用标记</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>re.I</code> <code>re.IGNORECASE</code></td>
+<td style="text-align:left">忽略正则表达式的大小写，<code>[A-Z]</code>能匹配小写字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>re.M</code> <code>re.MULTILINE</code></td>
+<td style="text-align:left">正则表达式中的<code>^</code>操作符能够将给定字符串的每行当做匹配开始</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>re.S</code> <code>re.DOTALL</code></td>
+<td style="text-align:left">正则表达式中的<code>.</code>操作符能够匹配所有字符，默认匹配除换行外的所有字符</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT 100081&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">    print(match.group(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="number">100081</span></span><br></pre></td></tr></table></figure>
+<h3 id="re-match"><a href="#re-match" class="headerlink" title="re.match()"></a><code>re.match()</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.match(pattern, string, flags=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>从一个字符串的开始位置起匹配正则表达式，返回<code>match</code>对象。</p>
+<ul>
+<li><code>pattern</code>：正则表达式的字符串或原生字符串表示；</li>
+<li><code>string</code>: 待匹配字符串；</li>
+<li><code>flags</code>: 正则表达式使用时的控制标记。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.match(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;100081 BIT&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">    match.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;100081&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="re-findall"><a href="#re-findall" class="headerlink" title="re.findall()"></a><code>re.findall()</code></h3><p><code>re.findall(pattern, string, flags = 0)</code><br>搜索字符串，以列表类型返回全部能匹配的子串。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">ls = re.findall(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line">ls</span><br><span class="line"></span><br><span class="line">[<span class="string">&#x27;100081&#x27;</span>, <span class="string">&#x27;1000084&#x27;</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="re-split"><a href="#re-split" class="headerlink" title="re.split()"></a><code>re.split()</code></h3><p><code>re.split(pattern, string, maxsplit = 0, flags =0)</code><br>将一个字符串按照正则表达式匹配结果进行分割，返回列表类型。</p>
+<ul>
+<li><code>maxsplit</code>： 最大分割数，剩余部分作为最后一个元素输出。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">re.split(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line">[<span class="string">&#x27;BIT&#x27;</span>, <span class="string">&#x27; TSU&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line"></span><br><span class="line">re.split(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>, maxsplit=<span class="number">1</span>)</span><br><span class="line">[<span class="string">&#x27;BIT&#x27;</span>, <span class="string">&#x27;TSU100084&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="re-finditer"><a href="#re-finditer" class="headerlink" title="re.finditer()"></a><code>re.finditer()</code></h3><p><code>re.finditer(pattern, string, flags = 0)</code><br>搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是<code>match</code>对象。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> re.finditer(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>):</span><br><span class="line">    <span class="keyword">if</span> m:</span><br><span class="line">        print(m.group(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="number">100081</span></span><br><span class="line"><span class="number">100084</span></span><br></pre></td></tr></table></figure>
+<h3 id="re-sub"><a href="#re-sub" class="headerlink" title="re.sub()"></a><code>re.sub()</code></h3><p><code>re.sub(pattern, repl, string, count=0, flags = 0)</code><br>在一个字符串中替换所有匹配正则表达式的子串，返回替换后的字符串。</p>
+<ul>
+<li><code>repl</code>：替换匹配字符串的字符串</li>
+<li><code>count</code>：匹配的最大替换次数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">re.sub(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;:zipcode&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;BIT:zipcode TSU:zipcode&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="Re库的另一种等价用法"><a href="#Re库的另一种等价用法" class="headerlink" title="Re库的另一种等价用法"></a>Re库的另一种等价用法</h1><ul>
+<li>函数式用法：一次性操作<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rst = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT 100081&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>面向对象用法：编译后的多次操作<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pat = re.<span class="built_in">compile</span>(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>)</span><br><span class="line">rst = pat.search(<span class="string">&#x27;BIT 100081&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>regex = re.compile(pattern, flags = 0)</code><br>将正则表达式的字符串形式编译成正则表达式对象<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/004f1fd6d609e6c220fb12981b6bf2dd.png" alt></p>
+<h1 id="Re库的Match对象"><a href="#Re库的Match对象" class="headerlink" title="Re库的Match对象"></a>Re库的Match对象</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100084&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">    print(match.group(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="number">100081</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span>(match)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">_sre</span>.<span class="title">SRE_Match</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"></span></span><br></pre></td></tr></table></figure>
+<h2 id="Match对象的属性"><a href="#Match对象的属性" class="headerlink" title="Match对象的属性"></a>Match对象的属性</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.string</code></td>
+<td style="text-align:left">待匹配的文本</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.re</code></td>
+<td style="text-align:left">匹配时使用的<code>pattern</code>对象（正则表达式）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.pos</code></td>
+<td style="text-align:left">正则表达式搜索文本的开始位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.endpos</code></td>
+<td style="text-align:left">正则表达式搜索文本的结束位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Match对象的方法"><a href="#Match对象的方法" class="headerlink" title="Match对象的方法"></a>Match对象的方法</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.group(0)</code></td>
+<td style="text-align:left">获取匹配后的字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.start()</code></td>
+<td style="text-align:left">匹配字符串再原始字符串的开始位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.end()</code></td>
+<td style="text-align:left">匹配字符串再原始字符串的结束位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.span()</code></td>
+<td style="text-align:left">返回<code>(.start()..end())</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">m = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line">m.string</span><br><span class="line"><span class="string">&#x27;BIT100081 TSU100084&#x27;</span></span><br><span class="line"></span><br><span class="line">m.re</span><br><span class="line">re.<span class="built_in">compile</span>(<span class="string">&#x27;[1-9]\\d&#123;5&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">m.pos</span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line">m.endpos</span><br><span class="line"><span class="number">19</span></span><br><span class="line"></span><br><span class="line">m.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;100081&#x27;</span></span><br><span class="line"></span><br><span class="line">m.start()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line">m.span()</span><br><span class="line">(<span class="number">3</span>, <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="Re库的贪婪匹配和最小匹配"><a href="#Re库的贪婪匹配和最小匹配" class="headerlink" title="Re库的贪婪匹配和最小匹配"></a>Re库的贪婪匹配和最小匹配</h1><ul>
+<li>实例<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">match = re.search(<span class="string">r&#x27;PY.*N&#x27;</span>, <span class="string">&#x27;PYANBNCNDN&#x27;</span>)</span><br><span class="line">match.group(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h3><p>Re库默认采用贪婪匹配，即输出匹配最长的子串<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">match.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;PYANBNCNDN&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="最小匹配"><a href="#最小匹配" class="headerlink" title="最小匹配"></a>最小匹配</h3><p>如何输出最短的字串<br><strong>加入<code>?</code></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">match = re.search(<span class="string">r&#x27;PY.*?N&#x27;</span>, <span class="string">&#x27;PYANBNCNDN&#x27;</span>)</span><br><span class="line">match.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;PYAN&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>最小匹配操作符</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>*?</code></td>
+<td style="text-align:left">前一个字符0次或无限次扩展，最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>+?</code></td>
+<td style="text-align:left">前一个字符1次或无限次扩展，最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>??</code></td>
+<td style="text-align:left">前一个字符0次或1次扩展，最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;m,n&#125;?</code></td>
+<td style="text-align:left">扩展前一个字符m至n次（含n），最小匹配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Re库（正则表达式）入门"><a href="#Re库（正则表达式）入门" class="headerlink" title="Re库（正则表达式）入门"></a>Re库（正则表达式）入门</h3><p>正则表达式是用来简洁表达一组字符串的表达式</p>
+<p><code>r&#39;\d&#123;3&#125;-\d&#123;8&#125;|\d&#123;4&#125;-\d&#123;7&#125;&#39;</code></p>
+<p><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/e373722ac039ec0e31aa5ba0146d28c8.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E6%AD%A3%E5%88%99/" rel="tag"># 正则</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/31/%E5%9C%A8Centos%E4%B8%8A%E4%BD%BF%E7%94%A8%E9%AD%94%E6%94%B9rclone%E6%8C%82%E8%BD%BD%E4%B8%96%E7%BA%AA%E4%BA%92%E8%81%94Onedrive%E7%BD%91%E7%9B%98/" rel="prev" title="在Centos上使用魔改rclone挂载世纪互联Onedrive网盘">
+      <i class="fa fa-chevron-left"></i> 在Centos上使用魔改rclone挂载世纪互联Onedrive网盘
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/" rel="next" title="论中国人痴迷的“国外来函”">
+      论中国人痴迷的“国外来函” <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">正则表达式的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">正则表达式的语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%8F%E5%85%B8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">经典正则表达式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%B9%E9%85%8DIP%E5%9C%B0%E5%9D%80%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">匹配IP地址的正则表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">Re库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%A1%A8%E7%A4%BA%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.</span> <span class="nav-text">正则表达式的表示类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#raw-string%E7%B1%BB%E5%9E%8B%EF%BC%88%E5%8E%9F%E7%94%9F%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%EF%BC%89"><span class="nav-number">4.1.1.</span> <span class="nav-text">raw string类型（原生字符串类型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string%E7%B1%BB%E5%9E%8B%EF%BC%8C%E6%9B%B4%E7%B9%81%E7%90%90"><span class="nav-number">4.1.2.</span> <span class="nav-text">string类型，更繁琐</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Re%E5%BA%93%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E5%87%BD%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">Re库主要功能函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#re-search"><span class="nav-number">4.2.1.</span> <span class="nav-text">re.search()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-match"><span class="nav-number">4.2.2.</span> <span class="nav-text">re.match()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-findall"><span class="nav-number">4.2.3.</span> <span class="nav-text">re.findall()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-split"><span class="nav-number">4.2.4.</span> <span class="nav-text">re.split()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-finditer"><span class="nav-number">4.2.5.</span> <span class="nav-text">re.finditer()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re-sub"><span class="nav-number">4.2.6.</span> <span class="nav-text">re.sub()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E7%AD%89%E4%BB%B7%E7%94%A8%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">Re库的另一种等价用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84Match%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.</span> <span class="nav-text">Re库的Match对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Match%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">Match对象的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Match%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">Match对象的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Re%E5%BA%93%E7%9A%84%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D%E5%92%8C%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">7.</span> <span class="nav-text">Re库的贪婪匹配和最小匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AA%E5%A9%AA%E5%8C%B9%E9%85%8D"><span class="nav-number">7.0.1.</span> <span class="nav-text">贪婪匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">7.0.2.</span> <span class="nav-text">最小匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Re%E5%BA%93%EF%BC%88%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%89%E5%85%A5%E9%97%A8"><span class="nav-number">7.0.3.</span> <span class="nav-text">Re库（正则表达式）入门</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy ccg"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy ccg</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https://github.com/royccg" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy778555479@gmail.com" title="E-Mail → mailto:roy778555479@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https://t.me/Muzilir" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chennanzhang.github.io/" title="https://chennanzhang.github.io/" rel="noopener" target="_blank">极客斋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.moerats.com/" title="https://www.moerats.com/" rel="noopener" target="_blank">moerats</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yangyang.im/post/CGy0NfhY6/" title="https://yangyang.im/post/CGy0NfhY6/" rel="noopener" target="_blank">yangyang</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.viseator.com/" title="https://www.viseator.com/" rel="noopener" target="_blank">viseator</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.llgzone.com/" title="https://blog.llgzone.com/" rel="noopener" target="_blank">Lean</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://touhoudog.net/" title="http://touhoudog.net/" rel="noopener" target="_blank">充满魔力的土地下</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://kourindou.exblog.jp/" title="https://kourindou.exblog.jp/" rel="noopener" target="_blank">博麗幻想書譜</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy ccg</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ef2bf981f8440d3" async="async"></script>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var originalTitle = document.title;      // 1.
+var crashSwitched = false;               // 2.
+var titleTime;
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    if (Math.random() < parseFloat(0.25)) {         // 3.
+      crashSwitched = true;              // 2.a.
+      document.title = '╭(°A°`)╮ 页面崩溃啦~' + originalTitle;     // 1.a.
+      clearTimeout(titleTime);
+    }
+  } else {
+    if (crashSwitched == true) {
+      crashSwitched = false;             // 2.b.
+      document.title = '(ฅ>ω<*ฅ) 咦，又好了~' + originalTitle;   // 1.b.
+      titleTime = setTimeout(function () {
+        document.title = originalTitle;  // 1.c.
+      }, 2000);
+    }
+  }
+});
+</script>
+    <div id="pjax">
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BktA7Vr4r0Fk6bJC3ltXHDHl-gzGzoHsz',
+      appKey     : '32gX12bsowXSAbc1HAfuueeG',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+
+<!-- <div id="contentleft">
+  <div class="aplayer" 
+  data-fixed="true" 
+  data-autoplay="true" 
+  data-order="random" 
+  data-volume="0.55" 
+  data-theme="#cc543a" 
+  data-preload="auto" 
+  ></div>
+</div> -->
+
+
+
+</html>
+
+
+

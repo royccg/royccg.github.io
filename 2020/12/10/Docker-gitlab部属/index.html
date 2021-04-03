@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#CC543A">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#CC543A">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"royccg.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#CC543A","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言最近在折腾Git,想对自己的代码版本进行托管和版本控制，准备在Ubuntu server 利用Docker上搭建一个GitLab。 平台 操作系统： Ubuntu 20.04.1 server Docker Version ：20.10.0, build 7287ab3 Gitlab Version：13.6.2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker-gitlab部属">
+<meta property="og:url" content="https://royccg.github.io/2020/12/10/Docker-gitlab%E9%83%A8%E5%B1%9E/index.html">
+<meta property="og:site_name" content="Roy &#39;s Home">
+<meta property="og:description" content="前言最近在折腾Git,想对自己的代码版本进行托管和版本控制，准备在Ubuntu server 利用Docker上搭建一个GitLab。 平台 操作系统： Ubuntu 20.04.1 server Docker Version ：20.10.0, build 7287ab3 Gitlab Version：13.6.2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-10T12:37:00.000Z">
+<meta property="article:modified_time" content="2021-04-03T07:55:22.989Z">
+<meta property="article:author" content="Roy ccg">
+<meta property="article:tag" content="vps">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="gitlab - git">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://royccg.github.io/2020/12/10/Docker-gitlab%E9%83%A8%E5%B1%9E/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Docker-gitlab部属 | Roy 's Home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- APlayer start -->
+
+  <!-- Native Mode
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <div id="aplayer"></div>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript" src="/js/music.js"></script>
+
+  -->
+
+  <!--MetingJS Mode-->
+ <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <div class="aplayer" 
+  data-id="123539059" 
+  data-server="netease" 
+  data-type="playlist" 
+  data-fixed="true" 
+  data-autoplay="true" 
+  data-order="random" 
+  data-volume="0.55" 
+  data-theme="#cc543a" 
+  data-preload="auto" >
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+  <meting-js
+    server="netease"
+    type="playlist"
+    id="123539059">
+  </meting-js> -->
+
+  <!---->
+
+  <!-- APlayer end -->
+
+<!-- <script>
+  (function(d) {
+    var config = {
+      kitId: 'tzu7ura',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+ -->
+
+
+  <!-- 引用依赖 -->
+  <link rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script>
+
+  <!-- 我使用的APlayer本体 -->
+  <div class="aplayer" 
+    data-id="123539059" 
+    data-server="netease" 
+    data-type="playlist" 
+    data-fixed="true" 
+    data-autoplay="true" 
+    data-order="random" 
+    data-volume="0.55" 
+    data-theme="#cc543a" 
+    data-preload="auto" >
+    </div>
+  <!--如果将本体放在body里面导致页面加载出现问题，请尝试放到body体后面-->
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roy 's Home</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2020/12/10/Docker-gitlab%E9%83%A8%E5%B1%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy ccg">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy 's Home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker-gitlab部属
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-10 20:37:00" itemprop="dateCreated datePublished" datetime="2020-12-10T20:37:00+08:00">2020-12-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-03 15:55:22" itemprop="dateModified" datetime="2021-04-03T15:55:22+08:00">2021-04-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/12/10/Docker-gitlab%E9%83%A8%E5%B1%9E/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/10/Docker-gitlab%E9%83%A8%E5%B1%9E/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在折腾<code>Git</code>,想对自己的代码版本进行托管和版本控制，准备在Ubuntu server 利用Docker上搭建一个<code>GitLab</code>。</p>
+<h3 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h3><ul>
+<li>操作系统： Ubuntu 20.04.1 server</li>
+<li>Docker Version ：20.10.0, build 7287ab3</li>
+<li>Gitlab Version：13.6.2</li>
+</ul>
+<a id="more"></a>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>docker用来隔离应用还是比较方便的，一来本身的操作较为简单，二来资源占用也比虚拟机要小的多，三来是较为安全。</p>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>我采用的是Ubuntu 20发行版本<br>此处采用 国内daocloud 一键安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://get.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure>
+<p>或者使用 官方的安装脚本自动安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br></pre></td></tr></table></figure></p>
+<p>注意： 如果要使用 Docker作为非root用户使用，则应考虑使用以下方式将用户添加到<code>docker</code>组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker your-user</span><br></pre></td></tr></table></figure></p>
+<h3 id="更换源"><a href="#更换源" class="headerlink" title="更换源"></a>更换源</h3><p>国内的镜像源有</p>
+<ul>
+<li>docker官方中国区 <code>https://registry.docker-cn.com</code></li>
+<li>网易 <code>http://hub-mirror.c.163.com</code></li>
+<li>ustc <code>http://docker.mirrors.ustc.edu.cn</code></li>
+<li>阿里云 <code>http://&lt;你的ID&gt;.mirror.aliyuncs.com</code></li>
+</ul>
+<p>通用的方法就是编辑<code>/etc/docker/daemon.json</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span> : [</span><br><span class="line">    <span class="string">&quot;http://registry.docker-cn.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://docker.mirrors.ustc.edu.cn&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://hub-mirror.c.163.com&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;insecure-registries&quot;</span> : [</span><br><span class="line">    <span class="string">&quot;registry.docker-cn.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;docker.mirrors.ustc.edu.cn&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;debug&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="string">&quot;experimental&quot;</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>然后重启<code>docker</code>即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure></p>
+<h2 id="Gitlab安装"><a href="#Gitlab安装" class="headerlink" title="Gitlab安装"></a>Gitlab安装</h2><h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><p> 使用如下命令可以使 Docker安装 Gitlab 镜像<br>  gitlab 镜像分为两个版本：</p>
+<ul>
+<li>gitlab-ce 社区版</li>
+<li>gitlab-ee 企业收费版<br>此处采用社区版本即可，直接安装官方镜像，拉取<code>gitlab-ce</code>源<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><p>通常会将Gitlab的配置(etc)、日志(log)、数据(data)放在容器之外，便于日后升级，因此先准备这三个目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /srv/gitlab/config</span><br><span class="line">mkdir -p /srv/gitlab/logs</span><br><span class="line">mkdir -p /srv/gitlab/data</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动运行"><a href="#启动运行" class="headerlink" title="启动运行"></a>启动运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname 192.xxx.xx.xx \</span><br><span class="line">  --publish 8443:443 --publish 8880:8880 --publish 8222:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /srv/gitlab/logs:/var/<span class="built_in">log</span>/gitlab \</span><br><span class="line">  --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --privileged=<span class="literal">true</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>—hostname gitlab.example.com: 设置主机名或域名</li>
+<li>—publish 8443:443：将http：443映射到外部端口8443</li>
+<li>—publish 8880:8880：将web：8880映射到外部端口8880 （此处两个端口号必须一致，不然后面有问题）</li>
+<li>—publish 8222:22：将ssh：22映射到外部端口8222</li>
+<li>—name gitlab: 运行容器名</li>
+<li>—restart always: 自动重启</li>
+<li>—volume /srv/gitlab/config:/etc/gitlab: 挂载目录</li>
+<li>—volume /srv/gitlab/logs:/var/log/gitlab: 挂载目录</li>
+<li>—volume /srv/gitlab/data:/var/opt/gitlab: 挂载目录</li>
+<li>—privileged=true 使得容器内的root拥有真正的root权限。否则，container内的root只是外部的一个普通用户权限</li>
+</ul>
+<p>运行成功之后，可以使用下面的命令查看容器运行状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure><br>可以看到 GitLab 已经在运行了，有一个属性 STATUS 为 health: starting，说明 gitlab 的服务正在启动中，还没有启动完毕。等这个状态变成 healthy 时则说明已经部署完成，可以访问了。</p>
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><p>gitlab启动成功后，浏览器访问<a target="_blank" rel="noopener" href="http://ip:8880">http://ip:8880</a>, 即可访问。为了使用域名访问，需要配置nginx：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">upstream gitlab&#123;</span><br><span class="line">    server 127.0.0.1:8880;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name  gitlab.example.com;</span><br><span class="line">    access_log     &#x2F;var&#x2F;log&#x2F;nginx&#x2F;gitlab.example.com-access.log;</span><br><span class="line">    error_log     &#x2F;var&#x2F;log&#x2F;nginx&#x2F;gitlab.example.com-error.log;</span><br><span class="line">    location &#x2F; &#123;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Scheme $scheme;</span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;gitlab;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>nginx重启配置生效后，浏览器访问<a target="_blank" rel="noopener" href="http://gitlab.example.com">http://gitlab.example.com</a> 即可正常访问。（此处 并没有尝试）</p>
+<p>首次访问需要为root用户设置密码，设置完成后需要登录，默认用户名为：root， 密码为刚刚设置的密码。</p>
+<h3 id="配置邮件服务器"><a href="#配置邮件服务器" class="headerlink" title="配置邮件服务器"></a>配置邮件服务器</h3><p>想要让 GitLab 给你发送邮件，还要配置一下邮件服务器，这里以QQ邮箱的 IMAP/SMTP服务 来配置。</p>
+<p>打开邮箱-&gt;设置-&gt;账户，然后开启 IMAP/SMTP服务，然后根据文档获取 授权码 ，这步比较重要。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">### Email Settings</span><br><span class="line">gitlab_rails[&#39;smtp_enable&#39;] &#x3D; true # 开启 SMTP 功能</span><br><span class="line">gitlab_rails[&#39;smtp_address&#39;] &#x3D; &quot;smtp.qq.com&quot;</span><br><span class="line">gitlab_rails[&#39;smtp_port&#39;] &#x3D; 465 # 端口不可以选择587，测试过会发送邮件失败</span><br><span class="line">gitlab_rails[&#39;smtp_user_name&#39;] &#x3D; &quot;test@qq.com&quot; # 你的邮箱账号</span><br><span class="line">gitlab_rails[&#39;smtp_password&#39;] &#x3D; &quot;1324dasd&quot; # 授权码，不是密码</span><br><span class="line">gitlab_rails[&#39;smtp_authentication&#39;] &#x3D; &quot;login&quot;</span><br><span class="line">gitlab_rails[&#39;smtp_enable_starttls_auto&#39;] &#x3D; true</span><br><span class="line">gitlab_rails[&#39;smtp_tls&#39;] &#x3D; true</span><br><span class="line">gitlab_rails[&#39;gitlab_email_from&#39;] &#x3D; &#39;test@qq.com&#39; # 发件人信息，必须跟‘smtp_user_name’保持一致，否则报错</span><br><span class="line">gitlab_rails[&#39;smtp_domain&#39;] &#x3D; &quot;qq.com&quot; # 修改并不影响</span><br></pre></td></tr></table></figure>
+<p>配置完成后保存，然后输入下面的命令使配置生效。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> gitlab gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure><br>使配置生效之后我们可以使用 gitlab 自带的工具进行一下测试。依次执行下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启 gitlab 的 bash 工具</span></span><br><span class="line">$ docker <span class="built_in">exec</span> -it gitlab bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 gitlab-rails 工具</span></span><br><span class="line">$ gitlab-rails console production</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送邮件进行测试</span></span><br><span class="line">Notify.test_email(<span class="string">&#x27;test_001@123.com&#x27;</span>, <span class="string">&#x27;Message Subject&#x27;</span>, <span class="string">&#x27;Message Body&#x27;</span>).deliver_now</span><br></pre></td></tr></table></figure><br>测试完成之后退出gitlab的bash工具，重启 gitlab 即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置Git仓库访问路径"><a href="#配置Git仓库访问路径" class="headerlink" title="配置Git仓库访问路径"></a>配置Git仓库访问路径</h3><p>在之前第一次运行 gitlab 容器的时候，有一个参数 hostname 为 gitlab.example.com , 如果配置了域名可以忽略这一步，如果你没有配置相应域名的话，你的仓库的地址将会变为下面这样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh : git@gitlab.example.com:<span class="built_in">test</span>/test.git</span><br><span class="line">http：gitlab.example.com/<span class="built_in">test</span>/test.git</span><br></pre></td></tr></table></figure><br>如果域名不存在的话，这个地址是无法进行 clone 的。</p>
+<p>为了解决这个问题，我们可以设置成 IP 或 你配置了的域名来访问。</p>
+<p>打开文件 <code>/srv/gitlab/config/gitlab.rb</code> 文件并找到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">external_url &#39;GENERATED_EXTERNAL_URL&#39;</span><br></pre></td></tr></table></figure><br>这行，去掉注释，并按照下面的格式修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># ip 形式</span><br><span class="line">external_url &#39;http:&#x2F;&#x2F;192.168.1.44&#39;</span><br><span class="line"></span><br><span class="line"># 域名形式</span><br><span class="line">external_url &#39;http:&#x2F;&#x2F;JemGeek.com&#39;</span><br><span class="line"></span><br><span class="line"># 子域名</span><br><span class="line">external_url &#39;http:&#x2F;&#x2F;gitlab.JemGeek.com&#39;</span><br><span class="line"></span><br><span class="line"># 其他形式</span><br><span class="line">external_url &#39;http:&#x2F;&#x2F;JemGeek.com&#x2F;gitlab&#39;</span><br></pre></td></tr></table></figure></p>
+<p>如果 使用<code>ip:8880</code>登录，则external_url和nginx[‘listen_port’]的端口需要和第一步的映射端口对应。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#x2F;&#x2F; 修改如下语句</span><br><span class="line">external_url &#39;http:&#x2F;&#x2F;ip:8880&#39;</span><br><span class="line"></span><br><span class="line"># https需要下面这句</span><br><span class="line"># nginx[&#39;redirect_http_to_https_port&#39;] &#x3D; 8880</span><br><span class="line"></span><br><span class="line">nginx[&#39;listen_port&#39;] &#x3D; 8880</span><br><span class="line">nginx[&#39;listen_addresses&#39;] &#x3D; [&#39;*&#39;]</span><br><span class="line"></span><br><span class="line">gitlab_rails[&#39;gitlab_ssh_host&#39;] &#x3D; &#39;192.168.20.132&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="重启镜像"><a href="#重启镜像" class="headerlink" title="重启镜像"></a>重启镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure>
+<h3 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h3><p>参照官方的说明，将原来的容器停止，然后删除：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker stop gitlab</span><br><span class="line">docker rm gitlab</span><br></pre></td></tr></table></figure></p>
+<p>然后重新拉一个新的版本的镜像下来<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure></p>
+<p>然后使用原来的运行命令运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname 192.xxx.xx.xx \</span><br><span class="line">  --publish 8443:443 --publish 8880:8880 --publish 8222:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume &#x2F;srv&#x2F;gitlab&#x2F;config:&#x2F;etc&#x2F;gitlab \</span><br><span class="line">  --volume &#x2F;srv&#x2F;gitlab&#x2F;logs:&#x2F;var&#x2F;log&#x2F;gitlab \</span><br><span class="line">  --volume &#x2F;srv&#x2F;gitlab&#x2F;data:&#x2F;var&#x2F;opt&#x2F;gitlab \</span><br><span class="line">  --privileged&#x3D;true \</span><br><span class="line">  gitlab&#x2F;gitlab-ce:latest</span><br></pre></td></tr></table></figure></p>
+<!-- 实际使用的命令，备份 -->
+<!-- ```
+docker run -itd \
+ --publish 8443:443 \
+ --publish 8880:8880 \
+ --publish 8222:22  \
+ --name gitlab   \
+ --restart unless-stopped  \
+ -v /srv/gitlab/config:/etc/gitlab \
+ -v /srv/gitlab/logs:/var/log/gitlab  \
+ -v /srv/gitlab/data:/var/opt/gitlab  \
+ gitlab/gitlab-ce
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">GitLab 在初次运行的时候会自动升级， 为了预防万一， 还是建议先备份一下 &#96;&#x2F;srv&#x2F;gitlab&#x2F;&#96; 这个目录。</span><br><span class="line"></span><br><span class="line">大版本升级（例如从 8.7.x 升级到 8.8.x）用上面的操作有可能会出现错误， 如果出现错误可以尝试登录到容器内部, 依次执行下面的命令：</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;bash</span><br><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+-->
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vps/" rel="tag"># vps</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/gitlab-git/" rel="tag"># gitlab - git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/" rel="prev" title="论中国人痴迷的“国外来函”">
+      <i class="fa fa-chevron-left"></i> 论中国人痴迷的“国外来函”
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B3%E5%8F%B0"><span class="nav-number">1.1.</span> <span class="nav-text">平台</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker"><span class="nav-number">2.</span> <span class="nav-text">Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker"><span class="nav-number">2.1.</span> <span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2%E6%BA%90"><span class="nav-number">2.2.</span> <span class="nav-text">更换源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gitlab%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">Gitlab安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F"><span class="nav-number">3.1.</span> <span class="nav-text">下载镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95"><span class="nav-number">3.2.</span> <span class="nav-text">创建目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%BF%90%E8%A1%8C"><span class="nav-number">3.3.</span> <span class="nav-text">启动运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE"><span class="nav-number">3.4.</span> <span class="nav-text">访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.5.</span> <span class="nav-text">配置邮件服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEGit%E4%BB%93%E5%BA%93%E8%AE%BF%E9%97%AE%E8%B7%AF%E5%BE%84"><span class="nav-number">3.6.</span> <span class="nav-text">配置Git仓库访问路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E9%95%9C%E5%83%8F"><span class="nav-number">3.7.</span> <span class="nav-text">重启镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7"><span class="nav-number">3.8.</span> <span class="nav-text">升级</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy ccg"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy ccg</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https://github.com/royccg" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy778555479@gmail.com" title="E-Mail → mailto:roy778555479@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https://t.me/Muzilir" rel="noopener" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://chennanzhang.github.io/" title="https://chennanzhang.github.io/" rel="noopener" target="_blank">极客斋</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.moerats.com/" title="https://www.moerats.com/" rel="noopener" target="_blank">moerats</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://yangyang.im/post/CGy0NfhY6/" title="https://yangyang.im/post/CGy0NfhY6/" rel="noopener" target="_blank">yangyang</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.viseator.com/" title="https://www.viseator.com/" rel="noopener" target="_blank">viseator</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.llgzone.com/" title="https://blog.llgzone.com/" rel="noopener" target="_blank">Lean</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://touhoudog.net/" title="http://touhoudog.net/" rel="noopener" target="_blank">充满魔力的土地下</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://kourindou.exblog.jp/" title="https://kourindou.exblog.jp/" rel="noopener" target="_blank">博麗幻想書譜</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy ccg</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ef2bf981f8440d3" async="async"></script>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+var originalTitle = document.title;      // 1.
+var crashSwitched = false;               // 2.
+var titleTime;
+document.addEventListener('visibilitychange', function () {
+  if (document.hidden) {
+    if (Math.random() < parseFloat(0.25)) {         // 3.
+      crashSwitched = true;              // 2.a.
+      document.title = '╭(°A°`)╮ 页面崩溃啦~' + originalTitle;     // 1.a.
+      clearTimeout(titleTime);
+    }
+  } else {
+    if (crashSwitched == true) {
+      crashSwitched = false;             // 2.b.
+      document.title = '(ฅ>ω<*ฅ) 咦，又好了~' + originalTitle;   // 1.b.
+      titleTime = setTimeout(function () {
+        document.title = originalTitle;  // 1.c.
+      }, 2000);
+    }
+  }
+});
+</script>
+    <div id="pjax">
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'BktA7Vr4r0Fk6bJC3ltXHDHl-gzGzoHsz',
+      appKey     : '32gX12bsowXSAbc1HAfuueeG',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+
+<!-- <div id="contentleft">
+  <div class="aplayer" 
+  data-fixed="true" 
+  data-autoplay="true" 
+  data-order="random" 
+  data-volume="0.55" 
+  data-theme="#cc543a" 
+  data-preload="auto" 
+  ></div>
+</div> -->
+
+
+
+</html>
+
+
+
