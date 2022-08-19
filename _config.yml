@@ -114,8 +114,8 @@ theme: next
     
 deploy:
   type: git
-  # repository: https://github.com/royccg/royccg.github.io.git
-  repository: git@github.com:royccg/royccg.github.io.git
+  repository: https://github.com/royccg/royccg.github.io.git
+  # repository: git@github.com:royccg/royccg.github.io.git
   branch: master
 
 
