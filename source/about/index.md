@@ -8,7 +8,7 @@ type: "about"
 It is not our abilities that show what we truly are. It is our choices.
 
 <!-- -- Harry Potter and the Chamber of Secrets -->
-</blockquote> -->
+<!-- </blockquote> --> -->
 
 {% blockquote Harry Potter and the Chamber of Secrets %}
 It is not our abilities that show what we truly are. It is our choices.
