@@ -4,12 +4,15 @@ date: 2020-04-11 14:09:24
 type: "about"
 ---
 
-<blockquote class="blockquote-center">
+<!-- <blockquote Harry Potter and the Chamber of Secrets, class="blockquote-center">
 It is not our abilities that show what we truly are. It is our choices.
 
--- Harry Potter and the Chamber of Secrets
-</blockquote>
+<!-- -- Harry Potter and the Chamber of Secrets -->
+</blockquote> -->
 
+{% blockquote Harry Potter and the Chamber of Secrets %}
+It is not our abilities that show what we truly are. It is our choices.
+{% endblockquote %}
 
 ## 工作相关及个人感兴趣的方向
 
