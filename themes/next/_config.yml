@@ -117,8 +117,8 @@ menu_settings:
 
 sidebar:
   # Sidebar Position.
-  position: left
-  #position: right
+  # position: left
+  position: right
 
   # Manual define the sidebar width. If commented, will be default for:
   # Muse | Mist: 320
@@ -181,7 +181,8 @@ links_settings:
 links:
   #Title: https://example.com
   极客斋: https://chennanzhang.github.io/
-  moerats: https://www.moerats.com/
+  KeepNotes: https://www.bioinfo-scrounger.com/
+  木鸟杂记: https://www.qtmuniao.com
   yangyang: https://yangyang.im/post/CGy0NfhY6/
   viseator: https://www.viseator.com/
   Lean: https://blog.llgzone.com/
@@ -360,8 +361,8 @@ mobile_layout_economy: false
 
 # Browser header panel color.
 theme_color:
-  light: "#222"
-  dark: "#222"
+  light: "#193F50"
+  dark: "#193F50"
 
 # Override browsers' default behavior.
 body_scrollbar:
