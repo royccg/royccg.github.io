@@ -4,7 +4,7 @@ date: 2020-04-11 14:09:24
 type: "about"
 ---
 
-2019年开始工作，为了兴趣而生活。
+It is not our abilities that show what we truly are. It is our choices.
 
-生活，对于有希望的人，永远是美好的，加油！
+-- Harry Potter and the Chamber of Secrets
 
