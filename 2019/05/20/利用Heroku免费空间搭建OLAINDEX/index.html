@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#193F50">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"royccg.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"right","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Heroku环境准备 一、什么是Herku？ Heroku 是一个支持多种编程语言的 PaaS(Platform-as-a-Service)。在 2010 年被 Salesforce 收购。Heroku 作为最开始的云平台之一，从 2007 年 6 月起开始开发，当时它仅支持 Ruby，后来增加了对 Java、Node.js、Scala、Clojure、Python 以及 PHP 和 Perl 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Heroku免费空间搭建OLAINDEX">
+<meta property="og:url" content="https://royccg.github.io/2019/05/20/%E5%88%A9%E7%94%A8Heroku%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%90%AD%E5%BB%BAOLAINDEX/index.html">
+<meta property="og:site_name" content="Roy&#39;s Home">
+<meta property="og:description" content="Heroku环境准备 一、什么是Herku？ Heroku 是一个支持多种编程语言的 PaaS(Platform-as-a-Service)。在 2010 年被 Salesforce 收购。Heroku 作为最开始的云平台之一，从 2007 年 6 月起开始开发，当时它仅支持 Ruby，后来增加了对 Java、Node.js、Scala、Clojure、Python 以及 PHP 和 Perl 的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-20T14:35:02.000Z">
+<meta property="article:modified_time" content="2022-08-19T07:44:09.330Z">
+<meta property="article:author" content="Roy">
+<meta property="article:tag" content="建站">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://royccg.github.io/2019/05/20/%E5%88%A9%E7%94%A8Heroku%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%90%AD%E5%BB%BAOLAINDEX/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://royccg.github.io/2019/05/20/%E5%88%A9%E7%94%A8Heroku%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%90%AD%E5%BB%BAOLAINDEX/","path":"2019/05/20/利用Heroku免费空间搭建OLAINDEX/","title":"利用Heroku免费空间搭建OLAINDEX"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>利用Heroku免费空间搭建OLAINDEX | Roy's Home</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Roy's Home</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Less is more</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Heroku%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">Heroku环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFHerku%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">一、什么是Herku？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E7%94%A8Heroku%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">二、为什么选用Heroku？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heroku%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%85%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">Heroku的基本安装及配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA%E7%AB%99%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">演示站点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2OLAINDEX-%E5%88%B0Heroku%E4%B8%8A"><span class="nav-number">3.</span> <span class="nav-text">部署OLAINDEX 到Heroku上</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BAOLAINDEX%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.1.</span> <span class="nav-text">新建OLAINDEX项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Heroku%E4%B8%8A%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">在Heroku上创建一个新应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E-buildpack"><span class="nav-number">3.3.</span> <span class="nav-text">声明 buildpack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-APP-key-%E5%8F%8A%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D"><span class="nav-number">3.4.</span> <span class="nav-text">设置 APP key 及绑定域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%BA%94%E7%94%A8%E6%8E%A8%E9%80%81%E5%88%B0-Heroku-%E4%B8%8A"><span class="nav-number">3.5.</span> <span class="nav-text">将应用推送到 Heroku 上</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">4.</span> <span class="nav-text">注意</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy</p>
+  <div class="site-description" itemprop="description">Less is more</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;royccg" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy.chen.cc@outlook.com" title="E-Mail → mailto:roy.chen.cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https:&#x2F;&#x2F;t.me&#x2F;Muzilir" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://chennanzhang.github.io/" title="https:&#x2F;&#x2F;chennanzhang.github.io&#x2F;" rel="noopener" target="_blank">极客斋</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.bioinfo-scrounger.com/" title="https:&#x2F;&#x2F;www.bioinfo-scrounger.com&#x2F;" rel="noopener" target="_blank">KeepNotes</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.qtmuniao.com/" title="https:&#x2F;&#x2F;www.qtmuniao.com" rel="noopener" target="_blank">木鸟杂记</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yangyang.im/post/CGy0NfhY6/" title="https:&#x2F;&#x2F;yangyang.im&#x2F;post&#x2F;CGy0NfhY6&#x2F;" rel="noopener" target="_blank">yangyang</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.viseator.com/" title="https:&#x2F;&#x2F;www.viseator.com&#x2F;" rel="noopener" target="_blank">viseator</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.llgzone.com/" title="https:&#x2F;&#x2F;blog.llgzone.com&#x2F;" rel="noopener" target="_blank">Lean</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2019/05/20/%E5%88%A9%E7%94%A8Heroku%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%90%AD%E5%BB%BAOLAINDEX/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Home">
+      <meta itemprop="description" content="Less is more">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="利用Heroku免费空间搭建OLAINDEX | Roy's Home">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用Heroku免费空间搭建OLAINDEX
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-20 22:35:02" itemprop="dateCreated datePublished" datetime="2019-05-20T22:35:02+08:00">2019-05-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-19 15:44:09" itemprop="dateModified" datetime="2022-08-19T15:44:09+08:00">2022-08-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Heroku环境准备"><a href="#Heroku环境准备" class="headerlink" title="Heroku环境准备"></a>Heroku环境准备</h1><hr>
+<h2 id="一、什么是Herku？"><a href="#一、什么是Herku？" class="headerlink" title="一、什么是Herku？"></a>一、什么是Herku？</h2><hr>
+<p>Heroku 是一个支持多种编程语言的 PaaS(Platform-as-a-Service)。在 2010 年被 Salesforce 收购。Heroku 作为最开始的云平台之一，从 2007 年 6 月起开始开发，当时它仅支持 Ruby，后来增加了对 Java、Node.js、Scala、Clojure、Python 以及 PHP 和 Perl 的支持。</p>
+<h2 id="二、为什么选用Heroku？"><a href="#二、为什么选用Heroku？" class="headerlink" title="二、为什么选用Heroku？"></a>二、为什么选用Heroku？</h2><hr>
+<ul>
+<li>Heroku 的部署上线流程<strong>简单</strong>。你只需要将源代码纳入到 Git 版本控制系统中即可，其它额外操作 Heroku 都会帮你自动处理好。</li>
+<li>Heroku 提供给开发者的免费套餐非常丰富。其中包括最多 5 个应用的免费创建，自定义域名的支持等。实乃良心商家。唯一的不足就是有时候在国内访问速度会比较慢。</li>
+<li>Heroku 产品服务在业内评价特别高。在 Rails 圈子中许多有经验的开发者都会使用 Heroku 来部署上线自己的 Demo 应用，其部署流程和速度都受到了 Rails 社区成员的广大好评。<span id="more"></span>
+<h2 id="Heroku的基本安装及配置"><a href="#Heroku的基本安装及配置" class="headerlink" title="Heroku的基本安装及配置"></a>Heroku的基本安装及配置</h2></li>
+</ul>
+<p>首先我们先注册一个<a target="_blank" rel="noopener" href="http://signup.heroku.com/">Heroku</a>的账号。<em>注：可能需要搭梯子。</em><br>注册完成之后使用<a target="_blank" rel="noopener" href="https://devcenter.heroku.com/articles/heroku-cli">Heroku Toolbelt</a>来安装Heroku客户端。<br>安装完毕后使用 <code>heroku version</code>来检查当前系统是否已安装好Heroku客户端：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">heroku</span> <span class="string">version</span></span><br></pre></td></tr></table></figure><br>如果有类似下面的输出，则代表Heroku客户端已成功安装：<br><code>heroku/7.18.3 win32-x64 node-v10.12.0</code></p>
+<p>安装成功之后，你需要使用以下命令来登陆你的Heroku账号：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku login</span><br></pre></td></tr></table></figure></p>
+<p>然后添加SSH密钥：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku keys:add</span><br></pre></td></tr></table></figure></p>
+<p>至此，Heroku的基本安装及配置已完成。下面开始尝试将应用部署到Heroku上。</p>
+<h1 id="演示站点"><a href="#演示站点" class="headerlink" title="演示站点"></a>演示站点</h1><hr>
+<p><a target="_blank" rel="noopener" href="https://roypk-olaindex.herokuapp.com/home">https://roypk-olaindex.herokuapp.com/home</a></p>
+<h1 id="部署OLAINDEX-到Heroku上"><a href="#部署OLAINDEX-到Heroku上" class="headerlink" title="部署OLAINDEX 到Heroku上"></a>部署OLAINDEX 到Heroku上</h1><hr>
+<h2 id="新建OLAINDEX项目"><a href="#新建OLAINDEX项目" class="headerlink" title="新建OLAINDEX项目"></a>新建OLAINDEX项目</h2><hr>
+<p>新建OLAINDEX项目目录并从Composer拉取创建包</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">composer</span> <span class="string">create-project</span> <span class="string">wangningkai/olaindex</span> <span class="string">olaindex</span> <span class="string">&quot;dev-master&quot;</span></span><br><span class="line"><span class="string">cd</span> <span class="string">olaindex</span></span><br></pre></td></tr></table></figure>
+<p>初始化Git仓库</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">init</span></span><br><span class="line"><span class="string">git</span> <span class="string">add</span> <span class="string">.</span></span><br><span class="line"><span class="string">git</span> <span class="string">commit</span> <span class="string">-m</span> <span class="string">&quot;new OLAINDEX project&quot;</span></span><br></pre></td></tr></table></figure>
+<p>创建<code>Procfile</code></p>
+<p>要将应用部署到 Heroku 上，你需要新建一个 <code>Procfile</code> 文件，这个文件的作用是通过正确的配置来告诉 Heroku 应用应当使用什么命令来启动 Web 服务器。</p>
+<p>将配置写入 <code>Procfile</code> 文件并将其纳入 Git 版本控制中:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> web: vendor/bin/heroku-php-apache2 public/ &gt; Procfile</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;Procfile for Heroku&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="在Heroku上创建一个新应用"><a href="#在Heroku上创建一个新应用" class="headerlink" title="在Heroku上创建一个新应用"></a>在Heroku上创建一个新应用</h2><hr>
+<p>我们可以使用<code>heroku create</code>命令在Heroku上创建一个新应用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku create</span><br></pre></td></tr></table></figure>
+<p>命令行会输出类似如下信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Creating xxxx-xxx-1234... <span class="keyword">done</span>, stack is cedar-14</span><br><span class="line">http://xxxx-xxx-1234.herokuapp.com/ | git@heroku.com:xxxx-xxx-1234.git</span><br><span class="line">Git remote heroku added</span><br></pre></td></tr></table></figure>
+<p><code>mighty-hamlet-1982</code> 是 Heroku 随机为应用生成的默认名称，每个人生成的名称都不相同。<code>http://xxxx-xxx-1234.herokuapp.com/</code> 则是应用的线上地址。</p>
+<p>如果你对生成的默认名称不满意，你可以使用 <code>heroku rename</code> 来对应用名称进行更改，但要保证更改的名称未被其它人占用。如:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku rename imwnk-olaindex</span><br></pre></td></tr></table></figure>
+<h2 id="声明-buildpack"><a href="#声明-buildpack" class="headerlink" title="声明 buildpack"></a>声明 buildpack</h2><hr>
+<p>Heroku 对多种语言进行了支持，因此在应用部署的时候它会去自动检查应用的代码是用什么语言写的，然后再接着执行一系列针对该语言的操作。Laravel 的应用默认会包含 <code>package.json</code> 文件，但当 Heroku 检查到该文件时，它会认为此应用是用 Node.js 写的，因此我们需要对应用的 <code>buildpack</code> 进行声明，告诉 Heroku 我们的应用是用 PHP 写的。声明命令如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku buildpacks:<span class="built_in">set</span> heroku/php</span><br></pre></td></tr></table></figure>
+<p><strong>注</strong>：使用上述命令出现卡顿时，可以直接在heroku的网页上进行操作。</p>
+<h2 id="设置-APP-key-及绑定域名"><a href="#设置-APP-key-及绑定域名" class="headerlink" title="设置 APP key 及绑定域名"></a>设置 APP key 及绑定域名</h2><hr>
+<p>Laravel 使用 App Key 来完成对用户会话及其它信息的编码加密操作，因此我们也需要将 App Key 加入到 Heroku 的配置中。</p>
+<p>这里直接打开刚才创建目录中的 <code>.env</code> 文件，复制 <code>APP_KEY</code>参数。 将复制的 <code>APP_KEY</code> 附加到此命令行后面以完成配置:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku config:<span class="built_in">set</span> APP_KEY=xxx</span><br></pre></td></tr></table></figure>
+<p>同样由于授权登录，需要验证绑定域名，这里需要设置一下<code>APP_URL</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku config:<span class="built_in">set</span> APP_URL=xxx</span><br></pre></td></tr></table></figure>
+<h2 id="将应用推送到-Heroku-上"><a href="#将应用推送到-Heroku-上" class="headerlink" title="将应用推送到 Heroku 上"></a>将应用推送到 Heroku 上</h2><hr>
+<p>将代码部署到Heroku上：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push heroku master</span><br></pre></td></tr></table></figure>
+<p>有类似如下的输出代表代码推送成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">Enumerating objects: 2010, done.</span><br><span class="line">Counting objects: 100% (2010/2010), done.</span><br><span class="line">Delta compression using up to 4 threads</span><br><span class="line">Compressing objects: 100% (637/637), done.</span><br><span class="line">Writing objects: 100% (1934/1934), 301.98 KiB | 20.13 MiB/s, done.</span><br><span class="line">Total 1934 (delta 1332), reused 1872 (delta 1271)</span><br><span class="line">remote: Compressing source files... done.</span><br><span class="line">remote: Building source:</span><br><span class="line">remote:</span><br><span class="line">remote: -----&gt; PHP app detected</span><br><span class="line">remote: -----&gt; Bootstrapping...</span><br><span class="line">remote: -----&gt; Installing platform packages...</span><br><span class="line">remote:        - php (7.2.11)</span><br><span class="line">remote:        - ext-mbstring (bundled with php)</span><br><span class="line">remote:        - nginx (1.8.1)</span><br><span class="line">remote:        - apache (2.4.34)</span><br><span class="line">remote: -----&gt; Installing dependencies...</span><br><span class="line">remote:        Composer version 1.7.2 2018-08-16 16:57:12</span><br><span class="line">remote:        Loading composer repositories with package information</span><br><span class="line">remote:        Installing dependencies from lock file</span><br><span class="line">remote:        Package operations: 48 installs, 0 updates, 0 removals</span><br><span class="line">remote:          - Installing doctrine/inflector (v1.3.0): Loading from cache</span><br><span class="line">remote:          - Installing doctrine/lexer (v1.0.1): Loading from cache</span><br><span class="line">remote:          - Installing dragonmantank/cron-expression (v2.2.0): Loading from cache</span><br><span class="line">remote:          - Installing erusev/parsedown (1.7.1): Loading from cache</span><br><span class="line">remote:          - Installing vlucas/phpdotenv (v2.5.1): Loading from cache</span><br><span class="line">remote:          - Installing symfony/css-selector (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing tijsverkoyen/css-to-inline-styles (2.2.1): Loading from cache</span><br><span class="line">remote:          - Installing symfony/polyfill-php72 (v1.9.0): Loading from cache</span><br><span class="line">remote:          - Installing symfony/polyfill-mbstring (v1.9.0): Loading from cache</span><br><span class="line">remote:          - Installing symfony/var-dumper (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/routing (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/process (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/polyfill-ctype (v1.9.0): Loading from cache</span><br><span class="line">remote:          - Installing symfony/http-foundation (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/event-dispatcher (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing psr/log (1.0.2): Loading from cache</span><br><span class="line">remote:          - Installing symfony/debug (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/http-kernel (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/finder (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/console (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing egulias/email-validator (2.1.6): Loading from cache</span><br><span class="line">remote:          - Installing swiftmailer/swiftmailer (v6.1.3): Loading from cache</span><br><span class="line">remote:          - Installing paragonie/random_compat (v9.99.99): Loading from cache</span><br><span class="line">remote:          - Installing ramsey/uuid (3.8.0): Loading from cache</span><br><span class="line">remote:          - Installing psr/simple-cache (1.0.1): Loading from cache</span><br><span class="line">remote:          - Installing psr/container (1.0.0): Loading from cache</span><br><span class="line">remote:          - Installing opis/closure (3.1.1): Loading from cache</span><br><span class="line">remote:          - Installing symfony/translation (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing nesbot/carbon (1.34.0): Loading from cache</span><br><span class="line">remote:          - Installing monolog/monolog (1.23.0): Loading from cache</span><br><span class="line">remote:          - Installing league/flysystem (1.0.48): Loading from cache</span><br><span class="line">remote:          - Installing laravel/framework (v5.7.12): Loading from cache</span><br><span class="line">remote:          - Installing fideloper/proxy (4.0.0): Loading from cache</span><br><span class="line">remote:          - Installing guzzlehttp/promises (v1.3.1): Loading from cache</span><br><span class="line">remote:          - Installing psr/http-message (1.0.1): Loading from cache</span><br><span class="line">remote:          - Installing guzzlehttp/psr7 (1.4.2): Loading from cache</span><br><span class="line">remote:          - Installing jakub-onderka/php-console-color (v0.2): Loading from cache</span><br><span class="line">remote:          - Installing nikic/php-parser (v4.1.0): Loading from cache</span><br><span class="line">remote:          - Installing jakub-onderka/php-console-highlighter (v0.3.2): Loading from cache</span><br><span class="line">remote:          - Installing dnoegel/php-xdg-base-dir (0.1): Loading from cache</span><br><span class="line">remote:          - Installing psy/psysh (v0.9.9): Loading from cache</span><br><span class="line">remote:          - Installing laravel/tinker (v1.0.8): Loading from cache</span><br><span class="line">remote:          - Installing guzzlehttp/guzzle (6.3.3): Loading from cache</span><br><span class="line">remote:          - Installing league/oauth2-client (dev-master 15afb12): Loading from cache</span><br><span class="line">remote:          - Installing microsoft/microsoft-graph (1.5.0): Loading from cache</span><br><span class="line">remote:          - Installing caouecs/laravel-lang (3.0.56): Loading from cache</span><br><span class="line">remote:          - Installing overtrue/laravel-lang (3.0.13): Loading from cache</span><br><span class="line">remote:          - Installing predis/predis (v1.1.1): Loading from cache</span><br><span class="line">remote:        Generating optimized autoload files</span><br><span class="line">remote:        &gt; Illuminate\Foundation\ComposerScripts::postAutoloadDump</span><br><span class="line">remote:        &gt; @php artisan package:discover</span><br><span class="line">remote:        Discovered Package: fideloper/proxy</span><br><span class="line">remote:        Discovered Package: laravel/tinker</span><br><span class="line">remote:        Discovered Package: nesbot/carbon</span><br><span class="line">remote:        Discovered Package: overtrue/laravel-lang</span><br><span class="line">remote:        Package manifest generated successfully.</span><br><span class="line">remote: -----&gt; Preparing runtime environment...</span><br><span class="line">remote: -----&gt; Checking for additional extensions to install...</span><br><span class="line">remote: -----&gt; Discovering process types</span><br><span class="line">remote:        Procfile declares types -&gt; web</span><br><span class="line">remote:</span><br><span class="line">remote: -----&gt; Compressing...</span><br><span class="line">remote:        Done: 19.2M</span><br><span class="line">remote: -----&gt; Launching...</span><br><span class="line">remote:        Released v5</span><br><span class="line">remote:        https://imwnk-olaindex.herokuapp.com/ deployed to Heroku</span><br><span class="line">remote:</span><br><span class="line">remote: Verifying deploy... done.</span><br><span class="line">To https://git.heroku.com/imwnk-olaindex.git</span><br><span class="line">   ab88070..42cd315  master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>代码推送成功之后，使用此命令可快速打开线上应用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">heroku open</span><br></pre></td></tr></table></figure>
+<p>至此，完成了OLAINDEX应用的部署，下面就是直接线上的账号绑定，和其他的云盘类似的过程。</p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><hr>
+<ul>
+<li>Heroku部署的应用在30分钟内没有访问，则会自动休眠，网上提供的方法是将站点加入云监控。此处，博主也是采用了类似的方法，可惜没有成功；</li>
+<li>Heroku重启或者更新后数据会恢复到初始状态，需要重新配置，所以还是建议用VPS搭建站点。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat-qcode.JPG" alt="Roy 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%BB%BA%E7%AB%99/" rel="tag"><i class="fa fa-tag"></i> 建站</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/" rel="prev" title="国内外各种建站免费面板和一键包汇总">
+                  <i class="fa fa-chevron-left"></i> 国内外各种建站免费面板和一键包汇总
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/07/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E2019/" rel="next" title="雷霆沙赞2019">
+                  雷霆沙赞2019 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"royccg","repo":"blog_comment","client_id":"d8852baba838d538b713","client_secret":"2f23bbb7aab135238b492fb16867486f78575d17","admin_user":"royccg","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"1e65696c876f249f23f54fb386659b68"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

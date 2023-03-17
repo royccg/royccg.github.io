@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#193F50">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"royccg.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"right","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍 FreeCAD 是一个通用的开源化的参数化3D CAD 建模软件，软件遵循 LGPL许可 。FreeCAD 的功能主要是针对 机械工程和产品设计，但也适用于更广泛的工程用途，例如建筑、有限元分析、3D打印等其他方面的设计工作。 FreeCAD 具有类似于 CATIA、SoildWorks的工具，因此属于CAD、PLM、CAx、CAE的类软件，是一个基于特征的参数化建模软件，具有模块化的软件架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeCAD--一个开源的3D参数化建模软件">
+<meta property="og:url" content="https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Roy&#39;s Home">
+<meta property="og:description" content="介绍 FreeCAD 是一个通用的开源化的参数化3D CAD 建模软件，软件遵循 LGPL许可 。FreeCAD 的功能主要是针对 机械工程和产品设计，但也适用于更广泛的工程用途，例如建筑、有限元分析、3D打印等其他方面的设计工作。 FreeCAD 具有类似于 CATIA、SoildWorks的工具，因此属于CAD、PLM、CAx、CAE的类软件，是一个基于特征的参数化建模软件，具有模块化的软件架">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-1.jpg">
+<meta property="og:image" content="https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-2.png">
+<meta property="article:published_time" content="2023-03-12T08:58:22.000Z">
+<meta property="article:modified_time" content="2023-03-12T12:07:35.163Z">
+<meta property="article:author" content="Roy">
+<meta property="article:tag" content="FreeCAD">
+<meta property="article:tag" content="Bridge">
+<meta property="article:tag" content="Civil Desigen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-1.jpg">
+
+
+<link rel="canonical" href="https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/","path":"2023/03/12/FreeCAD--一个开源的3D参数化建模软件/","title":"FreeCAD--一个开源的3D参数化建模软件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>FreeCAD--一个开源的3D参数化建模软件 | Roy's Home</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Roy's Home</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Less is more</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E8%89%B2"><span class="nav-number">2.</span> <span class="nav-text">特色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%8F%B0"><span class="nav-number">3.</span> <span class="nav-text">工具台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy</p>
+  <div class="site-description" itemprop="description">Less is more</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;royccg" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy.chen.cc@outlook.com" title="E-Mail → mailto:roy.chen.cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https:&#x2F;&#x2F;t.me&#x2F;Muzilir" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://chennanzhang.github.io/" title="https:&#x2F;&#x2F;chennanzhang.github.io&#x2F;" rel="noopener" target="_blank">极客斋</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.bioinfo-scrounger.com/" title="https:&#x2F;&#x2F;www.bioinfo-scrounger.com&#x2F;" rel="noopener" target="_blank">KeepNotes</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.qtmuniao.com/" title="https:&#x2F;&#x2F;www.qtmuniao.com" rel="noopener" target="_blank">木鸟杂记</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yangyang.im/post/CGy0NfhY6/" title="https:&#x2F;&#x2F;yangyang.im&#x2F;post&#x2F;CGy0NfhY6&#x2F;" rel="noopener" target="_blank">yangyang</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.viseator.com/" title="https:&#x2F;&#x2F;www.viseator.com&#x2F;" rel="noopener" target="_blank">viseator</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.llgzone.com/" title="https:&#x2F;&#x2F;blog.llgzone.com&#x2F;" rel="noopener" target="_blank">Lean</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Home">
+      <meta itemprop="description" content="Less is more">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="FreeCAD--一个开源的3D参数化建模软件 | Roy's Home">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FreeCAD--一个开源的3D参数化建模软件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-12 16:58:22 / 修改时间：20:07:35" itemprop="dateCreated datePublished" datetime="2023-03-12T16:58:22+08:00">2023-03-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><hr>
+<p><a target="_blank" rel="noopener" href="https://www.freecad.org/"><em>FreeCAD</em></a> 是一个通用的开源化的参数化3D <em>CAD</em> 建模软件，软件遵循 <a target="_blank" rel="noopener" href="https://www.gnu.org/licenses/lgpl-3.0.en.html"><em>LGPL许可</em></a> 。<br><em>FreeCAD</em> 的功能主要是针对 机械工程和产品设计，但也适用于更广泛的工程用途，例如建筑、有限元分析、3D打印等其他方面的设计工作。</p>
+<p><em>FreeCAD</em> 具有类似于 CATIA、SoildWorks的工具，因此属于<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer-aided_design"><em>CAD</em></a>、<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Product_lifecycle"><em>PLM</em></a>、<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer-aided_technologies"><em>CAx</em></a>、<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computer-aided_engineering"><em>CAE</em></a>的类软件，是一个基于特征的参数化建模软件，具有模块化的软件架构，可以在不修改核心系统的情况下提供额外的功能。<br><span id="more"></span></p>
+<p>与许多CAD建模软件一样，它有许多的2D组件，以便绘制平面形状草图或创建生产图纸。但是，对于2D绘图不是此软件的重点（优势），动画（渲染）或网格编辑（如Blender、Maya、3ds Max或者Cinema 4D）也不是此软件的主要开发内容。但由于其广泛的适应性，FreeCAD可能在更多的领域内获得关注和发挥作用。</p>
+<p>FreeCAD使用了大量关于科学计算的开源库，其中包络功能强大的CAD内核<a target="_blank" rel="noopener" href="http://opencascade.org/"><em>Open Cascad Technology(OCCT)</em></a>；<a target="_blank" rel="noopener" href="https://github.com/coin3d/coin/wiki"><em>Coin3D</em></a> ，一个与<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Open_Inventor"><em>Open Inventor</em></a>兼容的3D图形开发工具包；<a target="_blank" rel="noopener" href="http://www.qt.io/"><em>QT</em></a>，著名的用户截面UI框架；和 Python，一种现代脚本语言。FreeCAD本身也可以用作其他程序的参考库。</p>
+<p>FreeCAD 也是多平台的，目前在 Linux/Unix、Windows 和 macOS 系统上运行，在所有平台上具有相同的外观和功能。</p>
+<p><img src="/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-1.jpg" width="80%"></p>
+<p><img src="/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-2.png" width="80%"></p>
+<h2 id="特色"><a href="#特色" class="headerlink" title="特色"></a>特色</h2><hr>
+<ul>
+<li>多平台：FreeCAD可以在多平台（Windows、Linux、macOS等其他平台）运行，并且彼此没有差别。</li>
+<li>全GUI操作：FreeCAD有基于Qt框架的完整图形的用户界面，带有基于Open Inventor的3D查看界面；并允许快速渲染3D场景和费用易于访问的场景图。</li>
+<li>可通过命令行运行：在命令行模式下，FreeCAD 运行时不展示界面，但可以完成所有的几何工具。在这种模式下，它的内存占用相对较低，例如，可以用作服务器来为其他应用程序生成内容。</li>
+<li><strong>可以作为Python的模块导入</strong>：FreeCAD 可以导入到任何可以运行 Python 脚本的应用程序中。与命令行模式一样，FreeCAD 的界面部分不可用，但可以访问所有几何工具。</li>
+<li><strong>工作台</strong>：在 FreeCAD 界面中，工具按工作台分组。这允许您仅显示用于完成特定任务的工具，保持工作区整洁和响应迅速，并允许应用程序快速加载。</li>
+<li>用于延迟加载功能/数据类型的插件/模块框架： FreeCAD 分为一个核心应用程序，其中包含仅在需要时才加载的模块。几乎所有工具和几何类型都存储在模块中。模块表现得像插件；除了延迟加载之外，还可以在现有的 FreeCAD 安装中添加或删除单个模块。</li>
+<li>参数关联文档对象：FreeCAD 文档中的所有对象都可以通过参数定义。这些参数可以随时修改和重新计算。由于保持了对象关系，因此对一个对象的修改将自动更新到一切从属对象。</li>
+<li><strong>参数化建模</strong>：可以通过指定几何约束来创建基本对象，例如长方体、球体、圆柱体等。</li>
+<li>图形修改操作： FreeCAD 可以在 3D 空间的任何平面中执行平移、旋转、缩放、镜像、偏移或形状转换。</li>
+<li>构造实体几何（布尔运算）： FreeCAD 可以进行建设性的实体几何操作（合并、差异、交叉）。</li>
+<li>平面几何图形的创建：可以在 3D 空间的任何平面中以图形方式创建直线、导线、矩形、B 样条曲线和圆弧或椭圆弧。</li>
+<li>使用直线或旋转拉伸、截面和圆角建模。</li>
+<li>拓扑组件：如顶点、边、线和平面。</li>
+<li>测试和修复： FreeCAD 具有用于测试网格（实体测试、非双流形测试、自相交测试）和修复网格（孔填充、统一方向）的工具。</li>
+<li>注释：FreeCAD 可以为文本或尺寸插入注释。</li>
+<li>撤消/重做框架： FreeCAD 中的所有内容都是可撤销/可重做的，用户可以访问撤销堆栈。可以一次撤消多个步骤。</li>
+<li>与事务处理相关：撤消/重做堆栈存储文档事务，而不是单个操作，允许每个工具准确定义必须撤消或重做的内容。</li>
+<li>内置脚本框架： FreeCAD 具有内置的 Python 解释器，其 API 几乎涵盖了应用程序的任何部分、界面、几何图形以及该几何图形在 3D 查看器中的表示。解释器可以运行复杂的脚本以及单个命令；整个模块可以完全用 Python 编程。</li>
+<li>内置 Python 控制台：Python 解释器包括一个带有语法高亮、自动完成和类浏览器的控制台。 Python 命令可以直接在 FreeCAD 中输入并立即返回结果，允许脚本编写者即时测试功能、探索 FreeCAD 模块的内容并轻松了解 FreeCAD 内部结构。</li>
+<li>反映用户交互：用户在 FreeCAD 界面中所做的一切都执行 Python 代码，这些代码可以打印在控制台上并记录在宏中。</li>
+<li>完整的宏录制和编辑功能：可以记录用户操作界面时发出的 Python 命令，如果需要可以进行编辑，并保存以备日后重现。</li>
+<li>复合（基于 ZIP）文档保存格式： FreeCAD 文档以 <code>.FCStd</code> 扩展名保存。该文档可以包含许多不同类型的信息，例如几何、脚本或缩略图图标。<code>.FCStd</code>文件本身就是一个 zip 容器；保存的 FreeCAD 文件已经被压缩。</li>
+<li>完全可定制/可编写脚本的图形用户界面： FreeCAD 基于 Qt 的界面完全可以通过 Python 解释器访问。除了 FreeCAD 本身提供给工作台的简单功能外，整个 Qt 框架都是可访问的。用户可以在 GUI 上执行任何操作，例如创建、添加、停靠、修改或删除小部件和工具栏。</li>
+<li>缩略图（目前只有 Linux 系统）: FreeCAD 文档图标在大多数文件管理器应用程序中显示文件的内容，例如 Gnome 的 Nautilus。</li>
+<li>模块化 MSI 安装程序： FreeCAD 的安装程序允许在 Windows 系统上灵活安装，还维护了 Ubuntu 系统的软件包。</li>
+</ul>
+<h2 id="工具台"><a href="#工具台" class="headerlink" title="工具台"></a>工具台</h2><hr>
+<ul>
+<li><strong>Sketcher</strong>（草图）：带有集成约束求解器的草绘器，允许您绘制受几何约束的 2D 形状草图。使用 Sketcher 构建的受约束的 2D 形状可以用作在整个 FreeCAD 中构建其他对象的基础。</li>
+<li><strong>Draft Workench</strong> ：包含 2D 工具以及基本的 2D 和 3D CAD 操作。</li>
+<li><strong>Part</strong>：用于处理 CAD 零件的零件工作台。</li>
+<li><strong>Part Design</strong>：用于从草图构建零件形状的零件设计工作台。</li>
+<li><strong>BIM</strong>（建筑与施工）：旨在在 FreeCAD 中实施完整的建筑信息模型 (BIM) 工作流程。它扩展了 Arch Workbench，并收集了来自其他工作台的工具，以提供一个便于建模建筑和使用 <code>IFC</code> 文件的环境。<br>….</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><hr>
+<div id="refer-anchor-1"></div>
+
+<ul>
+<li>[1] <a target="_blank" rel="noopener" href="https://www.freecad.org/">FreeCAD的官网</a></li>
+</ul>
+<div id="refer-anchor-2"></div>
+
+<ul>
+<li>[2] <a target="_blank" rel="noopener" href="https://wiki.freecad.org/About_FreeCAD">FreeCAD的OverView</a></li>
+</ul>
+<div id="refer-anchor-3"></div>
+
+<ul>
+<li>[3] <a target="_blank" rel="noopener" href="https://wiki.freecad.org/Workbenches">FreeCAD的工具台介绍</a></li>
+</ul>
+<div id="refer-anchor-4"></div>
+
+<ul>
+<li>[4] <a target="_blank" rel="noopener" href="https://forum.freecad.org/">FreeCAD的论坛</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat-qcode.JPG" alt="Roy 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/FreeCAD/" rel="tag"><i class="fa fa-tag"></i> FreeCAD</a>
+              <a href="/tags/Bridge/" rel="tag"><i class="fa fa-tag"></i> Bridge</a>
+              <a href="/tags/Civil-Desigen/" rel="tag"><i class="fa fa-tag"></i> Civil Desigen</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/16/%E6%97%A0%E7%94%A8%E7%9A%84%E8%BF%B7%E8%8C%AB%EF%BC%8C%E8%AE%A4%E6%B8%85%E8%87%AA%E5%B7%B1/" rel="prev" title="无用的『迷茫』，认清自己">
+                  <i class="fa fa-chevron-left"></i> 无用的『迷茫』，认清自己
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"royccg","repo":"blog_comment","client_id":"d8852baba838d538b713","client_secret":"2f23bbb7aab135238b492fb16867486f78575d17","admin_user":"royccg","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"428f783cec573833e17c9911c72e8c9d"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

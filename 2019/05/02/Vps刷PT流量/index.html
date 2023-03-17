@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#193F50">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"royccg.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"right","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近迷上了使用PT做种，其中很多PT站都需要完成新手任务。为了完成新手任务，并且是自动做种，考虑使用vps来自动做种。网上有很多不同的工具，本文章使用Transmission和FlexGet自动刷PT流量，使用Debian和Ubuntu的系统，在CentOS上的刷PT流量教程，考虑在后面重新做一期。本文章只适用Debian9和Ubuntu16以上的系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vps刷PT流量">
+<meta property="og:url" content="https://royccg.github.io/2019/05/02/Vps%E5%88%B7PT%E6%B5%81%E9%87%8F/index.html">
+<meta property="og:site_name" content="Roy&#39;s Home">
+<meta property="og:description" content="最近迷上了使用PT做种，其中很多PT站都需要完成新手任务。为了完成新手任务，并且是自动做种，考虑使用vps来自动做种。网上有很多不同的工具，本文章使用Transmission和FlexGet自动刷PT流量，使用Debian和Ubuntu的系统，在CentOS上的刷PT流量教程，考虑在后面重新做一期。本文章只适用Debian9和Ubuntu16以上的系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-02T06:58:41.000Z">
+<meta property="article:modified_time" content="2022-08-19T07:44:09.303Z">
+<meta property="article:author" content="Roy">
+<meta property="article:tag" content="PT">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://royccg.github.io/2019/05/02/Vps%E5%88%B7PT%E6%B5%81%E9%87%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://royccg.github.io/2019/05/02/Vps%E5%88%B7PT%E6%B5%81%E9%87%8F/","path":"2019/05/02/Vps刷PT流量/","title":"Vps刷PT流量"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vps刷PT流量 | Roy's Home</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Roy's Home</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Less is more</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Transmission"><span class="nav-number">1.</span> <span class="nav-text">一、安装Transmission</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%89%E8%A3%85FlexGet"><span class="nav-number">2.</span> <span class="nav-text">二、安装FlexGet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%87%AA%E5%8A%A8%E5%88%A0%E9%99%A4%E7%A7%8D%E5%AD%90%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">三、自动删除种子文件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy</p>
+  <div class="site-description" itemprop="description">Less is more</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;royccg" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy.chen.cc@outlook.com" title="E-Mail → mailto:roy.chen.cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https:&#x2F;&#x2F;t.me&#x2F;Muzilir" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://chennanzhang.github.io/" title="https:&#x2F;&#x2F;chennanzhang.github.io&#x2F;" rel="noopener" target="_blank">极客斋</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.bioinfo-scrounger.com/" title="https:&#x2F;&#x2F;www.bioinfo-scrounger.com&#x2F;" rel="noopener" target="_blank">KeepNotes</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.qtmuniao.com/" title="https:&#x2F;&#x2F;www.qtmuniao.com" rel="noopener" target="_blank">木鸟杂记</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yangyang.im/post/CGy0NfhY6/" title="https:&#x2F;&#x2F;yangyang.im&#x2F;post&#x2F;CGy0NfhY6&#x2F;" rel="noopener" target="_blank">yangyang</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.viseator.com/" title="https:&#x2F;&#x2F;www.viseator.com&#x2F;" rel="noopener" target="_blank">viseator</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.llgzone.com/" title="https:&#x2F;&#x2F;blog.llgzone.com&#x2F;" rel="noopener" target="_blank">Lean</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2019/05/02/Vps%E5%88%B7PT%E6%B5%81%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Home">
+      <meta itemprop="description" content="Less is more">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Vps刷PT流量 | Roy's Home">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vps刷PT流量
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-02 14:58:41" itemprop="dateCreated datePublished" datetime="2019-05-02T14:58:41+08:00">2019-05-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-19 15:44:09" itemprop="dateModified" datetime="2022-08-19T15:44:09+08:00">2022-08-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近迷上了使用PT做种，其中很多PT站都需要完成新手任务。为了完成新手任务，并且是自动做种，考虑使用vps来自动做种。网上有很多不同的工具，本文章使用Transmission和FlexGet自动刷PT流量，使用Debian和Ubuntu的系统，在CentOS上的刷PT流量教程，考虑在后面重新做一期。<br><strong>本文章只适用Debian9和Ubuntu16以上的系统</strong><br><span id="more"></span></p>
+<h1 id="一、安装Transmission"><a href="#一、安装Transmission" class="headerlink" title="一、安装Transmission"></a>一、安装Transmission</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">apt-get</span> <span class="string">update</span></span><br><span class="line"><span class="string">apt-get</span> <span class="string">install</span> <span class="string">transmission-daemon</span> <span class="string">-y</span></span><br></pre></td></tr></table></figure>
+<p>现在开始修改配置，需要先停止运行Transmission：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/etc/init.d/transmission-daemon</span> <span class="string">stop</span></span><br><span class="line"><span class="string">vim</span> <span class="string">/var/lib/transmission-daemon/info/settings.json</span></span><br></pre></td></tr></table></figure><br>需要修改的部分如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">rpc-username</span> <span class="string">帐号</span></span><br><span class="line"><span class="string">rpc-password</span> <span class="string">密码</span></span><br><span class="line"><span class="attr">&quot;rpc-authentication-required&quot;:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">&quot;rpc-whitelist-enabled&quot;:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">&quot;preallocation&quot;:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><br>启动程序：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/etc/init.d/transmission-daemon</span> <span class="string">start</span></span><br></pre></td></tr></table></figure><br>通过<a href="http://ip:9091，可以访问transmission的webui。">http://ip:9091，可以访问transmission的webui。</a></p>
+<h1 id="二、安装FlexGet"><a href="#二、安装FlexGet" class="headerlink" title="二、安装FlexGet"></a>二、安装FlexGet</h1><p>依次执行：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">apt-get</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">python-pip</span> <span class="string">python-setuptools</span></span><br><span class="line"><span class="string">pip</span> <span class="string">install</span> <span class="string">--upgrade</span> <span class="string">pip</span></span><br><span class="line"><span class="string">pip2</span> <span class="string">install</span> <span class="string">flexget</span></span><br></pre></td></tr></table></figure></p>
+<p>注：本人在Openvz上执行 upgrade pip时，总是显示 “locale.Error: unsupported locale setting”</p>
+<p>原因是语言环境配置出错，执行一下的语句：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">root@ubuntu:~#</span> <span class="string">locale</span></span><br><span class="line">    <span class="attr">locale: Cannot set LC_ALL to default locale:</span> <span class="literal">No</span> <span class="string">such</span> <span class="string">file</span> <span class="string">or</span> <span class="string">directory</span></span><br><span class="line">    <span class="string">LANG=en_US.UTF-8</span></span><br><span class="line">    <span class="string">LANGUAGE=</span></span><br><span class="line">    <span class="string">LC_CTYPE=&quot;en_US.UTF-8&quot;</span></span><br><span class="line">    <span class="string">LC_NUMERIC=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_TIME=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_COLLATE=&quot;en_US.UTF-8&quot;</span></span><br><span class="line">    <span class="string">LC_MONETARY=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_MESSAGES=&quot;en_US.UTF-8&quot;</span></span><br><span class="line">    <span class="string">LC_PAPER=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_NAME=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_ADDRESS=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_TELEPHONE=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_MEASUREMENT=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_IDENTIFICATION=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_ALL=</span></span><br><span class="line"></span><br><span class="line"><span class="string">export</span> <span class="string">LC_ALL=C</span></span><br><span class="line">    <span class="string">root@ubuntu:~#</span> <span class="string">locale</span></span><br><span class="line">    <span class="string">LANG=en_US.UTF-8</span></span><br><span class="line">    <span class="string">LANGUAGE=</span></span><br><span class="line">    <span class="string">LC_CTYPE=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_NUMERIC=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_TIME=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_COLLATE=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_MONETARY=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_MESSAGES=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_PAPER=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_NAME=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_ADDRESS=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_TELEPHONE=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_MEASUREMENT=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_IDENTIFICATION=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_ALL=C</span></span><br></pre></td></tr></table></figure></p>
+<p>配置FlexGet:<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">/root/.flexget</span></span><br><span class="line"><span class="string">vim</span> <span class="string">/root/.flexget/config.yml</span></span><br></pre></td></tr></table></figure><br>其中，编辑文本时，可以采用vi、vim和nano，看个人喜好。</p>
+<p>FlexGet的配置文件示例：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="attr">mt:</span></span><br><span class="line">    <span class="attr">rss:</span> <span class="string">https://tp.m-team.cc/torrentrss.php?https=1&amp;rows=10&amp;linktype=dl&amp;passkey=xxxxxxxxxxxxxx</span></span><br><span class="line">    <span class="attr">accept_all:</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">content_size:</span></span><br><span class="line">      <span class="attr">min:</span> <span class="number">256</span></span><br><span class="line">      <span class="attr">max:</span> <span class="number">4000</span></span><br><span class="line">    <span class="attr">download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line">    <span class="attr">transmission:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9091</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">username</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&quot;password&quot;</span></span><br><span class="line">  <span class="attr">ttg:</span></span><br><span class="line">    <span class="attr">rss:</span> <span class="string">https://totheglory.im/putrss.php?par=xxxxxxx&amp;ssl=yes</span></span><br><span class="line">    <span class="attr">accept_all:</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">content_size:</span></span><br><span class="line">      <span class="attr">min:</span> <span class="number">256</span></span><br><span class="line">      <span class="attr">max:</span> <span class="number">4000</span></span><br><span class="line">    <span class="attr">download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line">    <span class="attr">transmission:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9091</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">username</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&quot;password&quot;</span></span><br></pre></td></tr></table></figure><br>以上内容表示，只下载文件大小在256MB和4000MB之间的种子，<strong>用户名和密码为之前配置的transmission的。</strong>rss为pt网站订阅的rss地址。一般选择所有的就行了，TTG等网站需要注意最好不要覆盖那些带H&amp;R的内容（剧集）。</p>
+<p>此处没有严格按照缩进原则，就会出现问题。<strong><a target="_blank" rel="noopener" href="https://www.tok9.com/archives/285/">要注意的是，由于配置文件是YAML格式，需要遵循YAML语法，也就是说，千万不要使用tab来缩进，一定要用空格。缩进是一定要遵守的，每个层级之间用两个空格缩进。</a></strong></p>
+<p>多个任务，在后面添加即可。</p>
+<p>因为没有这个种子文件下载目录，需要先创建：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br></pre></td></tr></table></figure><br>FlexGet配合transmission还需要插件支持：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">pip2</span> <span class="string">install</span> <span class="string">transmissionrpc</span></span><br></pre></td></tr></table></figure><br>FlexGet简单命令：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">flexget</span> <span class="string">check</span> <span class="string">：</span> <span class="string">用于检查</span> <span class="string">config.yml</span> <span class="string">配置文件是否有格式错误。</span></span><br><span class="line"><span class="string">flexget</span> <span class="string">execute</span> <span class="string">：</span> <span class="string">手动开始一次</span> <span class="string">RSS</span> <span class="string">下载，就等于正式</span> <span class="string">RSS</span> <span class="string">了一次。</span></span><br></pre></td></tr></table></figure><br>可以执行一次flexget check，一般是没有问题的。</p>
+<p>添加自动任务：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">crontab</span> <span class="string">-e</span></span><br></pre></td></tr></table></figure><br>在其中添加：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">*/5</span> <span class="string">*</span> <span class="string">*</span> <span class="string">*</span> <span class="string">*</span> <span class="string">/usr/local/bin/flexget</span> <span class="string">-c</span> <span class="string">/root/.flexget/config.yml</span> <span class="string">execute</span></span><br></pre></td></tr></table></figure><br>表示每5分钟更新一次RSS。</p>
+<h1 id="三、自动删除种子文件"><a href="#三、自动删除种子文件" class="headerlink" title="三、自动删除种子文件"></a>三、自动删除种子文件</h1><p>先创建Sheell文件：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">trans_cleanup.sh</span></span><br></pre></td></tr></table></figure><br>其中内容为：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /bin/bash</span></span><br><span class="line"><span class="comment">#====================================================================</span></span><br><span class="line"><span class="comment"># trans_cleanup.sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Copyright (c) 2011, WangYan &lt;webmaster@wangyan.org&gt;</span></span><br><span class="line"><span class="comment"># All rights reserved.</span></span><br><span class="line"><span class="comment"># Distributed under the GNU General Public License, version 3.0.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Monitor disk space, If the Over, delete some files.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See: http://wangyan.org/blog/trans_cleanup.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># V0.2, since 2012-10-29</span></span><br><span class="line"><span class="comment">#====================================================================</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The transmission remote login username</span></span><br><span class="line"><span class="string">USERNAME=&quot;username&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The transmission remote login password</span></span><br><span class="line"><span class="string">PASSWORD=&quot;password&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The transmission download dir</span></span><br><span class="line"><span class="string">DLDIR=&quot;/var/lib/transmission-daemon/downloads&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The maximum allowed disk (%)</span></span><br><span class="line"><span class="string">DISK_USED_MAX=&quot;90&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Enable auto shutdown support (Disable=0, Enable=1)</span></span><br><span class="line"><span class="string">ENABLE_AUTO_SHUTDOWN=&quot;0&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Log path settings</span></span><br><span class="line"><span class="string">LOG_PATH=&quot;/var/log/trans_cleanup.log&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Date time format setting</span></span><br><span class="line"><span class="string">DATA_TIME=$(date</span> <span class="string">+&quot;%y-%m-%d</span> <span class="string">%H:%M:%S&quot;)</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#====================================================================</span></span><br><span class="line"> </span><br><span class="line"><span class="string">dist_check()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">DISK_USED=`df</span> <span class="string">-h</span> <span class="string">$DLDIR</span> <span class="string">|</span> <span class="string">grep</span> <span class="string">-v</span> <span class="string">Mounted</span> <span class="string">|</span> <span class="string">awk</span> <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> <span class="string">|</span> <span class="string">cut</span> <span class="string">-d</span> <span class="string">&#x27;%&#x27;</span> <span class="string">-f</span> <span class="number">1</span><span class="string">`</span></span><br><span class="line">    <span class="string">DISK_OVER=`awk</span> <span class="string">&#x27;BEGIN&#123;print(&#x27;</span><span class="string">$DISK_USED&#x27;&gt;&#x27;$DISK_USED_MAX&#x27;)</span>&#125;<span class="string">&#x27;`</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">dist_check</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        for i in `transmission-remote --auth $USERNAME:$PASSWORD -l | grep 100% | grep Done | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$1</span>&#125;<span class="string">&#x27; | grep -v ID`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                [ &quot;$i&quot; -gt &quot;0&quot; ] &amp;&amp; echo -n &quot;$DATA_TIME [Done] &quot; &gt;&gt; $LOG_PATH</span></span><br><span class="line"><span class="string">                transmission-remote --auth $USERNAME:$PASSWORD -t $i --remove-and-delete &gt;&gt; $LOG_PATH 2&gt;&amp;1</span></span><br><span class="line"><span class="string">                [ &quot;$i&quot; -gt &quot;0&quot; ] &amp;&amp; sleep 10 &amp;&amp; dist_check</span></span><br><span class="line"><span class="string">                [ &quot;$DISK_OVER&quot; = &quot;0&quot; ] &amp;&amp; break</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        for ii in `transmission-remote --auth $USERNAME:$PASSWORD -l | grep Stopped | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$1</span>&#125;<span class="string">&#x27; | grep -v ID`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                [ &quot;$ii&quot; -gt &quot;0&quot; ] &amp;&amp; echo -n &quot;$DATA_TIME [Stopped] &quot; &gt;&gt; $LOG_PATH</span></span><br><span class="line"><span class="string">                transmission-remote --auth $USERNAME:$PASSWORD -t $ii --remove-and-delete &gt;&gt; $LOG_PATH 2&gt;&amp;1</span></span><br><span class="line"><span class="string">                [ &quot;$ii&quot; -gt &quot;0&quot; ] &amp;&amp; sleep 10 &amp;&amp; dist_check</span></span><br><span class="line"><span class="string">                [ &quot;$DISK_OVER&quot; = &quot;0&quot; ] &amp;&amp; break</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        for iii in `transmission-remote --auth $USERNAME:$PASSWORD -l | grep -v Sum | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$1</span>&#125;<span class="string">&#x27; | grep -v ID`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                [ &quot;$iii&quot; -gt &quot;0&quot; ] &amp;&amp; echo -n &quot;$DATA_TIME [Up or Down] &quot; &gt;&gt; $LOG_PATH</span></span><br><span class="line"><span class="string">                transmission-remote --auth $USERNAME:$PASSWORD -t $iii --remove-and-delete &gt;&gt; $LOG_PATH 2&gt;&amp;1</span></span><br><span class="line"><span class="string">                [ &quot;$iii&quot; -gt &quot;0&quot; ] &amp;&amp; sleep 10 &amp;&amp; dist_check</span></span><br><span class="line"><span class="string">                [ &quot;$DISK_OVER&quot; = &quot;0&quot; ] &amp;&amp; break</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        rm -rf $DLDIR/*</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$ENABLE_AUTO_SHUTDOWN&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        SHUTDOWN=1</span></span><br><span class="line"><span class="string">        for STATUS in `transmission-remote --auth $USERNAME:$PASSWORD -l | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$9</span>&#125;<span class="string">&#x27;`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                if [[ &quot;$STATUS&quot; = &quot;Up&quot; || &quot;$STATUS&quot; = &quot;Uploading&quot; ]];then</span></span><br><span class="line"><span class="string">                        SHUTDOWN=0</span></span><br><span class="line"><span class="string">                fi</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">        TASK_TOTAL=`transmission-remote --auth $USERNAME:$PASSWORD -l | grep -Ev &#x27;</span><span class="string">(ID|Sum)&#x27;</span> <span class="string">|</span> <span class="string">wc</span> <span class="string">-l`</span></span><br><span class="line">        <span class="string">if</span> [ <span class="string">&quot;$TASK_TOTAL&quot;</span> <span class="string">-gt</span> <span class="string">&quot;0&quot;</span> ] <span class="string">&amp;&amp;</span> [ <span class="string">&quot;$SHUTDOWN&quot;</span> <span class="string">-eq</span> <span class="string">&quot;1&quot;</span> ]<span class="string">;then</span></span><br><span class="line">                <span class="string">echo</span> <span class="string">-n</span> <span class="string">&quot;$DATA_TIME &quot;</span> <span class="string">&gt;&gt;</span> <span class="string">$LOG_PATH</span></span><br><span class="line">                <span class="string">shutdown</span> <span class="string">now</span> <span class="string">&gt;&gt;</span> <span class="string">$LOG_PATH</span> <span class="number">2</span><span class="string">&gt;&amp;1</span></span><br><span class="line">        <span class="string">fi</span></span><br><span class="line"><span class="string">fi</span></span><br></pre></td></tr></table></figure><br>自行修改其中的username和password，以及DISK_USED_MAX=”90″，这个数值表示最大可占用的硬盘空间，超过以后就会自动删除pt种子。不要设置太大，谨防下载速度太快爆硬盘，会导致服务器无法连接。</p>
+<p>创建自动任务，在crontab里添加：</p>
+<pre><code class="lang-yaml">    */1 * * * * /bin/bash /root/trans_cleanup.sh
+</code></pre>
+<p>每分钟检查一次硬盘空间占用。</p>
+<p><strong>注意：如果硬盘空间太小，可能会导致每个种子的分享率不高，按需要调节每个种子文件大小限制，或者减少添加的task。</strong></p>
+<p>文中内容，参考转载自：<a target="_blank" rel="noopener" href="https://www.ljchen.com/archives/963">https://www.ljchen.com/archives/963</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat-qcode.JPG" alt="Roy 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/PT/" rel="tag"><i class="fa fa-tag"></i> PT</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/" rel="prev" title="搭建Hexo博客">
+                  <i class="fa fa-chevron-left"></i> 搭建Hexo博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/05/%E9%99%88%E4%B8%80%E5%8F%91-%E8%B0%A2%E8%B0%A2%E4%BD%A0%E7%9A%84%E7%88%B1/" rel="next" title="陈一发-谢谢你的爱">
+                  陈一发-谢谢你的爱 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"royccg","repo":"blog_comment","client_id":"d8852baba838d538b713","client_secret":"2f23bbb7aab135238b492fb16867486f78575d17","admin_user":"royccg","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"e8356653a6eee65e57c866a35160c318"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

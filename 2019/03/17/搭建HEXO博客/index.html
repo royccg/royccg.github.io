@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#193F50" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/lufei.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/lifei.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#193F50">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"royccg.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.15.0","exturl":false,"sidebar":{"position":"right","width":300,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 我是一个入门的Blog主，暂时Blog中很多东西都是向其他博主那借鉴过来的，包括这篇搭建教程，很多内容也需要和大家一起探讨，blog的后续很多装饰也需要慢慢探索，希望大家能看到我的成长，最后自己生产出来一些内容，希望大家及时指正。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建Hexo博客">
+<meta property="og:url" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Roy&#39;s Home">
+<meta property="og:description" content="前言 我是一个入门的Blog主，暂时Blog中很多东西都是向其他博主那借鉴过来的，包括这篇搭建教程，很多内容也需要和大家一起探讨，blog的后续很多装饰也需要慢慢探索，希望大家能看到我的成长，最后自己生产出来一些内容，希望大家及时指正。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Node_webpage.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/hexo_init_folder.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_first_page.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/github_setting_new_rep.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/github_setting.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_first_index.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_hello_world.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Next_page.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Change_ymal_theme_1.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/blog_title_setting.png">
+<meta property="og:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Change_ymal_next_1.png">
+<meta property="article:published_time" content="2019-03-17T09:46:55.000Z">
+<meta property="article:modified_time" content="2022-08-19T07:44:09.379Z">
+<meta property="article:author" content="Roy">
+<meta property="article:tag" content="建站">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Node_webpage.png">
+
+
+<link rel="canonical" href="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/","path":"2019/03/17/搭建HEXO博客/","title":"搭建Hexo博客"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>搭建Hexo博客 | Roy's Home</title>
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Roy's Home</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Less is more</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">2.</span> <span class="nav-text">Hexo的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EGithub"><span class="nav-number">3.</span> <span class="nav-text">关于Github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Node-js"><span class="nav-number">4.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Git"><span class="nav-number">5.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">6.</span> <span class="nav-text">Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAGithub-Page"><span class="nav-number">7.</span> <span class="nav-text">创建Github Page</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%B3%A8%E5%86%8CGithub%E8%B4%A6%E6%88%B7"><span class="nav-number">7.1.</span> <span class="nav-text">一、注册Github账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="nav-number">7.2.</span> <span class="nav-text">二、创建项目代码库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AESSH-key"><span class="nav-number">7.3.</span> <span class="nav-text">三、配置SSH key</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0GitHub"><span class="nav-number">8.</span> <span class="nav-text">部署到GitHub</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roy"
+      src="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+  <p class="site-author-name" itemprop="name">Roy</p>
+  <div class="site-description" itemprop="description">Less is more</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/royccg" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;royccg" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:roy.chen.cc@outlook.com" title="E-Mail → mailto:roy.chen.cc@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://t.me/Muzilir" title="telegram → https:&#x2F;&#x2F;t.me&#x2F;Muzilir" rel="noopener me" target="_blank"><i class="fab fa-telegram fa-fw"></i>telegram</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://chennanzhang.github.io/" title="https:&#x2F;&#x2F;chennanzhang.github.io&#x2F;" rel="noopener" target="_blank">极客斋</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.bioinfo-scrounger.com/" title="https:&#x2F;&#x2F;www.bioinfo-scrounger.com&#x2F;" rel="noopener" target="_blank">KeepNotes</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.qtmuniao.com/" title="https:&#x2F;&#x2F;www.qtmuniao.com" rel="noopener" target="_blank">木鸟杂记</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yangyang.im/post/CGy0NfhY6/" title="https:&#x2F;&#x2F;yangyang.im&#x2F;post&#x2F;CGy0NfhY6&#x2F;" rel="noopener" target="_blank">yangyang</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.viseator.com/" title="https:&#x2F;&#x2F;www.viseator.com&#x2F;" rel="noopener" target="_blank">viseator</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.llgzone.com/" title="https:&#x2F;&#x2F;blog.llgzone.com&#x2F;" rel="noopener" target="_blank">Lean</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://royccg.github.io/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/44716144?s=400&u=ddbd3c94ac6ffb32aeadda191af936e1f7c969bd&v=4">
+      <meta itemprop="name" content="Roy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Home">
+      <meta itemprop="description" content="Less is more">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="搭建Hexo博客 | Roy's Home">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          搭建Hexo博客
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-17 17:46:55" itemprop="dateCreated datePublished" datetime="2019-03-17T17:46:55+08:00">2019-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-19 15:44:09" itemprop="dateModified" datetime="2022-08-19T15:44:09+08:00">2022-08-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
+<p>我是一个入门的Blog主，暂时Blog中很多东西都是向其他博主那借鉴过来的，包括这篇搭建教程，很多内容也需要和大家一起探讨，blog的后续很多装饰也需要慢慢探索，希望大家能看到我的成长，最后自己生产出来一些内容，希望大家及时指正。</p>
+<span id="more"></span>
+<h2 id="Hexo的优势"><a href="#Hexo的优势" class="headerlink" title="Hexo的优势"></a>Hexo的优势</h2><hr>
+<ul>
+<li><p>本身的优势</p>
+<p>正如<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo官网</a>的描述：</p>
+<ul>
+<li>快速、简洁、高效的博客框架</li>
+<li>支持Markdown语法</li>
+<li>丰富的插件</li>
+</ul>
+</li>
+<li><p>与Jekyll的对比</p>
+<ul>
+<li>Hexo官方有中文开发文档，而JekyII只有中文翻译文档且更新慢</li>
+<li>JekyII的依赖环境总是出现问题</li>
+<li>Hexo有详细且丰富的第三方接口</li>
+</ul>
+</li>
+</ul>
+<h2 id="关于Github"><a href="#关于Github" class="headerlink" title="关于Github"></a>关于Github</h2><hr>
+<ul>
+<li><p>Github的优点</p>
+<ul>
+<li>Github是基于git实现的代码托管平台。git可能是目前最好用的版本控制系统，非常受欢迎。</li>
+<li>Github可以免费使用，并且快速稳定。</li>
+<li>Github上面有很多有趣的项目，也有很多和生活息息相关的内容，比如“996”(手动狗头)</li>
+</ul>
+</li>
+<li><p>关于Github Page</p>
+<ul>
+<li>Github Page是供用户编写的、托管在Github上的静态网页。</li>
+</ul>
+</li>
+<li><p>为什么选择Github Page</p>
+<ul>
+<li>可以绑定自己的域名</li>
+<li>简单便捷，使用Github Page可以为你提供给一个免费的服务器，免去了自己搭建服务器和写数据库的麻烦。</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装<code>Node.js</code></h2><hr>
+<p>在window上安装Node.js非常简单，在<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">官网</a>下载文件并执行安装即可。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Node_webpage.png" alt="pict"><br>我是window 64位系统，直接下载相应的版本，无脑下一步就行了，不需要另外配置环境变量。</p>
+<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><hr>
+<p>去<a target="_blank" rel="noopener" href="https://git-scm.com/download/win">Git官网</a>根据你的电脑参数，下载对应版本。</p>
+<p>下载完成，通过在命令行输入 <code>git version</code> 查看是否安装成功，有输出版本号说明安装成功。</p>
+<p>鼠标右键菜单里就多了<code>Git GUI Here</code>和<code>Git Bash Here</code>两个按钮，一个是图形界面的Git操作，一个是命令行，我们选择<code>Git Bash Here</code>。</p>
+<ul>
+<li>安装教程：<a href="https://link.juejin.im/?target=http%3A%2F%2Fjingyan.baidu.com%2Farticle%2F90895e0fb3495f64ed6b0b50.html">如何在windows下安装GIT</a></li>
+<li>Git入门教程：<a href="https://link.juejin.im/?target=http%3A%2F%2Fgit.oschina.net%2Fprogit%2F">Pro Git（中文版）</a>、<a target="_blank" rel="noopener" href="https://www.bootcss.com/p/git-guide/">教学</a></li>
+</ul>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><hr>
+<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<ul>
+<li>Hexo安装<br>桌面右键鼠标，点击 <code>Git Bash Here</code>，输入一下命令安装<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br></pre></td></tr></table></figure>
+第一句是安装Hexo，第二句是安装Hexo部署到git page的deployer，两个都需要安装。</li>
+</ul>
+<ul>
+<li><p>Hexo初始化配置</p>
+<ol>
+<li><p>创建Hexo文件夹</p>
+<p> 安装完成后，根据自己喜好建立目录（如D:\ROY\blog\myblog），直接进入D:\ROY\blog\myblog文件夹下右键鼠标，点击<code>Git Bash Here</code>，进入Git命令框，执行以下操作。</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">init</span></span><br></pre></td></tr></table></figure>
+<p> 安装完成后，Hexo将会在指定文件夹中新建所需的文件。Hexo文件夹下的目录如下图所示：<br> <img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/hexo_init_folder.png" alt="img"></p>
+</li>
+<li><p>本地查看效果</p>
+<p> 执行下面语句，执行完即可在浏览器中输入<code>localhost:4000</code>查看本地网页效果</p>
+ <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span></span><br></pre></td></tr></table></figure>
+<p> <img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_first_page.png" alt="img"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="创建Github-Page"><a href="#创建Github-Page" class="headerlink" title="创建Github Page"></a>创建Github Page</h2><hr>
+<p>那么现在本地的博客已经搭建起来了，但是我们只可以通过本地连接查看我们的博客。那么我们现在需要做的就是把本地的博客发布到服务器上，让别人也可以连接我们的博客，而Github Pages就帮我完成了这件事情。但是Github Pages的代码就是寄存在Github上面的。那么接下来我们需要在Github上面创建一个新的项目。</p>
+<h3 id="一、注册Github账户"><a href="#一、注册Github账户" class="headerlink" title="一、注册Github账户"></a>一、注册Github账户</h3><p>1.访问<a target="_blank" rel="noopener" href="https://github.com">Github首页</a><br>2.点击右上角的Sign up，注册自己的账号</p>
+<h3 id="二、创建项目代码库"><a href="#二、创建项目代码库" class="headerlink" title="二、创建项目代码库"></a>二、创建项目代码库</h3><p>1.注册完登陆后，创建一个自己的Github Pages项目。点击 <code>New repository</code><br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/github_setting_new_rep.png" alt="imag"><br><strong>注意：Github中仅能使用一个同名仓库的代码托管一个静态站点。</strong><br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/github_setting.png" alt="imag"></p>
+<p>2.然后打开仓库创建一个<code>index.html</code>文件，先随意写上一些内容。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_first_index.png" alt><br>3.这时候打开 <code>http://你的用户名.github.io</code>就可以看到你的站点了。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_hello_world.png" alt><br>此时，只是暂时渲染了 <code>index.html</code>的内容，后面把<code>Hexo</code>的引擎渲染出来的文件部署上来就可以看到完整的blog内容了。</p>
+<h3 id="三、配置SSH-key"><a href="#三、配置SSH-key" class="headerlink" title="三、配置SSH key"></a>三、配置SSH key</h3><p>关于 ssh 连接到 <code>github</code>部分的内容，可以参考<a target="_blank" rel="noopener" href="https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/connecting-to-github-with-ssh">官方的文档</a>，此处不多做赘述。</p>
+<h2 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h2><hr>
+<p>此处采用<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next"><code>Next</code></a>的blog模板进行部署。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Next_page.png" alt></p>
+<p>1、<code>clone</code>模板文件下载<br>    在 博客的源目录下面运行<br>    <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure><br>    此时文件夹的tree是<br>    <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">|-- _config.landscape.yml</span><br><span class="line">|-- _config.yml                ------&gt;  blog的配置文件</span><br><span class="line">|-- db.json</span><br><span class="line">|-- node_modules</span><br><span class="line">|   |-- JSONStream</span><br><span class="line">|   |-- ......</span><br><span class="line">|   `-- wrappy</span><br><span class="line">|-- package-lock.json</span><br><span class="line">|-- package.json</span><br><span class="line">|-- public                   -----&gt;  渲染出来的index.html放置文件夹</span><br><span class="line">|   |-- <span class="number">2020</span></span><br><span class="line">|   |-- archives</span><br><span class="line">|   |-- css</span><br><span class="line">|   |-- fancybox</span><br><span class="line">|   |-- index.html</span><br><span class="line">|   `-- js</span><br><span class="line">|-- scaffolds</span><br><span class="line">|   |-- draft.<span class="built_in">md</span></span><br><span class="line">|   |-- page.<span class="built_in">md</span></span><br><span class="line">|   `-- post.<span class="built_in">md</span></span><br><span class="line">|-- source                    ----&gt;  后面 内容编辑 文件夹</span><br><span class="line">|   `-- _posts</span><br><span class="line">`-- themes</span><br><span class="line">    `-- next                   ----&gt;  下载下来的 `next`模板</span><br><span class="line">        |-- LICENSE.<span class="built_in">md</span></span><br><span class="line">        |-- README.<span class="built_in">md</span></span><br><span class="line">        |-- _config.yml       -----&gt;  next模板的配置文件</span><br><span class="line">        |-- crowdin.yml</span><br><span class="line">        |-- docs</span><br><span class="line">        |-- gulpfile.js</span><br><span class="line">        |-- languages</span><br><span class="line">        |-- layout</span><br><span class="line">        |-- package.json</span><br><span class="line">        |-- scripts</span><br><span class="line">        `-- source</span><br><span class="line">        |-- css</span><br><span class="line">            |-- images         -----&gt; 主题的 picture目录</span><br><span class="line">            |-- js</span><br><span class="line">            `-- lib</span><br></pre></td></tr></table></figure></p>
+<p>2、<code>Next</code>安装配置</p>
+<ul>
+<li><p><strong>blog的配置文件</strong><code>_config.yml</code>中的修改</p>
+<ul>
+<li>使用 文本程序 打开当前目录下<em>blog的配置文件</em><code>_config.yml</code>文件，在底端可以找到<code>theme</code>键，修改为<code>next</code>。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Change_ymal_theme_1.png" alt></li>
+<li>网页的总设置：<ul>
+<li>网站的标题、作者等<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/blog_title_setting.png" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在 <strong>next模板的配置文件</strong> <code>_config.yml</code>中：</p>
+<ul>
+<li><code>Next</code>有4个分支主题，可以在修改配置文件中的<code>scheme</code>，激活一个你喜欢的分支主题；<br>  <img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Change_ymal_next_1.png" alt></li>
+</ul>
+</li>
+<li>头像在<code>themes\next\source\images</code>中同名替换<code>avatar</code>文件</li>
+<li>网站标签页图片：<code>themes\next\source\images</code>中的<code>favicon-16x16-next.png</code>文件同名替换。</li>
+</ul>
+<p>3、网站关联GitHub</p>
+<ul>
+<li>在<strong>blog的配置文件</strong><code>_config.yml</code>中的最后修改为  <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:username/username.github.io.git</span></span><br><span class="line">  <span class="comment"># username是github用户名</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></li>
+<li>添加域名<ul>
+<li>在blog的源目录下 创建<code>CNRME</code>文件，无后缀，内容添加为 <code>域名</code></li>
+</ul>
+</li>
+</ul>
+<p>4、部署运行</p>
+<ul>
+<li><p><font color="red" size="5"><strong>安装上传git的插件</strong></font></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在源目录下分别执行</p>
+  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean //清理缓存</span><br><span class="line">hexo g  //生成静态页面</span><br><span class="line">hexo d  // 网站push 到github上</span><br></pre></td></tr></table></figure>
+<p>这样就可在 你的域名上 欣赏你的blog了，加油，bloger！</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechat-qcode.JPG" alt="Roy 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%BB%BA%E7%AB%99/" rel="tag"><i class="fa fa-tag"></i> 建站</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/03/17/hello-world/" rel="prev" title="Hello World">
+                  <i class="fa fa-chevron-left"></i> Hello World
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/05/02/Vps%E5%88%B7PT%E6%B5%81%E9%87%8F/" rel="next" title="Vps刷PT流量">
+                  Vps刷PT流量 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roy</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"royccg","repo":"blog_comment","client_id":"d8852baba838d538b713","client_secret":"2f23bbb7aab135238b492fb16867486f78575d17","admin_user":"royccg","distraction_free_mode":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"3b2857920520d44884983f2bae9634b2"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>

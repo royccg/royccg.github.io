@@ -1,0 +1,1353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>FreeCAD--一个开源的3D参数化建模软件</title>
+    <url>/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><hr>
+<p><a href="https://www.freecad.org/"><em>FreeCAD</em></a> 是一个通用的开源化的参数化3D <em>CAD</em> 建模软件，软件遵循 <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html"><em>LGPL许可</em></a> 。<br><em>FreeCAD</em> 的功能主要是针对 机械工程和产品设计，但也适用于更广泛的工程用途，例如建筑、有限元分析、3D打印等其他方面的设计工作。</p>
+<p><em>FreeCAD</em> 具有类似于 CATIA、SoildWorks的工具，因此属于<a href="https://en.wikipedia.org/wiki/Computer-aided_design"><em>CAD</em></a>、<a href="https://en.wikipedia.org/wiki/Product_lifecycle"><em>PLM</em></a>、<a href="https://en.wikipedia.org/wiki/Computer-aided_technologies"><em>CAx</em></a>、<a href="https://en.wikipedia.org/wiki/Computer-aided_engineering"><em>CAE</em></a>的类软件，是一个基于特征的参数化建模软件，具有模块化的软件架构，可以在不修改核心系统的情况下提供额外的功能。<br><span id="more"></span></p>
+<p>与许多CAD建模软件一样，它有许多的2D组件，以便绘制平面形状草图或创建生产图纸。但是，对于2D绘图不是此软件的重点（优势），动画（渲染）或网格编辑（如Blender、Maya、3ds Max或者Cinema 4D）也不是此软件的主要开发内容。但由于其广泛的适应性，FreeCAD可能在更多的领域内获得关注和发挥作用。</p>
+<p>FreeCAD使用了大量关于科学计算的开源库，其中包络功能强大的CAD内核<a href="http://opencascade.org/"><em>Open Cascad Technology(OCCT)</em></a>；<a href="https://github.com/coin3d/coin/wiki"><em>Coin3D</em></a> ，一个与<a href="http://en.wikipedia.org/wiki/Open_Inventor"><em>Open Inventor</em></a>兼容的3D图形开发工具包；<a href="http://www.qt.io/"><em>QT</em></a>，著名的用户截面UI框架；和 Python，一种现代脚本语言。FreeCAD本身也可以用作其他程序的参考库。</p>
+<p>FreeCAD 也是多平台的，目前在 Linux/Unix、Windows 和 macOS 系统上运行，在所有平台上具有相同的外观和功能。</p>
+<p><img src="/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-1.jpg" width="80%"></p>
+<p><img src="/2023/03/12/FreeCAD--%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E7%9A%843D%E5%8F%82%E6%95%B0%E5%8C%96%E5%BB%BA%E6%A8%A1%E8%BD%AF%E4%BB%B6/FreeCAD的建模案例-2.png" width="80%"></p>
+<h2 id="特色"><a href="#特色" class="headerlink" title="特色"></a>特色</h2><hr>
+<ul>
+<li>多平台：FreeCAD可以在多平台（Windows、Linux、macOS等其他平台）运行，并且彼此没有差别。</li>
+<li>全GUI操作：FreeCAD有基于Qt框架的完整图形的用户界面，带有基于Open Inventor的3D查看界面；并允许快速渲染3D场景和费用易于访问的场景图。</li>
+<li>可通过命令行运行：在命令行模式下，FreeCAD 运行时不展示界面，但可以完成所有的几何工具。在这种模式下，它的内存占用相对较低，例如，可以用作服务器来为其他应用程序生成内容。</li>
+<li><strong>可以作为Python的模块导入</strong>：FreeCAD 可以导入到任何可以运行 Python 脚本的应用程序中。与命令行模式一样，FreeCAD 的界面部分不可用，但可以访问所有几何工具。</li>
+<li><strong>工作台</strong>：在 FreeCAD 界面中，工具按工作台分组。这允许您仅显示用于完成特定任务的工具，保持工作区整洁和响应迅速，并允许应用程序快速加载。</li>
+<li>用于延迟加载功能/数据类型的插件/模块框架： FreeCAD 分为一个核心应用程序，其中包含仅在需要时才加载的模块。几乎所有工具和几何类型都存储在模块中。模块表现得像插件；除了延迟加载之外，还可以在现有的 FreeCAD 安装中添加或删除单个模块。</li>
+<li>参数关联文档对象：FreeCAD 文档中的所有对象都可以通过参数定义。这些参数可以随时修改和重新计算。由于保持了对象关系，因此对一个对象的修改将自动更新到一切从属对象。</li>
+<li><strong>参数化建模</strong>：可以通过指定几何约束来创建基本对象，例如长方体、球体、圆柱体等。</li>
+<li>图形修改操作： FreeCAD 可以在 3D 空间的任何平面中执行平移、旋转、缩放、镜像、偏移或形状转换。</li>
+<li>构造实体几何（布尔运算）： FreeCAD 可以进行建设性的实体几何操作（合并、差异、交叉）。</li>
+<li>平面几何图形的创建：可以在 3D 空间的任何平面中以图形方式创建直线、导线、矩形、B 样条曲线和圆弧或椭圆弧。</li>
+<li>使用直线或旋转拉伸、截面和圆角建模。</li>
+<li>拓扑组件：如顶点、边、线和平面。</li>
+<li>测试和修复： FreeCAD 具有用于测试网格（实体测试、非双流形测试、自相交测试）和修复网格（孔填充、统一方向）的工具。</li>
+<li>注释：FreeCAD 可以为文本或尺寸插入注释。</li>
+<li>撤消/重做框架： FreeCAD 中的所有内容都是可撤销/可重做的，用户可以访问撤销堆栈。可以一次撤消多个步骤。</li>
+<li>与事务处理相关：撤消/重做堆栈存储文档事务，而不是单个操作，允许每个工具准确定义必须撤消或重做的内容。</li>
+<li>内置脚本框架： FreeCAD 具有内置的 Python 解释器，其 API 几乎涵盖了应用程序的任何部分、界面、几何图形以及该几何图形在 3D 查看器中的表示。解释器可以运行复杂的脚本以及单个命令；整个模块可以完全用 Python 编程。</li>
+<li>内置 Python 控制台：Python 解释器包括一个带有语法高亮、自动完成和类浏览器的控制台。 Python 命令可以直接在 FreeCAD 中输入并立即返回结果，允许脚本编写者即时测试功能、探索 FreeCAD 模块的内容并轻松了解 FreeCAD 内部结构。</li>
+<li>反映用户交互：用户在 FreeCAD 界面中所做的一切都执行 Python 代码，这些代码可以打印在控制台上并记录在宏中。</li>
+<li>完整的宏录制和编辑功能：可以记录用户操作界面时发出的 Python 命令，如果需要可以进行编辑，并保存以备日后重现。</li>
+<li>复合（基于 ZIP）文档保存格式： FreeCAD 文档以 <code>.FCStd</code> 扩展名保存。该文档可以包含许多不同类型的信息，例如几何、脚本或缩略图图标。<code>.FCStd</code>文件本身就是一个 zip 容器；保存的 FreeCAD 文件已经被压缩。</li>
+<li>完全可定制/可编写脚本的图形用户界面： FreeCAD 基于 Qt 的界面完全可以通过 Python 解释器访问。除了 FreeCAD 本身提供给工作台的简单功能外，整个 Qt 框架都是可访问的。用户可以在 GUI 上执行任何操作，例如创建、添加、停靠、修改或删除小部件和工具栏。</li>
+<li>缩略图（目前只有 Linux 系统）: FreeCAD 文档图标在大多数文件管理器应用程序中显示文件的内容，例如 Gnome 的 Nautilus。</li>
+<li>模块化 MSI 安装程序： FreeCAD 的安装程序允许在 Windows 系统上灵活安装，还维护了 Ubuntu 系统的软件包。</li>
+</ul>
+<h2 id="工具台"><a href="#工具台" class="headerlink" title="工具台"></a>工具台</h2><hr>
+<ul>
+<li><strong>Sketcher</strong>（草图）：带有集成约束求解器的草绘器，允许您绘制受几何约束的 2D 形状草图。使用 Sketcher 构建的受约束的 2D 形状可以用作在整个 FreeCAD 中构建其他对象的基础。</li>
+<li><strong>Draft Workench</strong> ：包含 2D 工具以及基本的 2D 和 3D CAD 操作。</li>
+<li><strong>Part</strong>：用于处理 CAD 零件的零件工作台。</li>
+<li><strong>Part Design</strong>：用于从草图构建零件形状的零件设计工作台。</li>
+<li><strong>BIM</strong>（建筑与施工）：旨在在 FreeCAD 中实施完整的建筑信息模型 (BIM) 工作流程。它扩展了 Arch Workbench，并收集了来自其他工作台的工具，以提供一个便于建模建筑和使用 <code>IFC</code> 文件的环境。<br>….</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><hr>
+<div id="refer-anchor-1"></div>
+
+<ul>
+<li>[1] <a href="https://www.freecad.org/">FreeCAD的官网</a></li>
+</ul>
+<div id="refer-anchor-2"></div>
+
+<ul>
+<li>[2] <a href="https://wiki.freecad.org/About_FreeCAD">FreeCAD的OverView</a></li>
+</ul>
+<div id="refer-anchor-3"></div>
+
+<ul>
+<li>[3] <a href="https://wiki.freecad.org/Workbenches">FreeCAD的工具台介绍</a></li>
+</ul>
+<div id="refer-anchor-4"></div>
+
+<ul>
+<li>[4] <a href="https://forum.freecad.org/">FreeCAD的论坛</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>FreeCAD</tag>
+        <tag>Bridge</tag>
+        <tag>Civil Desigen</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker-gitlab部属</title>
+    <url>/2020/12/10/Docker-gitlab%E9%83%A8%E5%B1%9E/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在折腾<code>Git</code>,想对自己的代码版本进行托管和版本控制，准备在Ubuntu server 利用Docker上搭建一个<code>GitLab</code>。</p>
+<h3 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h3><ul>
+<li>操作系统： Ubuntu 20.04.1 server</li>
+<li>Docker Version ：20.10.0, build 7287ab3</li>
+<li>Gitlab Version：13.6.2</li>
+</ul>
+<span id="more"></span>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><p>docker用来隔离应用还是比较方便的，一来本身的操作较为简单，二来资源占用也比虚拟机要小的多，三来是较为安全。</p>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><p>我采用的是Ubuntu 20发行版本<br>此处采用 国内daocloud 一键安装命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL https://get.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure>
+<p>或者使用 官方的安装脚本自动安装<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun</span><br></pre></td></tr></table></figure></p>
+<p>注意： 如果要使用 Docker作为非root用户使用，则应考虑使用以下方式将用户添加到<code>docker</code>组：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo usermod -aG docker your-user</span><br></pre></td></tr></table></figure></p>
+<h3 id="更换源"><a href="#更换源" class="headerlink" title="更换源"></a>更换源</h3><p>国内的镜像源有</p>
+<ul>
+<li>docker官方中国区 <code>https://registry.docker-cn.com</code></li>
+<li>网易 <code>http://hub-mirror.c.163.com</code></li>
+<li>ustc <code>http://docker.mirrors.ustc.edu.cn</code></li>
+<li>阿里云 <code>http://&lt;你的ID&gt;.mirror.aliyuncs.com</code></li>
+</ul>
+<p>通用的方法就是编辑<code>/etc/docker/daemon.json</code>：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span> : [</span><br><span class="line">    <span class="string">&quot;http://registry.docker-cn.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://docker.mirrors.ustc.edu.cn&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://hub-mirror.c.163.com&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;insecure-registries&quot;</span> : [</span><br><span class="line">    <span class="string">&quot;registry.docker-cn.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;docker.mirrors.ustc.edu.cn&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;debug&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="string">&quot;experimental&quot;</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>然后重启<code>docker</code>即可。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure></p>
+<h2 id="Gitlab安装"><a href="#Gitlab安装" class="headerlink" title="Gitlab安装"></a>Gitlab安装</h2><h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><p> 使用如下命令可以使 Docker安装 Gitlab 镜像<br>  gitlab 镜像分为两个版本：</p>
+<ul>
+<li>gitlab-ce 社区版</li>
+<li>gitlab-ee 企业收费版<br>此处采用社区版本即可，直接安装官方镜像，拉取<code>gitlab-ce</code>源<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><p>通常会将Gitlab的配置(etc)、日志(log)、数据(data)放在容器之外，便于日后升级，因此先准备这三个目录<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /srv/gitlab/config</span><br><span class="line"><span class="built_in">mkdir</span> -p /srv/gitlab/logs</span><br><span class="line"><span class="built_in">mkdir</span> -p /srv/gitlab/data</span><br></pre></td></tr></table></figure></p>
+<h3 id="启动运行"><a href="#启动运行" class="headerlink" title="启动运行"></a>启动运行</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname 192.xxx.xx.xx \</span><br><span class="line">  --publish 8443:443 --publish 8880:8880 --publish 8222:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /srv/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --privileged=<span class="literal">true</span> \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>—hostname gitlab.example.com: 设置主机名或域名</li>
+<li>—publish 8443:443：将http：443映射到外部端口8443</li>
+<li>—publish 8880:8880：将web：8880映射到外部端口8880 （此处两个端口号必须一致，不然后面有问题）</li>
+<li>—publish 8222:22：将ssh：22映射到外部端口8222</li>
+<li>—name gitlab: 运行容器名</li>
+<li>—restart always: 自动重启</li>
+<li>—volume /srv/gitlab/config:/etc/gitlab: 挂载目录</li>
+<li>—volume /srv/gitlab/logs:/var/log/gitlab: 挂载目录</li>
+<li>—volume /srv/gitlab/data:/var/opt/gitlab: 挂载目录</li>
+<li>—privileged=true 使得容器内的root拥有真正的root权限。否则，container内的root只是外部的一个普通用户权限</li>
+</ul>
+<p>运行成功之后，可以使用下面的命令查看容器运行状态：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure><br>可以看到 GitLab 已经在运行了，有一个属性 STATUS 为 health: starting，说明 gitlab 的服务正在启动中，还没有启动完毕。等这个状态变成 healthy 时则说明已经部署完成，可以访问了。</p>
+<h3 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h3><p>gitlab启动成功后，浏览器访问<a href="http://ip:8880">http://ip:8880</a>, 即可访问。为了使用域名访问，需要配置nginx：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">upstream gitlab&#123;</span><br><span class="line">    server 127.0.0.1:8880;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name  gitlab.example.com;</span><br><span class="line">    access_log     /var/log/nginx/gitlab.example.com-access.log;</span><br><span class="line">    error_log     /var/log/nginx/gitlab.example.com-error.log;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Scheme $scheme;</span><br><span class="line">        proxy_pass http://gitlab;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>nginx重启配置生效后，浏览器访问<a href="http://gitlab.example.com">http://gitlab.example.com</a> 即可正常访问。（此处 并没有尝试）</p>
+<p>首次访问需要为root用户设置密码，设置完成后需要登录，默认用户名为：root， 密码为刚刚设置的密码。</p>
+<h3 id="配置邮件服务器"><a href="#配置邮件服务器" class="headerlink" title="配置邮件服务器"></a>配置邮件服务器</h3><p>想要让 GitLab 给你发送邮件，还要配置一下邮件服务器，这里以QQ邮箱的 IMAP/SMTP服务 来配置。</p>
+<p>打开邮箱-&gt;设置-&gt;账户，然后开启 IMAP/SMTP服务，然后根据文档获取 授权码 ，这步比较重要。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### Email Settings</span><br><span class="line">gitlab_rails[&#x27;smtp_enable&#x27;] = true # 开启 SMTP 功能</span><br><span class="line">gitlab_rails[&#x27;smtp_address&#x27;] = &quot;smtp.qq.com&quot;</span><br><span class="line">gitlab_rails[&#x27;smtp_port&#x27;] = 465 # 端口不可以选择587，测试过会发送邮件失败</span><br><span class="line">gitlab_rails[&#x27;smtp_user_name&#x27;] = &quot;test@qq.com&quot; # 你的邮箱账号</span><br><span class="line">gitlab_rails[&#x27;smtp_password&#x27;] = &quot;1324dasd&quot; # 授权码，不是密码</span><br><span class="line">gitlab_rails[&#x27;smtp_authentication&#x27;] = &quot;login&quot;</span><br><span class="line">gitlab_rails[&#x27;smtp_enable_starttls_auto&#x27;] = true</span><br><span class="line">gitlab_rails[&#x27;smtp_tls&#x27;] = true</span><br><span class="line">gitlab_rails[&#x27;gitlab_email_from&#x27;] = &#x27;test@qq.com&#x27; # 发件人信息，必须跟‘smtp_user_name’保持一致，否则报错</span><br><span class="line">gitlab_rails[&#x27;smtp_domain&#x27;] = &quot;qq.com&quot; # 修改并不影响</span><br></pre></td></tr></table></figure>
+<p>配置完成后保存，然后输入下面的命令使配置生效。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo docker <span class="built_in">exec</span> gitlab gitlab-ctl reconfigure</span><br></pre></td></tr></table></figure><br>使配置生效之后我们可以使用 gitlab 自带的工具进行一下测试。依次执行下面的命令：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启 gitlab 的 bash 工具</span></span><br><span class="line">$ docker <span class="built_in">exec</span> -it gitlab bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 gitlab-rails 工具</span></span><br><span class="line">$ gitlab-rails console production</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送邮件进行测试</span></span><br><span class="line">Notify.test_email(<span class="string">&#x27;test_001@123.com&#x27;</span>, <span class="string">&#x27;Message Subject&#x27;</span>, <span class="string">&#x27;Message Body&#x27;</span>).deliver_now</span><br></pre></td></tr></table></figure><br>测试完成之后退出gitlab的bash工具，重启 gitlab 即可。<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置Git仓库访问路径"><a href="#配置Git仓库访问路径" class="headerlink" title="配置Git仓库访问路径"></a>配置Git仓库访问路径</h3><p>在之前第一次运行 gitlab 容器的时候，有一个参数 hostname 为 gitlab.example.com , 如果配置了域名可以忽略这一步，如果你没有配置相应域名的话，你的仓库的地址将会变为下面这样：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh : git@gitlab.example.com:<span class="built_in">test</span>/test.git</span><br><span class="line">http：gitlab.example.com/test/test.git</span><br></pre></td></tr></table></figure><br>如果域名不存在的话，这个地址是无法进行 clone 的。</p>
+<p>为了解决这个问题，我们可以设置成 IP 或 你配置了的域名来访问。</p>
+<p>打开文件 <code>/srv/gitlab/config/gitlab.rb</code> 文件并找到<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">external_url &#x27;GENERATED_EXTERNAL_URL&#x27;</span><br></pre></td></tr></table></figure><br>这行，去掉注释，并按照下面的格式修改。<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># ip 形式</span><br><span class="line">external_url &#x27;http://192.168.1.44&#x27;</span><br><span class="line"></span><br><span class="line"># 域名形式</span><br><span class="line">external_url &#x27;http://JemGeek.com&#x27;</span><br><span class="line"></span><br><span class="line"># 子域名</span><br><span class="line">external_url &#x27;http://gitlab.JemGeek.com&#x27;</span><br><span class="line"></span><br><span class="line"># 其他形式</span><br><span class="line">external_url &#x27;http://JemGeek.com/gitlab&#x27;</span><br></pre></td></tr></table></figure></p>
+<p>如果 使用<code>ip:8880</code>登录，则external_url和nginx[‘listen_port’]的端口需要和第一步的映射端口对应。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">// 修改如下语句</span><br><span class="line">external_url &#x27;http://ip:8880&#x27;</span><br><span class="line"></span><br><span class="line"># https需要下面这句</span><br><span class="line"># nginx[&#x27;redirect_http_to_https_port&#x27;] = 8880</span><br><span class="line"></span><br><span class="line">nginx[&#x27;listen_port&#x27;] = 8880</span><br><span class="line">nginx[&#x27;listen_addresses&#x27;] = [&#x27;*&#x27;]</span><br><span class="line"></span><br><span class="line">gitlab_rails[&#x27;gitlab_ssh_host&#x27;] = &#x27;192.168.20.132&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="重启镜像"><a href="#重启镜像" class="headerlink" title="重启镜像"></a>重启镜像</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker restart gitlab</span><br></pre></td></tr></table></figure>
+<h3 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h3><p>参照官方的说明，将原来的容器停止，然后删除：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker stop gitlab</span><br><span class="line">docker <span class="built_in">rm</span> gitlab</span><br></pre></td></tr></table></figure></p>
+<p>然后重新拉一个新的版本的镜像下来<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull gitlab/gitlab-ce</span><br></pre></td></tr></table></figure></p>
+<p>然后使用原来的运行命令运行：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --detach \</span><br><span class="line">  --hostname 192.xxx.xx.xx \</span><br><span class="line">  --publish 8443:443 --publish 8880:8880 --publish 8222:22 \</span><br><span class="line">  --name gitlab \</span><br><span class="line">  --restart always \</span><br><span class="line">  --volume /srv/gitlab/config:/etc/gitlab \</span><br><span class="line">  --volume /srv/gitlab/logs:/var/log/gitlab \</span><br><span class="line">  --volume /srv/gitlab/data:/var/opt/gitlab \</span><br><span class="line">  --privileged=true \</span><br><span class="line">  gitlab/gitlab-ce:latest</span><br></pre></td></tr></table></figure></p>
+<!-- 实际使用的命令，备份 -->
+<!-- ```
+docker run -itd \
+ --publish 8443:443 \
+ --publish 8880:8880 \
+ --publish 8222:22  \
+ --name gitlab   \
+ --restart unless-stopped  \
+ -v /srv/gitlab/config:/etc/gitlab \
+ -v /srv/gitlab/logs:/var/log/gitlab  \
+ -v /srv/gitlab/data:/var/opt/gitlab  \
+ gitlab/gitlab-ce
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">GitLab 在初次运行的时候会自动升级， 为了预防万一， 还是建议先备份一下 `/srv/gitlab/` 这个目录。</span><br><span class="line"></span><br><span class="line">大版本升级（例如从 8.7.x 升级到 8.8.x）用上面的操作有可能会出现错误， 如果出现错误可以尝试登录到容器内部, 依次执行下面的命令：</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">gitlab-ctl reconfigure</span><br><span class="line">gitlab-ctl restart</span><br></pre></td></tr></table></figure>
+-->]]></content>
+      <tags>
+        <tag>vps</tag>
+        <tag>Docker</tag>
+        <tag>gitlab - git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/03/17/hello-world/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Python中的正则表达式</title>
+    <url>/2020/06/26/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>使用python对字符串进行处理中，正则表达式的使用是十分有必要的，此处将小做归纳整理。<br><span id="more"></span></p>
+<h1 id="正则表达式的概念"><a href="#正则表达式的概念" class="headerlink" title="正则表达式的概念"></a>正则表达式的概念</h1><ul>
+<li><p>正则表达式</p>
+<ul>
+<li><code>Regular Expression</code> <code>regex</code> <code>RE</code></li>
+<li>正则表达式是用来简洁表达一组字符串的表达式。<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/5681f11896e22c99cc40ada93af72862.png" alt><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/b15536cab55bf243b3ef79660170f29b.png" alt></li>
+<li>通用的字符串表达框架</li>
+<li>简洁表达一组字符串的表达式</li>
+<li>针对字符串表达“简洁”和“特征”思想的工具</li>
+<li>判断某字符串的特征归属</li>
+</ul>
+</li>
+<li><p>正则表达式在文本处理中十分常用</p>
+<ul>
+<li>表达文本类型的特征（病毒、入侵等）</li>
+<li>同时查找或替换一组字符串</li>
+<li>匹配字符串的全部或部分</li>
+</ul>
+</li>
+<li><p>正则表达式的使用</p>
+<ul>
+<li>编译：将符合正则表达式语法的字符串转换成正则表示特征<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/2c5d34f3af596ce2ef520f0edca49988.png" alt></li>
+</ul>
+</li>
+</ul>
+<h1 id="正则表达式的语法"><a href="#正则表达式的语法" class="headerlink" title="正则表达式的语法"></a>正则表达式的语法</h1><p>正则表达式是由字符和 操作符组成的</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作符</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">实例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.</code></td>
+<td style="text-align:center">表示任何单个字符</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[]</code></td>
+<td style="text-align:center">字符集，对单个字符给出取值范围</td>
+<td style="text-align:center"><code>[abc]</code>表示a、b、c，<code>[a-z]</code>表示a到z单个字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[^]</code></td>
+<td style="text-align:center">非字符集，对单个字符给出排除范围</td>
+<td style="text-align:center"><code>[^abc]</code>表示非a或b或c的单个字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>*</code></td>
+<td style="text-align:center">前一个字符0次或无限次扩展</td>
+<td style="text-align:center"><code>abc*</code>表示ab、abc、abcc、abccc等</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>+</code></td>
+<td style="text-align:center">前一个字符1次货无限次扩展</td>
+<td style="text-align:center"><code>abc+</code>表示abc、abcc、abccc等</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>?</code></td>
+<td style="text-align:center">前一个字符0次货1次扩展</td>
+<td style="text-align:center"><code>abc?</code>表示ab、abc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&amp;#124</code></td>
+<td style="text-align:center">左右表达式任意一个</td>
+<td style="text-align:center"><code>abc &amp;#124 def</code> `表示abc、def</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;m&#125;</code></td>
+<td style="text-align:center">扩展前一个字符m次</td>
+<td style="text-align:center"><code>ab&#123;2&#125;c</code>表示abbc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;m,n&#125;</code></td>
+<td style="text-align:center">扩展前一个字符m至n次（含n）</td>
+<td style="text-align:center"><code>ab&#123;1,2&#125;c</code>表示abc、abbc</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>^</code></td>
+<td style="text-align:center">匹配字符串开头</td>
+<td style="text-align:center"><code>^abc</code>表示abc且在一个字符串的开头</td>
+</tr>
+<tr>
+<td style="text-align:left">$$`</td>
+<td style="text-align:center">匹配字符串结尾</td>
+<td style="text-align:center">`abc$$表示abc且在一个字符串的结尾</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>()</code></td>
+<td style="text-align:center">分组标记，内部职能使用 &amp;# 124 操作符</td>
+<td style="text-align:center"><code>(abc)</code>表示abc，<code>(abc&amp;#124 def)</code> 表示abc、def</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\d</code></td>
+<td style="text-align:center">数字，等价于 <code>[0-9]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\w</code></td>
+<td style="text-align:center">单词字符，等价于 <code>[A-Za-z0-9]</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="经典正则表达式实例"><a href="#经典正则表达式实例" class="headerlink" title="经典正则表达式实例"></a>经典正则表达式实例</h1><hr>
+<p><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/f7627fa325b23d3d55e679680cf2566a.png" alt></p>
+<h2 id="匹配IP地址的正则表达式"><a href="#匹配IP地址的正则表达式" class="headerlink" title="匹配IP地址的正则表达式"></a>匹配IP地址的正则表达式</h2><p>IP地址字符串形式的正则表达式<br>（IP地址分4段，每段0-255）</p>
+<ul>
+<li><p>精确写法</p>
+<ul>
+<li>0-99: <code>[1-9]?\d</code></li>
+<li>100-199: <code>1\d&#123;2&#125;</code></li>
+<li>200-249: <code>2[0-4]\d</code></li>
+<li><p>250-255：<code>25[0-5]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(([1-9]?\d|1\d&#123;2&#125;|2[0-4]\d|25[0-5]).)&#123;3&#125;([1-9]?\d|1\d&#123;2&#125;|2[0-4]\d|25[0-5])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Re库的使用"><a href="#Re库的使用" class="headerlink" title="Re库的使用"></a>Re库的使用</h1><hr>
+<p>Re库是Python的标准库，主要用于字符串匹配<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br></pre></td></tr></table></figure></p>
+<h2 id="正则表达式的表示类型"><a href="#正则表达式的表示类型" class="headerlink" title="正则表达式的表示类型"></a>正则表达式的表示类型</h2><h3 id="raw-string类型（原生字符串类型）"><a href="#raw-string类型（原生字符串类型）" class="headerlink" title="raw string类型（原生字符串类型）"></a>raw string类型（原生字符串类型）</h3><p>re库采用raw string类型表示正则表达式，表示为<code>r&quot;text&quot;</code><br>例如：</p>
+<ul>
+<li><code>r&#39;[1-9]\d&#123;5&#125;&#39;</code></li>
+<li><code>r&#39;\d&#123;3&#125;-\d&#123;8&#125;|\d&#123;4&#125;-\d&#123;7&#125;&#39;</code></li>
+</ul>
+<p>raw string是不包括转义符的字符串</p>
+<h3 id="string类型，更繁琐"><a href="#string类型，更繁琐" class="headerlink" title="string类型，更繁琐"></a>string类型，更繁琐</h3><p>例如</p>
+<ul>
+<li><code>&#39;[1-9]\\d&#123;5&#125;&#39;</code></li>
+<li><code>&#39;\\d&#123;3&#125;-\\d&#123;8&#125;|\\d&#123;4&#125;-\\d&#123;7&#125;&#39;</code></li>
+</ul>
+<h2 id="Re库主要功能函数"><a href="#Re库主要功能函数" class="headerlink" title="Re库主要功能函数"></a>Re库主要功能函数</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>re.search()</code></td>
+<td style="text-align:center">在一个字符串中搜索匹配正则表达式的第一个位置，返回<code>match</code>对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.match()</code></td>
+<td style="text-align:center">从一个字符串的开始位置起匹配正则表达式，返回<code>match</code>对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.findall</code></td>
+<td style="text-align:center">搜索字符串，以列表类型返回全部能匹配的子串</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.split()</code></td>
+<td style="text-align:center">将一个字符串按照正则表达式匹配结果进行分割，返回列表类型</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.finditer()</code></td>
+<td style="text-align:center">搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是<code>match</code>对象</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>re.sub()</code></td>
+<td style="text-align:center">在一个字符串中替换所有匹配正则表达式的子串，返回替换后的字符串</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="re-search"><a href="#re-search" class="headerlink" title="re.search()"></a><code>re.search()</code></h3><p><code>re.search(pattern, string, flags=0)</code><br> 在一个字符串中搜索匹配正则表达式的第一个位置，返回<code>match</code>对象</p>
+<ul>
+<li><code>pattern</code>：正则表达式的字符串或原生字符串表示</li>
+<li><code>string</code>：待匹配字符串</li>
+<li><code>flags</code>：正则表达式使用时的控制标记</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">常用标记</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>re.I</code> <code>re.IGNORECASE</code></td>
+<td style="text-align:left">忽略正则表达式的大小写，<code>[A-Z]</code>能匹配小写字符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>re.M</code> <code>re.MULTILINE</code></td>
+<td style="text-align:left">正则表达式中的<code>^</code>操作符能够将给定字符串的每行当做匹配开始</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>re.S</code> <code>re.DOTALL</code></td>
+<td style="text-align:left">正则表达式中的<code>.</code>操作符能够匹配所有字符，默认匹配除换行外的所有字符</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">match</span> = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT 100081&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="keyword">match</span>.group(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="number">100081</span></span><br></pre></td></tr></table></figure>
+<h3 id="re-match"><a href="#re-match" class="headerlink" title="re.match()"></a><code>re.match()</code></h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">re.<span class="keyword">match</span>(pattern, string, flags=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>从一个字符串的开始位置起匹配正则表达式，返回<code>match</code>对象。</p>
+<ul>
+<li><code>pattern</code>：正则表达式的字符串或原生字符串表示；</li>
+<li><code>string</code>: 待匹配字符串；</li>
+<li><code>flags</code>: 正则表达式使用时的控制标记。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">match</span> = re.<span class="keyword">match</span>(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;100081 BIT&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">    <span class="keyword">match</span>.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;100081&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="re-findall"><a href="#re-findall" class="headerlink" title="re.findall()"></a><code>re.findall()</code></h3><p><code>re.findall(pattern, string, flags = 0)</code><br>搜索字符串，以列表类型返回全部能匹配的子串。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">ls = re.findall(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line">ls</span><br><span class="line"></span><br><span class="line">[<span class="string">&#x27;100081&#x27;</span>, <span class="string">&#x27;1000084&#x27;</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="re-split"><a href="#re-split" class="headerlink" title="re.split()"></a><code>re.split()</code></h3><p><code>re.split(pattern, string, maxsplit = 0, flags =0)</code><br>将一个字符串按照正则表达式匹配结果进行分割，返回列表类型。</p>
+<ul>
+<li><code>maxsplit</code>： 最大分割数，剩余部分作为最后一个元素输出。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">re.split(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line">[<span class="string">&#x27;BIT&#x27;</span>, <span class="string">&#x27; TSU&#x27;</span>, <span class="string">&#x27;&#x27;</span>]</span><br><span class="line"></span><br><span class="line">re.split(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>, maxsplit=<span class="number">1</span>)</span><br><span class="line">[<span class="string">&#x27;BIT&#x27;</span>, <span class="string">&#x27;TSU100084&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="re-finditer"><a href="#re-finditer" class="headerlink" title="re.finditer()"></a><code>re.finditer()</code></h3><p><code>re.finditer(pattern, string, flags = 0)</code><br>搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是<code>match</code>对象。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">for</span> m <span class="keyword">in</span> re.finditer(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>):</span><br><span class="line">    <span class="keyword">if</span> m:</span><br><span class="line">        <span class="built_in">print</span>(m.group(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="number">100081</span></span><br><span class="line"><span class="number">100084</span></span><br></pre></td></tr></table></figure>
+<h3 id="re-sub"><a href="#re-sub" class="headerlink" title="re.sub()"></a><code>re.sub()</code></h3><p><code>re.sub(pattern, repl, string, count=0, flags = 0)</code><br>在一个字符串中替换所有匹配正则表达式的子串，返回替换后的字符串。</p>
+<ul>
+<li><code>repl</code>：替换匹配字符串的字符串</li>
+<li><code>count</code>：匹配的最大替换次数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">re.sub(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;:zipcode&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;BIT:zipcode TSU:zipcode&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="Re库的另一种等价用法"><a href="#Re库的另一种等价用法" class="headerlink" title="Re库的另一种等价用法"></a>Re库的另一种等价用法</h1><ul>
+<li>函数式用法：一次性操作<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rst = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT 100081&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>面向对象用法：编译后的多次操作<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pat = re.<span class="built_in">compile</span>(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>)</span><br><span class="line">rst = pat.search(<span class="string">&#x27;BIT 100081&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>regex = re.compile(pattern, flags = 0)</code><br>将正则表达式的字符串形式编译成正则表达式对象<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/004f1fd6d609e6c220fb12981b6bf2dd.png" alt></p>
+<h1 id="Re库的Match对象"><a href="#Re库的Match对象" class="headerlink" title="Re库的Match对象"></a>Re库的Match对象</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">match</span> = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100084&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">match</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="keyword">match</span>.group(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="number">100081</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">type</span>(<span class="keyword">match</span>)</span><br><span class="line">&lt;<span class="keyword">class</span> <span class="string">&#x27;_sre.SRE_Match&#x27;</span>&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="Match对象的属性"><a href="#Match对象的属性" class="headerlink" title="Match对象的属性"></a>Match对象的属性</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.string</code></td>
+<td style="text-align:left">待匹配的文本</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.re</code></td>
+<td style="text-align:left">匹配时使用的<code>pattern</code>对象（正则表达式）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.pos</code></td>
+<td style="text-align:left">正则表达式搜索文本的开始位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.endpos</code></td>
+<td style="text-align:left">正则表达式搜索文本的结束位置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Match对象的方法"><a href="#Match对象的方法" class="headerlink" title="Match对象的方法"></a>Match对象的方法</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>.group(0)</code></td>
+<td style="text-align:left">获取匹配后的字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.start()</code></td>
+<td style="text-align:left">匹配字符串再原始字符串的开始位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.end()</code></td>
+<td style="text-align:left">匹配字符串再原始字符串的结束位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>.span()</code></td>
+<td style="text-align:left">返回<code>(.start()..end())</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">m = re.search(<span class="string">r&#x27;[1-9]\d&#123;5&#125;&#x27;</span>, <span class="string">&#x27;BIT100081 TSU100084&#x27;</span>)</span><br><span class="line">m.string</span><br><span class="line"><span class="string">&#x27;BIT100081 TSU100084&#x27;</span></span><br><span class="line"></span><br><span class="line">m.re</span><br><span class="line">re.<span class="built_in">compile</span>(<span class="string">&#x27;[1-9]\\d&#123;5&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">m.pos</span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line">m.endpos</span><br><span class="line"><span class="number">19</span></span><br><span class="line"></span><br><span class="line">m.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;100081&#x27;</span></span><br><span class="line"></span><br><span class="line">m.start()</span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line">m.span()</span><br><span class="line">(<span class="number">3</span>, <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="Re库的贪婪匹配和最小匹配"><a href="#Re库的贪婪匹配和最小匹配" class="headerlink" title="Re库的贪婪匹配和最小匹配"></a>Re库的贪婪匹配和最小匹配</h1><ul>
+<li>实例<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">match</span> = re.search(<span class="string">r&#x27;PY.*N&#x27;</span>, <span class="string">&#x27;PYANBNCNDN&#x27;</span>)</span><br><span class="line"><span class="keyword">match</span>.group(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h3><p>Re库默认采用贪婪匹配，即输出匹配最长的子串<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">match</span>.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;PYANBNCNDN&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="最小匹配"><a href="#最小匹配" class="headerlink" title="最小匹配"></a>最小匹配</h3><p>如何输出最短的字串<br><strong>加入<code>?</code></strong><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">match</span> = re.search(<span class="string">r&#x27;PY.*?N&#x27;</span>, <span class="string">&#x27;PYANBNCNDN&#x27;</span>)</span><br><span class="line"><span class="keyword">match</span>.group(<span class="number">0</span>)</span><br><span class="line"><span class="string">&#x27;PYAN&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>最小匹配操作符</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作符</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>*?</code></td>
+<td style="text-align:left">前一个字符0次或无限次扩展，最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>+?</code></td>
+<td style="text-align:left">前一个字符1次或无限次扩展，最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>??</code></td>
+<td style="text-align:left">前一个字符0次或1次扩展，最小匹配</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;m,n&#125;?</code></td>
+<td style="text-align:left">扩展前一个字符m至n次（含n），最小匹配</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Re库（正则表达式）入门"><a href="#Re库（正则表达式）入门" class="headerlink" title="Re库（正则表达式）入门"></a>Re库（正则表达式）入门</h3><p>正则表达式是用来简洁表达一组字符串的表达式</p>
+<p><code>r&#39;\d&#123;3&#125;-\d&#123;8&#125;|\d&#123;4&#125;-\d&#123;7&#125;&#39;</code></p>
+<p><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/e373722ac039ec0e31aa5ba0146d28c8.png" alt></p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>正则</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vps刷PT流量</title>
+    <url>/2019/05/02/Vps%E5%88%B7PT%E6%B5%81%E9%87%8F/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>最近迷上了使用PT做种，其中很多PT站都需要完成新手任务。为了完成新手任务，并且是自动做种，考虑使用vps来自动做种。网上有很多不同的工具，本文章使用Transmission和FlexGet自动刷PT流量，使用Debian和Ubuntu的系统，在CentOS上的刷PT流量教程，考虑在后面重新做一期。<br><strong>本文章只适用Debian9和Ubuntu16以上的系统</strong><br><span id="more"></span></p>
+<h1 id="一、安装Transmission"><a href="#一、安装Transmission" class="headerlink" title="一、安装Transmission"></a>一、安装Transmission</h1><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">apt-get</span> <span class="string">update</span></span><br><span class="line"><span class="string">apt-get</span> <span class="string">install</span> <span class="string">transmission-daemon</span> <span class="string">-y</span></span><br></pre></td></tr></table></figure>
+<p>现在开始修改配置，需要先停止运行Transmission：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">/etc/init.d/transmission-daemon</span> <span class="string">stop</span></span><br><span class="line"><span class="string">vim</span> <span class="string">/var/lib/transmission-daemon/info/settings.json</span></span><br></pre></td></tr></table></figure><br>需要修改的部分如下：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">rpc-username</span> <span class="string">帐号</span></span><br><span class="line"><span class="string">rpc-password</span> <span class="string">密码</span></span><br><span class="line"><span class="attr">&quot;rpc-authentication-required&quot;:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">&quot;rpc-whitelist-enabled&quot;:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">&quot;preallocation&quot;:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure><br>启动程序：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">/etc/init.d/transmission-daemon</span> <span class="string">start</span></span><br></pre></td></tr></table></figure><br>通过<a href="http://ip:9091，可以访问transmission的webui。">http://ip:9091，可以访问transmission的webui。</a></p>
+<h1 id="二、安装FlexGet"><a href="#二、安装FlexGet" class="headerlink" title="二、安装FlexGet"></a>二、安装FlexGet</h1><p>依次执行：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">apt-get</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">python-pip</span> <span class="string">python-setuptools</span></span><br><span class="line"><span class="string">pip</span> <span class="string">install</span> <span class="string">--upgrade</span> <span class="string">pip</span></span><br><span class="line"><span class="string">pip2</span> <span class="string">install</span> <span class="string">flexget</span></span><br></pre></td></tr></table></figure></p>
+<p>注：本人在Openvz上执行 upgrade pip时，总是显示 “locale.Error: unsupported locale setting”</p>
+<p>原因是语言环境配置出错，执行一下的语句：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">root@ubuntu:~#</span> <span class="string">locale</span></span><br><span class="line">    <span class="attr">locale: Cannot set LC_ALL to default locale:</span> <span class="literal">No</span> <span class="string">such</span> <span class="string">file</span> <span class="string">or</span> <span class="string">directory</span></span><br><span class="line">    <span class="string">LANG=en_US.UTF-8</span></span><br><span class="line">    <span class="string">LANGUAGE=</span></span><br><span class="line">    <span class="string">LC_CTYPE=&quot;en_US.UTF-8&quot;</span></span><br><span class="line">    <span class="string">LC_NUMERIC=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_TIME=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_COLLATE=&quot;en_US.UTF-8&quot;</span></span><br><span class="line">    <span class="string">LC_MONETARY=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_MESSAGES=&quot;en_US.UTF-8&quot;</span></span><br><span class="line">    <span class="string">LC_PAPER=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_NAME=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_ADDRESS=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_TELEPHONE=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_MEASUREMENT=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_IDENTIFICATION=zh_CN.UTF-8</span></span><br><span class="line">    <span class="string">LC_ALL=</span></span><br><span class="line"></span><br><span class="line"><span class="string">export</span> <span class="string">LC_ALL=C</span></span><br><span class="line">    <span class="string">root@ubuntu:~#</span> <span class="string">locale</span></span><br><span class="line">    <span class="string">LANG=en_US.UTF-8</span></span><br><span class="line">    <span class="string">LANGUAGE=</span></span><br><span class="line">    <span class="string">LC_CTYPE=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_NUMERIC=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_TIME=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_COLLATE=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_MONETARY=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_MESSAGES=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_PAPER=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_NAME=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_ADDRESS=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_TELEPHONE=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_MEASUREMENT=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_IDENTIFICATION=&quot;C&quot;</span></span><br><span class="line">    <span class="string">LC_ALL=C</span></span><br></pre></td></tr></table></figure></p>
+<p>配置FlexGet:<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">/root/.flexget</span></span><br><span class="line"><span class="string">vim</span> <span class="string">/root/.flexget/config.yml</span></span><br></pre></td></tr></table></figure><br>其中，编辑文本时，可以采用vi、vim和nano，看个人喜好。</p>
+<p>FlexGet的配置文件示例：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">tasks:</span></span><br><span class="line">  <span class="attr">mt:</span></span><br><span class="line">    <span class="attr">rss:</span> <span class="string">https://tp.m-team.cc/torrentrss.php?https=1&amp;rows=10&amp;linktype=dl&amp;passkey=xxxxxxxxxxxxxx</span></span><br><span class="line">    <span class="attr">accept_all:</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">content_size:</span></span><br><span class="line">      <span class="attr">min:</span> <span class="number">256</span></span><br><span class="line">      <span class="attr">max:</span> <span class="number">4000</span></span><br><span class="line">    <span class="attr">download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line">    <span class="attr">transmission:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9091</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">username</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&quot;password&quot;</span></span><br><span class="line">  <span class="attr">ttg:</span></span><br><span class="line">    <span class="attr">rss:</span> <span class="string">https://totheglory.im/putrss.php?par=xxxxxxx&amp;ssl=yes</span></span><br><span class="line">    <span class="attr">accept_all:</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">content_size:</span></span><br><span class="line">      <span class="attr">min:</span> <span class="number">256</span></span><br><span class="line">      <span class="attr">max:</span> <span class="number">4000</span></span><br><span class="line">    <span class="attr">download:</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br><span class="line">    <span class="attr">transmission:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">9091</span></span><br><span class="line">      <span class="attr">username:</span> <span class="string">username</span></span><br><span class="line">      <span class="attr">password:</span> <span class="string">&quot;password&quot;</span></span><br></pre></td></tr></table></figure><br>以上内容表示，只下载文件大小在256MB和4000MB之间的种子，<strong>用户名和密码为之前配置的transmission的。</strong>rss为pt网站订阅的rss地址。一般选择所有的就行了，TTG等网站需要注意最好不要覆盖那些带H&amp;R的内容（剧集）。</p>
+<p>此处没有严格按照缩进原则，就会出现问题。<strong><a href="https://www.tok9.com/archives/285/">要注意的是，由于配置文件是YAML格式，需要遵循YAML语法，也就是说，千万不要使用tab来缩进，一定要用空格。缩进是一定要遵守的，每个层级之间用两个空格缩进。</a></strong></p>
+<p>多个任务，在后面添加即可。</p>
+<p>因为没有这个种子文件下载目录，需要先创建：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">mkdir</span> <span class="string">/var/lib/transmission-daemon/torrents</span></span><br></pre></td></tr></table></figure><br>FlexGet配合transmission还需要插件支持：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">pip2</span> <span class="string">install</span> <span class="string">transmissionrpc</span></span><br></pre></td></tr></table></figure><br>FlexGet简单命令：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">flexget</span> <span class="string">check</span> <span class="string">：</span> <span class="string">用于检查</span> <span class="string">config.yml</span> <span class="string">配置文件是否有格式错误。</span></span><br><span class="line"><span class="string">flexget</span> <span class="string">execute</span> <span class="string">：</span> <span class="string">手动开始一次</span> <span class="string">RSS</span> <span class="string">下载，就等于正式</span> <span class="string">RSS</span> <span class="string">了一次。</span></span><br></pre></td></tr></table></figure><br>可以执行一次flexget check，一般是没有问题的。</p>
+<p>添加自动任务：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">crontab</span> <span class="string">-e</span></span><br></pre></td></tr></table></figure><br>在其中添加：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">*/5</span> <span class="string">*</span> <span class="string">*</span> <span class="string">*</span> <span class="string">*</span> <span class="string">/usr/local/bin/flexget</span> <span class="string">-c</span> <span class="string">/root/.flexget/config.yml</span> <span class="string">execute</span></span><br></pre></td></tr></table></figure><br>表示每5分钟更新一次RSS。</p>
+<h1 id="三、自动删除种子文件"><a href="#三、自动删除种子文件" class="headerlink" title="三、自动删除种子文件"></a>三、自动删除种子文件</h1><p>先创建Sheell文件：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">vim</span> <span class="string">trans_cleanup.sh</span></span><br></pre></td></tr></table></figure><br>其中内容为：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#! /bin/bash</span></span><br><span class="line"><span class="comment">#====================================================================</span></span><br><span class="line"><span class="comment"># trans_cleanup.sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Copyright (c) 2011, WangYan &lt;webmaster@wangyan.org&gt;</span></span><br><span class="line"><span class="comment"># All rights reserved.</span></span><br><span class="line"><span class="comment"># Distributed under the GNU General Public License, version 3.0.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Monitor disk space, If the Over, delete some files.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See: http://wangyan.org/blog/trans_cleanup.html</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># V0.2, since 2012-10-29</span></span><br><span class="line"><span class="comment">#====================================================================</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The transmission remote login username</span></span><br><span class="line"><span class="string">USERNAME=&quot;username&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The transmission remote login password</span></span><br><span class="line"><span class="string">PASSWORD=&quot;password&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The transmission download dir</span></span><br><span class="line"><span class="string">DLDIR=&quot;/var/lib/transmission-daemon/downloads&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># The maximum allowed disk (%)</span></span><br><span class="line"><span class="string">DISK_USED_MAX=&quot;90&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Enable auto shutdown support (Disable=0, Enable=1)</span></span><br><span class="line"><span class="string">ENABLE_AUTO_SHUTDOWN=&quot;0&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Log path settings</span></span><br><span class="line"><span class="string">LOG_PATH=&quot;/var/log/trans_cleanup.log&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Date time format setting</span></span><br><span class="line"><span class="string">DATA_TIME=$(date</span> <span class="string">+&quot;%y-%m-%d</span> <span class="string">%H:%M:%S&quot;)</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#====================================================================</span></span><br><span class="line"> </span><br><span class="line"><span class="string">dist_check()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">DISK_USED=`df</span> <span class="string">-h</span> <span class="string">$DLDIR</span> <span class="string">|</span> <span class="string">grep</span> <span class="string">-v</span> <span class="string">Mounted</span> <span class="string">|</span> <span class="string">awk</span> <span class="string">&#x27;&#123;print $5&#125;&#x27;</span> <span class="string">|</span> <span class="string">cut</span> <span class="string">-d</span> <span class="string">&#x27;%&#x27;</span> <span class="string">-f</span> <span class="number">1</span><span class="string">`</span></span><br><span class="line">    <span class="string">DISK_OVER=`awk</span> <span class="string">&#x27;BEGIN&#123;print(&#x27;</span><span class="string">$DISK_USED&#x27;&gt;&#x27;$DISK_USED_MAX&#x27;)</span>&#125;<span class="string">&#x27;`</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">dist_check</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        for i in `transmission-remote --auth $USERNAME:$PASSWORD -l | grep 100% | grep Done | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$1</span>&#125;<span class="string">&#x27; | grep -v ID`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                [ &quot;$i&quot; -gt &quot;0&quot; ] &amp;&amp; echo -n &quot;$DATA_TIME [Done] &quot; &gt;&gt; $LOG_PATH</span></span><br><span class="line"><span class="string">                transmission-remote --auth $USERNAME:$PASSWORD -t $i --remove-and-delete &gt;&gt; $LOG_PATH 2&gt;&amp;1</span></span><br><span class="line"><span class="string">                [ &quot;$i&quot; -gt &quot;0&quot; ] &amp;&amp; sleep 10 &amp;&amp; dist_check</span></span><br><span class="line"><span class="string">                [ &quot;$DISK_OVER&quot; = &quot;0&quot; ] &amp;&amp; break</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        for ii in `transmission-remote --auth $USERNAME:$PASSWORD -l | grep Stopped | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$1</span>&#125;<span class="string">&#x27; | grep -v ID`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                [ &quot;$ii&quot; -gt &quot;0&quot; ] &amp;&amp; echo -n &quot;$DATA_TIME [Stopped] &quot; &gt;&gt; $LOG_PATH</span></span><br><span class="line"><span class="string">                transmission-remote --auth $USERNAME:$PASSWORD -t $ii --remove-and-delete &gt;&gt; $LOG_PATH 2&gt;&amp;1</span></span><br><span class="line"><span class="string">                [ &quot;$ii&quot; -gt &quot;0&quot; ] &amp;&amp; sleep 10 &amp;&amp; dist_check</span></span><br><span class="line"><span class="string">                [ &quot;$DISK_OVER&quot; = &quot;0&quot; ] &amp;&amp; break</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        for iii in `transmission-remote --auth $USERNAME:$PASSWORD -l | grep -v Sum | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$1</span>&#125;<span class="string">&#x27; | grep -v ID`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                [ &quot;$iii&quot; -gt &quot;0&quot; ] &amp;&amp; echo -n &quot;$DATA_TIME [Up or Down] &quot; &gt;&gt; $LOG_PATH</span></span><br><span class="line"><span class="string">                transmission-remote --auth $USERNAME:$PASSWORD -t $iii --remove-and-delete &gt;&gt; $LOG_PATH 2&gt;&amp;1</span></span><br><span class="line"><span class="string">                [ &quot;$iii&quot; -gt &quot;0&quot; ] &amp;&amp; sleep 10 &amp;&amp; dist_check</span></span><br><span class="line"><span class="string">                [ &quot;$DISK_OVER&quot; = &quot;0&quot; ] &amp;&amp; break</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$DISK_OVER&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        rm -rf $DLDIR/*</span></span><br><span class="line"><span class="string">fi</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">if [ &quot;$ENABLE_AUTO_SHUTDOWN&quot; = &quot;1&quot; ];then</span></span><br><span class="line"><span class="string">        SHUTDOWN=1</span></span><br><span class="line"><span class="string">        for STATUS in `transmission-remote --auth $USERNAME:$PASSWORD -l | awk &#x27;</span>&#123;<span class="string">print</span> <span class="string">$9</span>&#125;<span class="string">&#x27;`</span></span><br><span class="line"><span class="string">        do</span></span><br><span class="line"><span class="string">                if [[ &quot;$STATUS&quot; = &quot;Up&quot; || &quot;$STATUS&quot; = &quot;Uploading&quot; ]];then</span></span><br><span class="line"><span class="string">                        SHUTDOWN=0</span></span><br><span class="line"><span class="string">                fi</span></span><br><span class="line"><span class="string">        done</span></span><br><span class="line"><span class="string">        TASK_TOTAL=`transmission-remote --auth $USERNAME:$PASSWORD -l | grep -Ev &#x27;</span><span class="string">(ID|Sum)&#x27;</span> <span class="string">|</span> <span class="string">wc</span> <span class="string">-l`</span></span><br><span class="line">        <span class="string">if</span> [ <span class="string">&quot;$TASK_TOTAL&quot;</span> <span class="string">-gt</span> <span class="string">&quot;0&quot;</span> ] <span class="string">&amp;&amp;</span> [ <span class="string">&quot;$SHUTDOWN&quot;</span> <span class="string">-eq</span> <span class="string">&quot;1&quot;</span> ]<span class="string">;then</span></span><br><span class="line">                <span class="string">echo</span> <span class="string">-n</span> <span class="string">&quot;$DATA_TIME &quot;</span> <span class="string">&gt;&gt;</span> <span class="string">$LOG_PATH</span></span><br><span class="line">                <span class="string">shutdown</span> <span class="string">now</span> <span class="string">&gt;&gt;</span> <span class="string">$LOG_PATH</span> <span class="number">2</span><span class="string">&gt;&amp;1</span></span><br><span class="line">        <span class="string">fi</span></span><br><span class="line"><span class="string">fi</span></span><br></pre></td></tr></table></figure><br>自行修改其中的username和password，以及DISK_USED_MAX=”90″，这个数值表示最大可占用的硬盘空间，超过以后就会自动删除pt种子。不要设置太大，谨防下载速度太快爆硬盘，会导致服务器无法连接。</p>
+<p>创建自动任务，在crontab里添加：</p>
+<pre><code class="lang-yaml">    */1 * * * * /bin/bash /root/trans_cleanup.sh
+</code></pre>
+<p>每分钟检查一次硬盘空间占用。</p>
+<p><strong>注意：如果硬盘空间太小，可能会导致每个种子的分享率不高，按需要调节每个种子文件大小限制，或者减少添加的task。</strong></p>
+<p>文中内容，参考转载自：<a href="https://www.ljchen.com/archives/963">https://www.ljchen.com/archives/963</a></p>
+]]></content>
+      <tags>
+        <tag>PT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo--blog迁移</title>
+    <url>/2019/10/20/hexo-blog%E8%BF%81%E7%A7%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>待补充</p>
+]]></content>
+      <tags>
+        <tag>建站</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【电影】【国漫】哪吒之魔童降世</title>
+    <url>/2019/10/20/%E3%80%90%E7%94%B5%E5%BD%B1%E3%80%91%E3%80%90%E5%9B%BD%E6%BC%AB%E3%80%91%E5%93%AA%E5%90%92%E4%B9%8B%E9%AD%94%E7%AB%A5%E9%99%8D%E4%B8%96/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="感慨"><a href="#感慨" class="headerlink" title="感慨"></a>感慨</h1><p>&ensp;&ensp;&ensp;&ensp;&ensp;国漫自2015年的《大圣归来》之后，确实渐渐有了崛起之势，也不枉费国家每年这么多补贴进去。不过，这是一个大蛋糕，成年人的动漫市场，长期被欧美、日本等较为成熟的生产地霸占，确实对这一代人的软文化有很大的影响。在此，也希望国家的动漫产业能越来越成熟，越来越蓬勃。（虽然，给盗版地址，似乎不是非常政治正确，手动狗头！）顺便也期待年初一的新剧—姜子牙传奇！</p>
+<span id="more"></span>
+<h1 id="剧照"><a href="#剧照" class="headerlink" title="剧照"></a>剧照</h1><p>&ensp;&ensp;&ensp;&ensp;&ensp;这里也附上几张觉得不错的剧照。<br><!-- ![](https://img1.doubanio.com/view/photo/l/public/p2563780504.jpg) --><br><img src="https://pic2.zhimg.com/80/v2-9ba9996ea8ab1ec38009c086a42a50dd_hd.jpg" alt><br><img src="https://pic1.zhimg.com/80/v2-e44c3bea4ea1a4a3fd7edb8cbaf781d0_hd.jpg" alt><br><img src="https://pic2.zhimg.com/80/v2-f7f5edc6bb014c1339cc00d9ef250009_hd.jpg" alt></p>
+<h1 id="剧信息"><a href="#剧信息" class="headerlink" title="剧信息"></a>剧信息</h1><p>◎译　　名　Ne Zha/Nezha: Birth of the Demon Child/哪吒降世<br>◎片　　名　哪吒之魔童降世<br>◎年　　代　2019<br>◎产　　地　中国大陆<br>◎类　　别　剧情 / 喜剧 / 动画 / 奇幻<br>◎语　　言　汉语普通话<br>◎上映日期　2019-07-13(大规模点映) / 2019-07-26(中国大陆)<br>◎IMDb评分  7.8/10 from 1731 users<br>◎IMDb链接  <a href="https://www.imdb.com/title/tt10627720/">https://www.imdb.com/title/tt10627720/</a><br>◎豆瓣评分　8.6/10 from 973,299 users<br>◎豆瓣链接　<a href="https://movie.douban.com/subject/26794435/">https://movie.douban.com/subject/26794435/</a><br>◎片　　长　110分钟<br>◎导　　演　饺子 Yu Yang<br>◎编　　剧　饺子 Yu Yang / 易巧 Qiao Yi / 魏芸芸 Yunyun Wei<br>◎主　　演　吕艳婷 Yanting Lü<br>　　　　  　囧森瑟夫 Joseph<br>　　　　  　瀚墨 Mo Han<br>　　　　  　陈浩 Hao Chen<br>　　　　  　绿绮 Qi Lü<br>　　　　  　张珈铭 Jiaming Zhang<br>　　　　  　杨卫 Wei Yang</p>
+<p>◎标　　签　哪吒 | 动画 | 中国大陆 | 神话 | 成长 | 2019 | 亲情 | 搞笑</p>
+<p>◎简　　介</p>
+<p>　　天地灵气孕育出一颗能量巨大的混元珠，元始天尊将混元珠提炼成灵珠和魔丸，灵珠投胎为人，助周伐纣时可堪大用；而魔丸则会诞出魔王，为祸人间。元始天尊启动了天劫咒语，3年后天雷将会降临，摧毁魔丸。太乙受命将灵珠托生于陈塘关李靖家的儿子哪吒身上。然而阴差阳错，灵珠和魔丸竟然被掉包。本应是灵珠英雄的哪吒却成了混世大魔王。调皮捣蛋顽劣不堪的哪吒却徒有一颗做英雄的心。然而面对众人对魔丸的误解和即将来临的天雷的降临，哪吒是否命中注定会立地成魔？他将何去何从？</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>General<br>Complete name                  : 哪吒之魔童降世.Nezha Birth of the Demon Child.2019.4K.WEB-DL.HEVC.AAC-99TV.mp4<br>Format                         : MPEG-4<br>Format profile                 : Base Media<br>Codec ID                       : isom (isom/iso2/mp41)<br>File size                      : 2.85 GiB<br>Duration                       : 1 h 49 min<br>Overall bit rate mode          : Variable<br>Overall bit rate               : 3 704 kb/s<br>Writing application            : Lavf58.27.103</p>
+<p>Video<br>ID                             : 1<br>Format                         : HEVC<br>Format/Info                    : High Efficiency Video Coding<br>Format profile                 : Main@L5@Main<br>Codec ID                       : hev1<br>Codec ID/Info                  : High Efficiency Video Coding<br>Duration                       : 1 h 49 min<br>Bit rate                       : 3 508 kb/s<br>Width                          : 3 840 pixels<br>Height                         : 1 608 pixels<br>Display aspect ratio           : 2.40:1<br>Original display aspect ratio  : 2.40:1<br>Frame rate mode                : Constant<br>Frame rate                     : 25.000 FPS<br>Color space                    : YUV<br>Chroma subsampling             : 4:2:0<br>Bit depth                      : 8 bits<br>Bits/(Pixel*Frame)             : 0.023<br>Stream size                    : 2.69 GiB (95%)<br>Codec configuration box        : hvcC</p>
+<p>Audio<br>ID                             : 2<br>Format                         : AAC LC<br>Format/Info                    : Advanced Audio Codec Low Complexity<br>Codec ID                       : mp4a-40-2<br>Duration                       : 1 h 49 min<br>Bit rate mode                  : Variable<br>Bit rate                       : 192 kb/s<br>Channel(s)                     : 2 channels<br>Channel layout                 : L R<br>Sampling rate                  : 44.1 kHz<br>Frame rate                     : 43.066 FPS (1024 SPF)<br>Compression mode               : Lossy<br>Stream size                    : 149 MiB (5%)<br>Default                        : Yes<br>Alternate group                : 1</p>
+<p><img src="/2019/10/20/%E3%80%90%E7%94%B5%E5%BD%B1%E3%80%91%E3%80%90%E5%9B%BD%E6%BC%AB%E3%80%91%E5%93%AA%E5%90%92%E4%B9%8B%E9%AD%94%E7%AB%A5%E9%99%8D%E4%B8%96/uLdKWd.jpg" alt></p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><div id="dplayer0" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer0 = new DPlayer({"element":document.getElementById("dplayer0"),"autoplay":0,"theme":"#FADFA3","loop":1,"video":{"url":"https://alphaone-my.sharepoint.cn/personal/royonedrive_vip_tg/_layouts/15/download.aspx?UniqueId","pic":"https://img9.doubanio.com/view/photo/l/public/p2563001765.webp"}});</script><!-- dplayer used1 -->
+<!-- <div id="dplayer1" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer1 = new DPlayer({"element":document.getElementById("dplayer1"),"video":{"url":"https://dl.sm9.top/Video/2018/KeyCastOW.mp4"}});</script><!-- dplayer used1 -->  -->
+<p><strong><a href="http://www.royonedrive.tk/Movies/%E5%A4%A7%E9%99%86/%E5%8A%A8%E6%BC%AB/%E5%93%AA%E5%90%92%E4%B9%8B%E9%AD%94%E7%AB%A5%E9%99%8D%E4%B8%96%5BGB%5D%5B1080P%5D.mp4">下载地址</a></strong></p>
+]]></content>
+      <tags>
+        <tag>电影</tag>
+        <tag>国漫</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>my first blog</title>
+    <url>/2019/03/17/my-first-blog/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>my first blog.<br>Hello World!</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>这是我第一个搭建的博客，在硕士毕业将近的时候，花费时间在搭建博客上，也是为能够在以后日子里面能够有所总结。<br>除此之外，我对<strong>makedown</strong>的写法还不熟悉，现在也在学习 <strong>makedown</strong>和<strong>latex</strong>。</p>
+<p><strong>总之，记得为我加油！</strong></p>
+]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一款二次元的Web多人在线网络聊天系统：Fiora安装及使用</title>
+    <url>/2019/07/21/%E4%B8%80%E6%AC%BE%E4%BA%8C%E6%AC%A1%E5%85%83%E7%9A%84Web%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F%EF%BC%9AFiora%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="程序展示"><a href="#程序展示" class="headerlink" title="程序展示"></a>程序展示</h1><hr>
+<p><img src="/2019/07/21/%E4%B8%80%E6%AC%BE%E4%BA%8C%E6%AC%A1%E5%85%83%E7%9A%84Web%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F%EF%BC%9AFiora%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/Fiora1.png" alt="img"><br><span id="more"></span><br><img src="/2019/07/21/%E4%B8%80%E6%AC%BE%E4%BA%8C%E6%AC%A1%E5%85%83%E7%9A%84Web%E5%A4%9A%E4%BA%BA%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%BB%9C%E8%81%8A%E5%A4%A9%E7%B3%BB%E7%BB%9F%EF%BC%9AFiora%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/Fiora2.png" alt="img"></p>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><hr>
+<ul>
+<li>好友，群组，私聊，群聊</li>
+<li>文本，图片，代码，<code>url</code>等多种类型消息</li>
+<li>贴吧表情，滑稽表情，搜索表情包</li>
+<li>桌面通知，声音提醒，语音播报</li>
+<li>自定义桌面背景，主题颜色，文本颜色</li>
+<li>查看在线用户，<code>@</code>功能</li>
+<li>小黑屋禁言</li>
+</ul>
+<h1 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h1><hr>
+<p><em>Github</em>地址：<a href="https://github.com/yinxin630/fiora">https://github.com/yinxin630/fiora</a></p>
+<p><em>所需环境</em>：<code>Nodejs &gt;= 8.9.0</code>、<code>Mongodb</code>。</p>
+<p><em>说明</em>：<code>512M</code>内存<code>vps</code>可能还需要先加一点虚拟内存，不然构建过程会失败，可以使用<code>Swap</code>一键脚本→<a href="https://www.moerats.com/archives/722/">传送门</a>。</p>
+<p><strong>1、安装Nodejs</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Debian/Ubuntu系统</span></span><br><span class="line"><span class="string">curl</span> <span class="string">-sL</span> <span class="string">https://deb.nodesource.com/setup_10.x</span> <span class="string">|</span> <span class="string">bash</span> <span class="bullet">-</span></span><br><span class="line"><span class="string">apt</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">git</span> <span class="string">nodejs</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#CentOS系统</span></span><br><span class="line"><span class="string">curl</span> <span class="string">-sL</span> <span class="string">https://rpm.nodesource.com/setup_10.x</span> <span class="string">|</span> <span class="string">bash</span> <span class="bullet">-</span></span><br><span class="line"><span class="string">yum</span> <span class="string">install</span> <span class="string">nodejs</span> <span class="string">git</span> <span class="string">-y</span></span><br></pre></td></tr></table></figure>
+<p><strong>2、安装Mongodb</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#CentOS 6系统，将下面命令一起复制进SSH客户端运行</span></span><br><span class="line"><span class="string">cat</span> <span class="string">&lt;&lt;EOF</span> <span class="string">&gt;</span> <span class="string">/etc/yum.repos.d/mongodb.repo</span></span><br><span class="line">[<span class="string">mongodb-org-4.0</span>]</span><br><span class="line"><span class="string">name=MongoDB</span> <span class="string">Repository</span></span><br><span class="line"><span class="string">baseurl=https://repo.mongodb.org/yum/redhat/6/mongodb-org/4.0/x86_64/</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="string">yum</span> <span class="string">-y</span> <span class="string">install</span> <span class="string">mongodb-org</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#CentOS 7系统，将下面命令一起复制进SSH客户端运行</span></span><br><span class="line"><span class="string">cat</span> <span class="string">&lt;&lt;EOF</span> <span class="string">&gt;</span> <span class="string">/etc/yum.repos.d/mongodb.repo</span></span><br><span class="line">[<span class="string">mongodb-org-4.0</span>]</span><br><span class="line"><span class="string">name=MongoDB</span> <span class="string">Repository</span></span><br><span class="line"><span class="string">baseurl=https://repo.mongodb.org/yum/redhat/7/mongodb-org/4.0/x86_64/</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="string">yum</span> <span class="string">-y</span> <span class="string">install</span> <span class="string">mongodb-org</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Debian 8系统</span></span><br><span class="line"><span class="string">apt-key</span> <span class="string">adv</span> <span class="string">--keyserver</span> <span class="string">hkp://keyserver.ubuntu.com:80</span> <span class="string">--recv</span> <span class="string">9DA31620334BD75D9DCB49F368818C72E52529D4</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/4.0 main&quot;</span> <span class="string">|</span> <span class="string">tee</span> <span class="string">/etc/apt/sources.list.d/mongodb-org-4.0.list</span></span><br><span class="line"><span class="string">apt</span> <span class="string">update</span> <span class="string">-y</span></span><br><span class="line"><span class="string">apt</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">mongodb-org</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Debian 9系统</span></span><br><span class="line"><span class="string">curl</span> <span class="string">https://www.mongodb.org/static/pgp/server-4.0.asc</span> <span class="string">|</span> <span class="string">apt-key</span> <span class="string">add</span> <span class="bullet">-</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main&quot;</span> <span class="string">|</span> <span class="string">tee</span> <span class="string">/etc/apt/sources.list.d/mongodb-org-4.0.list</span></span><br><span class="line"><span class="string">apt-get</span> <span class="string">update</span> <span class="string">-y</span></span><br><span class="line"><span class="string">apt-get</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">mongodb-org</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Debian 10系统，目前Debian 10还没Mongodb软件包，不过试了下还是可以用下面的方法勉强安装的</span></span><br><span class="line"><span class="string">apt-key</span> <span class="string">adv</span> <span class="string">--keyserver</span> <span class="string">hkp://keyserver.ubuntu.com:80</span> <span class="string">--recv</span> <span class="string">9DA31620334BD75D9DCB49F368818C72E52529D4</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot;</span> <span class="string">|</span> <span class="string">tee</span> <span class="string">/etc/apt/sources.list.d/mongodb-org-4.0.list</span></span><br><span class="line"><span class="string">apt</span> <span class="string">update</span> <span class="string">-y</span></span><br><span class="line"><span class="string">apt</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">mongodb-org</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Ubuntu 16.04系统</span></span><br><span class="line"><span class="string">apt-key</span> <span class="string">adv</span> <span class="string">--keyserver</span> <span class="string">hkp://keyserver.ubuntu.com:80</span> <span class="string">--recv</span> <span class="string">9DA31620334BD75D9DCB49F368818C72E52529D4</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse&quot;</span> <span class="string">|</span> <span class="string">tee</span> <span class="string">/etc/apt/sources.list.d/mongodb-org-4.0.list</span></span><br><span class="line"><span class="string">apt</span> <span class="string">update</span> <span class="string">-y</span></span><br><span class="line"><span class="string">apt</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">mongodb-org</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#Ubuntu 18.04、18.10、19.04系统</span></span><br><span class="line"><span class="string">apt-key</span> <span class="string">adv</span> <span class="string">--keyserver</span> <span class="string">hkp://keyserver.ubuntu.com:80</span> <span class="string">--recv</span> <span class="string">9DA31620334BD75D9DCB49F368818C72E52529D4</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;deb https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse&quot;</span> <span class="string">|</span> <span class="string">tee</span> <span class="string">/etc/apt/sources.list.d/mongodb-org-4.0.list</span></span><br><span class="line"><span class="string">apt</span> <span class="string">update</span> <span class="string">-y</span></span><br><span class="line"><span class="string">apt</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">mongodb-org</span></span><br></pre></td></tr></table></figure>
+<p>如果导入公匙时出现<code>gnupg, gnupg2 and gnupg1 do not seem to be installed</code>错误，使用<code>apt install -y gnupg2</code>，然后重新导入即可。</p>
+<p>启动<code>Mongodb</code>并设置开机自启：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#CentOS 6系统</span></span><br><span class="line"><span class="string">service</span> <span class="string">mongod</span> <span class="string">start</span></span><br><span class="line"><span class="string">chkconfig</span> <span class="string">mongod</span> <span class="string">on</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#CentOS 7、Debian、Ubuntu系统</span></span><br><span class="line"><span class="string">systemctl</span> <span class="string">start</span> <span class="string">mongod</span></span><br><span class="line"><span class="string">systemctl</span> <span class="string">enable</span> <span class="string">mongod</span></span><br></pre></td></tr></table></figure>
+<p><strong>3、安装fiora</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#拉取源码并存放于/opt文件夹</span></span><br><span class="line"><span class="string">git</span> <span class="string">clone</span> <span class="string">https://github.com/yinxin630/fiora.git</span> <span class="string">-b</span> <span class="string">master</span> <span class="string">/opt/fiora</span></span><br><span class="line"><span class="string">cd</span> <span class="string">/opt/fiora</span></span><br><span class="line"><span class="comment">#安装依赖</span></span><br><span class="line"><span class="string">npm</span> <span class="string">i</span></span><br><span class="line"><span class="comment">#构建</span></span><br><span class="line"><span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"><span class="string">mv</span> <span class="string">-f</span> <span class="string">dist/fiora/*</span> <span class="string">public</span></span><br><span class="line"><span class="comment">#启动</span></span><br><span class="line"><span class="string">export</span> <span class="string">NODE_ENV=production</span></span><br><span class="line"><span class="string">node</span> <span class="string">server/main.js</span></span><br></pre></td></tr></table></figure>
+<p>运行后打开<code>ip:9200</code>，注册一个账号，然后可以看<code>SSH</code>客户端运行日志，获取自己的<code>userId</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#这里注册或登录的时候返回的信息，后面的5d329dd354b9则为自己的userId</span><br><span class="line">&lt;-- getLinkmansLastMessages  mYNheu93jds7 5d329dd354b9</span><br></pre></td></tr></table></figure>
+<p>如果<code>ip:9200</code>打不开的，可以检查下防火墙，<code>CentOS</code>系统可以使用以下命令：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#CentOS 6</span></span><br><span class="line"><span class="string">iptables</span> <span class="string">-I</span> <span class="string">INPUT</span> <span class="string">-p</span> <span class="string">tcp</span> <span class="string">--dport</span> <span class="number">9200</span> <span class="string">-j</span> <span class="string">ACCEPT</span></span><br><span class="line"><span class="string">service</span> <span class="string">iptables</span> <span class="string">save</span></span><br><span class="line"><span class="string">service</span> <span class="string">iptables</span> <span class="string">restart</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#CentOS 7</span></span><br><span class="line"><span class="string">firewall-cmd</span> <span class="string">--zone=public</span> <span class="string">--add-port=9200/tcp</span> <span class="string">--permanent</span></span><br><span class="line"><span class="string">firewall-cmd</span> <span class="string">--reload</span></span><br></pre></td></tr></table></figure>
+<p>像阿里云等，还需要额外在安全组开放端口。</p>
+<p>接下来再将自己的账号设置成管理员，先使用<code>Ctrl+C</code>断开运行。</p>
+<p>新建<code>Systemd</code>配置文件，只适用于<code>CentOS 7</code>、<code>Debian 8+</code>、<code>Ubuntu 16+</code>等。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#先修改你的userId和运行端口后复制到SSH运行</span></span><br><span class="line"><span class="string">Administrator=5d329dd354b9</span></span><br><span class="line"><span class="string">Port=9200</span></span><br><span class="line"><span class="comment">#新建fiora用户并授权</span></span><br><span class="line"><span class="string">useradd</span> <span class="string">-M</span> <span class="string">fiora</span> <span class="string">&amp;&amp;</span> <span class="string">usermod</span> <span class="string">-L</span> <span class="string">fiora</span></span><br><span class="line"><span class="string">chown</span> <span class="string">-R</span> <span class="string">fiora:fiora</span> <span class="string">/opt/fiora</span></span><br><span class="line"><span class="comment">#新建systemd配置文件，将以下代码一起复制到SSH运行</span></span><br><span class="line"><span class="string">cat</span> <span class="string">&gt;</span> <span class="string">/etc/systemd/system/fiora.service</span> <span class="string">&lt;&lt;EOF</span></span><br><span class="line">[<span class="string">Unit</span>]</span><br><span class="line"><span class="string">Description=fiora</span></span><br><span class="line"><span class="string">After=network.target</span></span><br><span class="line"><span class="string">Wants=network.target</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Service</span>]</span><br><span class="line"><span class="string">Type=simple</span></span><br><span class="line"><span class="string">PIDFile=/var/run/fiora.pid</span></span><br><span class="line"><span class="string">ExecStart=$(command</span> <span class="string">-v</span> <span class="string">node)</span> <span class="string">server/main.js</span></span><br><span class="line"><span class="string">WorkingDirectory=/opt/fiora</span></span><br><span class="line"><span class="string">Environment=NODE_ENV=production</span> <span class="string">Administrator=$Administrator</span> <span class="string">Port=$Port</span></span><br><span class="line"><span class="string">User=fiora</span></span><br><span class="line"><span class="string">Restart=on-failure</span></span><br><span class="line"><span class="string">RestartSec=42s</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Install</span>]</span><br><span class="line"><span class="string">WantedBy=multi-user.target</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<p>开始启动并设置开机自启：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">systemctl</span> <span class="string">start</span> <span class="string">fiora</span></span><br><span class="line"><span class="string">systemctl</span> <span class="string">enable</span> <span class="string">fiora</span></span><br></pre></td></tr></table></figure>
+<p>其它系统，比如<code>CentOS</code>、<code>Debian 7</code>等系统，可以直接使用以下方法启动：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#管理员userId和运行端口自行修改</span></span><br><span class="line"><span class="string">export</span> <span class="string">NODE_ENV=production</span> <span class="string">Administrator=5d329dd354b9</span> <span class="string">Port=9200</span></span><br><span class="line"><span class="string">nohup</span> <span class="string">node</span> <span class="string">server/main.js</span> <span class="string">&amp;</span></span><br></pre></td></tr></table></figure>
+<p>此时就可以访问<code>ip:9200</code>，运行端口以你设置的为准，这时候你登陆的时候，会发现左侧多了个管理员图标。</p>
+<p><strong>4、域名反代</strong></p>
+<p>如果你想使用域名的话，这里依旧使用<code>Caddy</code>反代，操作如下：</p>
+<p>安装<code>Caddy</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">wget</span> <span class="string">-N</span> <span class="string">--no-check-certificate</span> <span class="string">https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/caddy_install.sh</span> <span class="string">&amp;&amp;</span> <span class="string">chmod</span> <span class="string">+x</span> <span class="string">caddy_install.sh</span> <span class="string">&amp;&amp;</span> <span class="string">bash</span> <span class="string">caddy_install.sh</span></span><br><span class="line"><span class="comment">#备用地址</span></span><br><span class="line"><span class="string">wget</span> <span class="string">-N</span> <span class="string">--no-check-certificate</span> <span class="string">https://www.moerats.com/usr/shell/Caddy/caddy_install.sh</span> <span class="string">&amp;&amp;</span> <span class="string">chmod</span> <span class="string">+x</span> <span class="string">caddy_install.sh</span> <span class="string">&amp;&amp;</span> <span class="string">bash</span> <span class="string">caddy_install.sh</span></span><br></pre></td></tr></table></figure>
+<p>配置<code>Caddy</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#以下全部内容是一个整体，请修改域名后一起复制到SSH运行！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#http访问，该配置不会自动签发SSL</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;www.moerats.com &#123;</span></span><br><span class="line"><span class="string"> gzip</span></span><br><span class="line"><span class="string"> proxy / 127.0.0.1:9200 &#123;</span></span><br><span class="line"><span class="string">    websocket</span></span><br><span class="line"><span class="string">    header_upstream Host &#123;host&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Real-IP &#123;remote&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Forwarded-For &#123;remote&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Forwarded-Port &#123;server_port&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Forwarded-Proto &#123;scheme&#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&quot;</span> <span class="string">&gt;</span> <span class="string">/usr/local/caddy/Caddyfile</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#https访问，该配置会自动签发SSL，请提前解析域名到VPS服务器</span></span><br><span class="line"><span class="string">echo</span> <span class="string">&quot;www.moerats.com &#123;</span></span><br><span class="line"><span class="string"> gzip</span></span><br><span class="line"><span class="string"> tls admin@moerats.com</span></span><br><span class="line"><span class="string"> proxy / 127.0.0.1:9200 &#123;</span></span><br><span class="line"><span class="string">    websocket</span></span><br><span class="line"><span class="string">    header_upstream Host &#123;host&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Real-IP &#123;remote&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Forwarded-For &#123;remote&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Forwarded-Port &#123;server_port&#125;</span></span><br><span class="line"><span class="string">    header_upstream X-Forwarded-Proto &#123;scheme&#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&quot;</span> <span class="string">&gt;</span> <span class="string">/usr/local/caddy/Caddyfile</span></span><br></pre></td></tr></table></figure>
+<p><code>tls</code>参数会自动帮你签发<code>ssl</code>证书，如果你要使用自己的<code>ssl</code>，改为<code>tls /root/xx.crt /root/xx.key</code>即可。后面为<code>ssl</code>证书路径。</p>
+<p>启动<code>Caddy</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">/etc/init.d/caddy</span> <span class="string">start</span></span><br></pre></td></tr></table></figure>
+<p>就可以打开域名进行访问了。</p>
+<p>如果你想修改默认的频道名称的话，可以编辑<code>config/server.js</code>文件，修改最下面的代码：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">defaultGroupName:</span> <span class="string">&#x27;fiora&#x27;</span><span class="string">,</span></span><br></pre></td></tr></table></figure>
+<p>然后重启应用即可。需要使用到七牛云<code>CDN</code>的，可以参考作者给的教程自行设置→<a href="https://github.com/yinxin630/fiora/blob/master/doc/INSTALL.ZH.md">传送门</a></p>
+<h1 id="宝塔安装"><a href="#宝塔安装" class="headerlink" title="宝塔安装"></a>宝塔安装</h1><p><strong>1、安装宝塔</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#CentOS系统</span></span><br><span class="line"><span class="string">wget</span> <span class="string">-O</span> <span class="string">install.sh</span> <span class="string">http://download.bt.cn/install/install_6.0.sh</span> <span class="string">&amp;&amp;</span> <span class="string">sh</span> <span class="string">install.sh</span></span><br><span class="line"><span class="comment">#Ubuntu系统</span></span><br><span class="line"><span class="string">wget</span> <span class="string">-O</span> <span class="string">install.sh</span> <span class="string">http://download.bt.cn/install/install-ubuntu_6.0.sh</span> <span class="string">&amp;&amp;</span> <span class="string">sudo</span> <span class="string">bash</span> <span class="string">install.sh</span></span><br><span class="line"><span class="comment">#Debian系统</span></span><br><span class="line"><span class="string">wget</span> <span class="string">-O</span> <span class="string">install.sh</span> <span class="string">http://download.bt.cn/install/install-ubuntu_6.0.sh</span> <span class="string">&amp;&amp;</span> <span class="string">bash</span> <span class="string">install.sh</span></span><br></pre></td></tr></table></figure>
+<p>安装完成后，进入面板，点击左侧软件商店，然后安装<code>PM2管理器</code>、<code>MongoDB</code>、<code>Nginx</code>(使用域名访问才需要安装，反之不用)。</p>
+<p>注意：<code>Debian</code>安装<code>MongoDb</code>之前还需要使用命令<code>apt install sudo</code>，不然可能存在<code>MongoDb</code>启动不了的情况；如果你已经安装了<code>MongoDb</code>，那就先使用<code>apt install sudo</code>，再使用<code>/etc/init.d/mongodb start</code>启动即可。</p>
+<p><strong>2、安装fiora</strong><br>该步骤参考上面的手动步骤<code>3</code>，区别在于新建<code>systemd</code>配置文件的时候，<code>Environment</code>参数还需要加一样，不然启动可能失败。</p>
+<p>只需要把新建<code>systemd</code>配置文件步骤换成下面这个，其它一模一样。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#以下命令一起复制进SSH客户端运行</span></span><br><span class="line"><span class="string">npm=$(which</span> <span class="string">npm)</span></span><br><span class="line"><span class="string">cat</span> <span class="string">&gt;</span> <span class="string">/etc/systemd/system/fiora.service</span> <span class="string">&lt;&lt;EOF</span></span><br><span class="line">[<span class="string">Unit</span>]</span><br><span class="line"><span class="string">Description=fiora</span></span><br><span class="line"><span class="string">After=network.target</span></span><br><span class="line"><span class="string">Wants=network.target</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Service</span>]</span><br><span class="line"><span class="string">Type=simple</span></span><br><span class="line"><span class="string">PIDFile=/var/run/fiora.pid</span></span><br><span class="line"><span class="string">ExecStart=$(command</span> <span class="string">-v</span> <span class="string">node)</span> <span class="string">server/main.js</span></span><br><span class="line"><span class="string">WorkingDirectory=/opt/fiora</span></span><br><span class="line"><span class="string">Environment=NODE_ENV=production</span> <span class="string">Administrator=$Administrator</span> <span class="string">Port=$Port</span> <span class="string">PATH=$&#123;npm%/*&#125;</span></span><br><span class="line"><span class="string">User=fiora</span></span><br><span class="line"><span class="string">Restart=on-failure</span></span><br><span class="line"><span class="string">RestartSec=42s</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Install</span>]</span><br><span class="line"><span class="string">WantedBy=multi-user.target</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<p><strong>3、域名反代</strong><br>先点击左侧网站，添加站点，然后再点击添加好了的域名名称，这时候就进入了站点配置，点击配置文件，在中间添加以下代码：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">location</span> <span class="string">/</span> &#123;</span><br><span class="line">    <span class="string">proxy_pass</span> <span class="string">http://127.0.0.1:9200;</span></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">Host</span>             <span class="string">$host;</span></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">X-Real-IP</span>        <span class="string">$remote_addr;</span></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">X-Forwarded-For</span>  <span class="string">$proxy_add_x_forwarded_for;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">Upgrade</span> <span class="string">$http_upgrade;</span></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">Connection</span> <span class="string">&quot;upgrade&quot;</span><span class="string">;</span></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">X-Forward-Proto</span> <span class="string">http;</span></span><br><span class="line">    <span class="string">proxy_set_header</span> <span class="string">X-Nginx-Proxy</span> <span class="literal">true</span><span class="string">;</span></span><br><span class="line">    <span class="string">proxy_http_version</span> <span class="number">1.1</span><span class="string">;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">proxy_redirect</span> <span class="string">off;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其它的就自己慢慢摸索吧，博主也没过多使用，有问题可以直接去<code>Github Issues</code>反馈。</p>
+]]></content>
+      <tags>
+        <tag>主机教程</tag>
+        <tag>聊天</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>国内外各种建站免费面板和一键包汇总</title>
+    <url>/2019/05/17/%E5%9B%BD%E5%86%85%E5%A4%96%E5%90%84%E7%A7%8D%E5%BB%BA%E7%AB%99%E5%85%8D%E8%B4%B9%E9%9D%A2%E6%9D%BF%E5%92%8C%E4%B8%80%E9%94%AE%E5%8C%85%E6%B1%87%E6%80%BB/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>面板类：</p>
+<p>国外：</p>
+<p>VestaCP：<a href="http://vestacp.com/">http://vestacp.com/</a> （比较推荐的面板，自带中文）<br>Kloxo-MR：<a href="https://github.com/mustafaramadhan/kloxo/">https://github.com/mustafaramadhan/kloxo/</a> （7.0真的很强大，很好看，很实用，有中文包）<br>Webmin/Virtualmin：<a href="http://www.webmin.com/virtualmin.html">http://www.webmin.com/virtualmin.html</a> （很稳定，很安全，自带中文）<br>Ispconfig：<a href="https://github.com/dclardy64/ISPConfig-3-Debian-Installer">https://github.com/dclardy64/ISPConfig-3-Debian-Installer</a> （官网没看懂这是一键包，有中文包）<br><span id="more"></span><br>i-MSCP：<a href="http://i-mscp.net/">http://i-mscp.net/</a>  （简单易用，自带中文）</p>
+<p>EasySCP：<a href="http://www.easyscp.net/">http://www.easyscp.net/</a>  （和i-MSCP一样来自Ispconfig，自带中文）<br>Ajenti：<a href="http://ajenti.org/">http://ajenti.org/</a> （轻量级，类似Webmin，自带中文）<br>zPanel(sentora)：<a href="http://www.zpanelcp.com/">http://www.zpanelcp.com/</a>  <a href="http://www.sentora.org/（支持win，有中文包）">http://www.sentora.org/（支持win，有中文包）</a></p>
+<p>centos webpanel：<a href="http://centos-webpanel.com/">http://centos-webpanel.com/</a> （据说比较有发展前途）<br>Froxlor：<a href="http://www.froxlor.org/">http://www.froxlor.org/</a> （很轻量的，适应各种环境）<br>AlternC：<a href="https://alternc.org/">https://alternc.org/</a> （简单）<br>Easy Hosting Control Panel：<a href="http://ehcp.net/">http://ehcp.net/</a> （还不错的面板，有第三方汉化包）</p>
+<p>国内：</p>
+<p><a href="http://amh.sh/">http://amh.sh/</a> （4.2版免费）<br><a href="http://www.wdlinux.cn/bbs/">http://www.wdlinux.cn/bbs/</a> （简单易用，近来爆出严重安全漏洞）<br><a href="http://www.zijidelu.org/">http://www.zijidelu.org/</a> （支持freeBSD）<br><a href="http://www.kanglesoft.com/">http://www.kanglesoft.com/</a> （很好很强大）</p>
+<p>一键包：</p>
+<p>国外：</p>
+<p><a href="http://centminmod.com/">http://centminmod.com/</a> （据说很适合wordpress）<br><a href="http://tuxlite.com/">http://tuxlite.com/</a> （适用于Debian系列）</p>
+<p><a href="https://github.com/Xeoncross/lowendscript">https://github.com/Xeoncross/lowendscript</a>  （lowendscript演变来的）</p>
+<p><a href="https://github.com/ComfortVPS/Nginx-PHP-MySql-phpMyAdmin">https://github.com/ComfortVPS/Nginx-PHP-MySql-phpMyAdmin</a>  （SFTP即可添加域名）</p>
+<p><a href="https://github.com/mikegioia/Debian-Server">https://github.com/mikegioia/Debian-Server</a> （还是比较全面的）</p>
+<p>国内：</p>
+<p><a href="http://lnmp.org/">http://lnmp.org/</a> （用的人很多，适应性很强）<br><a href="http://teddysun.com/lamp">http://teddysun.com/lamp</a> （很好用的LAMP一键包） <a href="http://teddysun.com/lamp-yum">http://teddysun.com/lamp-yum</a> （适合小内存≥64M）<br><a href="http://bbs.aliyun.com/read/151729.html">http://bbs.aliyun.com/read/151729.html</a> （阿里云论坛看到的）</p>
+<p><a href="http://blog.linuxeye.com/31.html">http://blog.linuxeye.com/31.html</a>  （多种配置，软件较新）</p>
+<p><a href="https://github.com/wangyan/lanmp">https://github.com/wangyan/lanmp</a> （针对512M内存的VPS进行了优化）<br><a href="http://www.hhvmc.com/thread-17-1-1.html">http://www.hhvmc.com/thread-17-1-1.html</a> （有hhvm的一键包）</p>
+<p><a href="http://shuang.ca/llnmp/">http://shuang.ca/llnmp/</a>  <a href="http://llsmp.cn/（有LiteSpeed的一键包）">http://llsmp.cn/（有LiteSpeed的一键包）</a></p>
+<p><a href="https://www.lxconfig.com/thread-69-1-1.html">https://www.lxconfig.com/thread-69-1-1.html</a> （有openresty的一键包）<br><a href="http://blog.7qy.com/html/1575.html">http://blog.7qy.com/html/1575.html</a> （有cherokee的一键包）<br><a href="http://lamp.phpstudy.net/">http://lamp.phpstudy.net/</a> （有Lighttpd的一键包）</p>
+<p><a href="https://github.com/maxexcloo/Seervr">https://github.com/maxexcloo/Seervr</a></p>
+<p><a href="https://github.com/teddysun/lamp-yum/">https://github.com/teddysun/lamp-yum/</a></p>
+<p><a href="https://github.com/teddysun/lamp/">https://github.com/teddysun/lamp/</a></p>
+<p><a href="https://github.com/lj2007331/lnmp">https://github.com/lj2007331/lnmp</a></p>
+<p><a href="https://github.com/centos-bz/EZHTTP">https://github.com/centos-bz/EZHTTP</a></p>
+<p><a href="https://github.com/ielnehc/ltmh">https://github.com/ielnehc/ltmh</a></p>
+<p><a href="http://z.admin5.com/linux.php">http://z.admin5.com/linux.php</a></p>
+<p><a href="http://www.12345t.com/news/2014/0910/370.html">http://www.12345t.com/news/2014/0910/370.html</a></p>
+<p><a href="http://www.vpsmate.org/">http://www.vpsmate.org/</a></p>
+<p><a href="http://isp-control.net/">http://isp-control.net/</a></p>
+<p><a href="http://www.openpanel.com/">http://www.openpanel.com/</a></p>
+<p><a href="http://www.webuzo.com/downloads">http://www.webuzo.com/downloads</a></p>
+<p><a href="http://wp.geeklab.com.ar/gl/gnupanel/">http://wp.geeklab.com.ar/gl/gnupanel/</a></p>
+<p><a href="http://www.blueonyx.it/">http://www.blueonyx.it/</a></p>
+<p><a href="http://www.zentyal.org/">http://www.zentyal.org/</a></p>
+<p><a href="http://dtcsupport.gplhost.com/PmWiki/">http://dtcsupport.gplhost.com/PmWiki/</a></p>
+<p><a href="http://lxcenter.org/software/kloxo">http://lxcenter.org/software/kloxo</a></p>
+<p><a href="http://www.ispconfig.org/files/file/2-ispconfig/">http://www.ispconfig.org/files/file/2-ispconfig/</a></p>
+<p><a href="http://www.websitepanel.net/">http://www.websitepanel.net/</a></p>
+<p><a href="http://www.west263.com/services/vhostsoft/">http://www.west263.com/services/vhostsoft/</a></p>
+<p><a href="http://www.npointhost.com/index.html">http://www.npointhost.com/index.html</a></p>
+<p><a href="http://www.huweishen.com/soft/host/">http://www.huweishen.com/soft/host/</a></p>
+<p><a href="http://winginx.com/en/">http://winginx.com/en/</a></p>
+<p><a href="http://www.wampserver.com/en/">http://www.wampserver.com/en/</a></p>
+<p><a href="http://www.upupw.net/">http://www.upupw.net/</a></p>
+<p><a href="http://www.phpstudy.net/">http://www.phpstudy.net/</a></p>
+]]></content>
+      <tags>
+        <tag>建站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用Heroku免费空间搭建OLAINDEX</title>
+    <url>/2019/05/20/%E5%88%A9%E7%94%A8Heroku%E5%85%8D%E8%B4%B9%E7%A9%BA%E9%97%B4%E6%90%AD%E5%BB%BAOLAINDEX/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Heroku环境准备"><a href="#Heroku环境准备" class="headerlink" title="Heroku环境准备"></a>Heroku环境准备</h1><hr>
+<h2 id="一、什么是Herku？"><a href="#一、什么是Herku？" class="headerlink" title="一、什么是Herku？"></a>一、什么是Herku？</h2><hr>
+<p>Heroku 是一个支持多种编程语言的 PaaS(Platform-as-a-Service)。在 2010 年被 Salesforce 收购。Heroku 作为最开始的云平台之一，从 2007 年 6 月起开始开发，当时它仅支持 Ruby，后来增加了对 Java、Node.js、Scala、Clojure、Python 以及 PHP 和 Perl 的支持。</p>
+<h2 id="二、为什么选用Heroku？"><a href="#二、为什么选用Heroku？" class="headerlink" title="二、为什么选用Heroku？"></a>二、为什么选用Heroku？</h2><hr>
+<ul>
+<li>Heroku 的部署上线流程<strong>简单</strong>。你只需要将源代码纳入到 Git 版本控制系统中即可，其它额外操作 Heroku 都会帮你自动处理好。</li>
+<li>Heroku 提供给开发者的免费套餐非常丰富。其中包括最多 5 个应用的免费创建，自定义域名的支持等。实乃良心商家。唯一的不足就是有时候在国内访问速度会比较慢。</li>
+<li>Heroku 产品服务在业内评价特别高。在 Rails 圈子中许多有经验的开发者都会使用 Heroku 来部署上线自己的 Demo 应用，其部署流程和速度都受到了 Rails 社区成员的广大好评。<span id="more"></span>
+<h2 id="Heroku的基本安装及配置"><a href="#Heroku的基本安装及配置" class="headerlink" title="Heroku的基本安装及配置"></a>Heroku的基本安装及配置</h2></li>
+</ul>
+<p>首先我们先注册一个<a href="http://signup.heroku.com/">Heroku</a>的账号。<em>注：可能需要搭梯子。</em><br>注册完成之后使用<a href="https://devcenter.heroku.com/articles/heroku-cli">Heroku Toolbelt</a>来安装Heroku客户端。<br>安装完毕后使用 <code>heroku version</code>来检查当前系统是否已安装好Heroku客户端：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">heroku</span> <span class="string">version</span></span><br></pre></td></tr></table></figure><br>如果有类似下面的输出，则代表Heroku客户端已成功安装：<br><code>heroku/7.18.3 win32-x64 node-v10.12.0</code></p>
+<p>安装成功之后，你需要使用以下命令来登陆你的Heroku账号：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">heroku login</span><br></pre></td></tr></table></figure></p>
+<p>然后添加SSH密钥：<br><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">heroku keys:add</span><br></pre></td></tr></table></figure></p>
+<p>至此，Heroku的基本安装及配置已完成。下面开始尝试将应用部署到Heroku上。</p>
+<h1 id="演示站点"><a href="#演示站点" class="headerlink" title="演示站点"></a>演示站点</h1><hr>
+<p><a href="https://roypk-olaindex.herokuapp.com/home">https://roypk-olaindex.herokuapp.com/home</a></p>
+<h1 id="部署OLAINDEX-到Heroku上"><a href="#部署OLAINDEX-到Heroku上" class="headerlink" title="部署OLAINDEX 到Heroku上"></a>部署OLAINDEX 到Heroku上</h1><hr>
+<h2 id="新建OLAINDEX项目"><a href="#新建OLAINDEX项目" class="headerlink" title="新建OLAINDEX项目"></a>新建OLAINDEX项目</h2><hr>
+<p>新建OLAINDEX项目目录并从Composer拉取创建包</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">composer</span> <span class="string">create-project</span> <span class="string">wangningkai/olaindex</span> <span class="string">olaindex</span> <span class="string">&quot;dev-master&quot;</span></span><br><span class="line"><span class="string">cd</span> <span class="string">olaindex</span></span><br></pre></td></tr></table></figure>
+<p>初始化Git仓库</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">init</span></span><br><span class="line"><span class="string">git</span> <span class="string">add</span> <span class="string">.</span></span><br><span class="line"><span class="string">git</span> <span class="string">commit</span> <span class="string">-m</span> <span class="string">&quot;new OLAINDEX project&quot;</span></span><br></pre></td></tr></table></figure>
+<p>创建<code>Procfile</code></p>
+<p>要将应用部署到 Heroku 上，你需要新建一个 <code>Procfile</code> 文件，这个文件的作用是通过正确的配置来告诉 Heroku 应用应当使用什么命令来启动 Web 服务器。</p>
+<p>将配置写入 <code>Procfile</code> 文件并将其纳入 Git 版本控制中:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> web: vendor/bin/heroku-php-apache2 public/ &gt; Procfile</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;Procfile for Heroku&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="在Heroku上创建一个新应用"><a href="#在Heroku上创建一个新应用" class="headerlink" title="在Heroku上创建一个新应用"></a>在Heroku上创建一个新应用</h2><hr>
+<p>我们可以使用<code>heroku create</code>命令在Heroku上创建一个新应用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">heroku create</span><br></pre></td></tr></table></figure>
+<p>命令行会输出类似如下信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Creating xxxx-xxx-1234... <span class="keyword">done</span>, stack is cedar-14</span><br><span class="line">http://xxxx-xxx-1234.herokuapp.com/ | git@heroku.com:xxxx-xxx-1234.git</span><br><span class="line">Git remote heroku added</span><br></pre></td></tr></table></figure>
+<p><code>mighty-hamlet-1982</code> 是 Heroku 随机为应用生成的默认名称，每个人生成的名称都不相同。<code>http://xxxx-xxx-1234.herokuapp.com/</code> 则是应用的线上地址。</p>
+<p>如果你对生成的默认名称不满意，你可以使用 <code>heroku rename</code> 来对应用名称进行更改，但要保证更改的名称未被其它人占用。如:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">heroku rename imwnk-olaindex</span><br></pre></td></tr></table></figure>
+<h2 id="声明-buildpack"><a href="#声明-buildpack" class="headerlink" title="声明 buildpack"></a>声明 buildpack</h2><hr>
+<p>Heroku 对多种语言进行了支持，因此在应用部署的时候它会去自动检查应用的代码是用什么语言写的，然后再接着执行一系列针对该语言的操作。Laravel 的应用默认会包含 <code>package.json</code> 文件，但当 Heroku 检查到该文件时，它会认为此应用是用 Node.js 写的，因此我们需要对应用的 <code>buildpack</code> 进行声明，告诉 Heroku 我们的应用是用 PHP 写的。声明命令如下:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">heroku buildpacks:<span class="built_in">set</span> heroku/php</span><br></pre></td></tr></table></figure>
+<p><strong>注</strong>：使用上述命令出现卡顿时，可以直接在heroku的网页上进行操作。</p>
+<h2 id="设置-APP-key-及绑定域名"><a href="#设置-APP-key-及绑定域名" class="headerlink" title="设置 APP key 及绑定域名"></a>设置 APP key 及绑定域名</h2><hr>
+<p>Laravel 使用 App Key 来完成对用户会话及其它信息的编码加密操作，因此我们也需要将 App Key 加入到 Heroku 的配置中。</p>
+<p>这里直接打开刚才创建目录中的 <code>.env</code> 文件，复制 <code>APP_KEY</code>参数。 将复制的 <code>APP_KEY</code> 附加到此命令行后面以完成配置:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">heroku config:<span class="built_in">set</span> APP_KEY=xxx</span><br></pre></td></tr></table></figure>
+<p>同样由于授权登录，需要验证绑定域名，这里需要设置一下<code>APP_URL</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">heroku config:<span class="built_in">set</span> APP_URL=xxx</span><br></pre></td></tr></table></figure>
+<h2 id="将应用推送到-Heroku-上"><a href="#将应用推送到-Heroku-上" class="headerlink" title="将应用推送到 Heroku 上"></a>将应用推送到 Heroku 上</h2><hr>
+<p>将代码部署到Heroku上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git push heroku master</span><br></pre></td></tr></table></figure>
+<p>有类似如下的输出代表代码推送成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Enumerating objects: 2010, done.</span><br><span class="line">Counting objects: 100% (2010/2010), done.</span><br><span class="line">Delta compression using up to 4 threads</span><br><span class="line">Compressing objects: 100% (637/637), done.</span><br><span class="line">Writing objects: 100% (1934/1934), 301.98 KiB | 20.13 MiB/s, done.</span><br><span class="line">Total 1934 (delta 1332), reused 1872 (delta 1271)</span><br><span class="line">remote: Compressing source files... done.</span><br><span class="line">remote: Building source:</span><br><span class="line">remote:</span><br><span class="line">remote: -----&gt; PHP app detected</span><br><span class="line">remote: -----&gt; Bootstrapping...</span><br><span class="line">remote: -----&gt; Installing platform packages...</span><br><span class="line">remote:        - php (7.2.11)</span><br><span class="line">remote:        - ext-mbstring (bundled with php)</span><br><span class="line">remote:        - nginx (1.8.1)</span><br><span class="line">remote:        - apache (2.4.34)</span><br><span class="line">remote: -----&gt; Installing dependencies...</span><br><span class="line">remote:        Composer version 1.7.2 2018-08-16 16:57:12</span><br><span class="line">remote:        Loading composer repositories with package information</span><br><span class="line">remote:        Installing dependencies from lock file</span><br><span class="line">remote:        Package operations: 48 installs, 0 updates, 0 removals</span><br><span class="line">remote:          - Installing doctrine/inflector (v1.3.0): Loading from cache</span><br><span class="line">remote:          - Installing doctrine/lexer (v1.0.1): Loading from cache</span><br><span class="line">remote:          - Installing dragonmantank/cron-expression (v2.2.0): Loading from cache</span><br><span class="line">remote:          - Installing erusev/parsedown (1.7.1): Loading from cache</span><br><span class="line">remote:          - Installing vlucas/phpdotenv (v2.5.1): Loading from cache</span><br><span class="line">remote:          - Installing symfony/css-selector (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing tijsverkoyen/css-to-inline-styles (2.2.1): Loading from cache</span><br><span class="line">remote:          - Installing symfony/polyfill-php72 (v1.9.0): Loading from cache</span><br><span class="line">remote:          - Installing symfony/polyfill-mbstring (v1.9.0): Loading from cache</span><br><span class="line">remote:          - Installing symfony/var-dumper (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/routing (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/process (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/polyfill-ctype (v1.9.0): Loading from cache</span><br><span class="line">remote:          - Installing symfony/http-foundation (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/event-dispatcher (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing psr/log (1.0.2): Loading from cache</span><br><span class="line">remote:          - Installing symfony/debug (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/http-kernel (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/finder (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing symfony/console (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing egulias/email-validator (2.1.6): Loading from cache</span><br><span class="line">remote:          - Installing swiftmailer/swiftmailer (v6.1.3): Loading from cache</span><br><span class="line">remote:          - Installing paragonie/random_compat (v9.99.99): Loading from cache</span><br><span class="line">remote:          - Installing ramsey/uuid (3.8.0): Loading from cache</span><br><span class="line">remote:          - Installing psr/simple-cache (1.0.1): Loading from cache</span><br><span class="line">remote:          - Installing psr/container (1.0.0): Loading from cache</span><br><span class="line">remote:          - Installing opis/closure (3.1.1): Loading from cache</span><br><span class="line">remote:          - Installing symfony/translation (v4.1.6): Loading from cache</span><br><span class="line">remote:          - Installing nesbot/carbon (1.34.0): Loading from cache</span><br><span class="line">remote:          - Installing monolog/monolog (1.23.0): Loading from cache</span><br><span class="line">remote:          - Installing league/flysystem (1.0.48): Loading from cache</span><br><span class="line">remote:          - Installing laravel/framework (v5.7.12): Loading from cache</span><br><span class="line">remote:          - Installing fideloper/proxy (4.0.0): Loading from cache</span><br><span class="line">remote:          - Installing guzzlehttp/promises (v1.3.1): Loading from cache</span><br><span class="line">remote:          - Installing psr/http-message (1.0.1): Loading from cache</span><br><span class="line">remote:          - Installing guzzlehttp/psr7 (1.4.2): Loading from cache</span><br><span class="line">remote:          - Installing jakub-onderka/php-console-color (v0.2): Loading from cache</span><br><span class="line">remote:          - Installing nikic/php-parser (v4.1.0): Loading from cache</span><br><span class="line">remote:          - Installing jakub-onderka/php-console-highlighter (v0.3.2): Loading from cache</span><br><span class="line">remote:          - Installing dnoegel/php-xdg-base-dir (0.1): Loading from cache</span><br><span class="line">remote:          - Installing psy/psysh (v0.9.9): Loading from cache</span><br><span class="line">remote:          - Installing laravel/tinker (v1.0.8): Loading from cache</span><br><span class="line">remote:          - Installing guzzlehttp/guzzle (6.3.3): Loading from cache</span><br><span class="line">remote:          - Installing league/oauth2-client (dev-master 15afb12): Loading from cache</span><br><span class="line">remote:          - Installing microsoft/microsoft-graph (1.5.0): Loading from cache</span><br><span class="line">remote:          - Installing caouecs/laravel-lang (3.0.56): Loading from cache</span><br><span class="line">remote:          - Installing overtrue/laravel-lang (3.0.13): Loading from cache</span><br><span class="line">remote:          - Installing predis/predis (v1.1.1): Loading from cache</span><br><span class="line">remote:        Generating optimized autoload files</span><br><span class="line">remote:        &gt; Illuminate\Foundation\ComposerScripts::postAutoloadDump</span><br><span class="line">remote:        &gt; @php artisan package:discover</span><br><span class="line">remote:        Discovered Package: fideloper/proxy</span><br><span class="line">remote:        Discovered Package: laravel/tinker</span><br><span class="line">remote:        Discovered Package: nesbot/carbon</span><br><span class="line">remote:        Discovered Package: overtrue/laravel-lang</span><br><span class="line">remote:        Package manifest generated successfully.</span><br><span class="line">remote: -----&gt; Preparing runtime environment...</span><br><span class="line">remote: -----&gt; Checking for additional extensions to install...</span><br><span class="line">remote: -----&gt; Discovering process types</span><br><span class="line">remote:        Procfile declares types -&gt; web</span><br><span class="line">remote:</span><br><span class="line">remote: -----&gt; Compressing...</span><br><span class="line">remote:        Done: 19.2M</span><br><span class="line">remote: -----&gt; Launching...</span><br><span class="line">remote:        Released v5</span><br><span class="line">remote:        https://imwnk-olaindex.herokuapp.com/ deployed to Heroku</span><br><span class="line">remote:</span><br><span class="line">remote: Verifying deploy... done.</span><br><span class="line">To https://git.heroku.com/imwnk-olaindex.git</span><br><span class="line">   ab88070..42cd315  master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>代码推送成功之后，使用此命令可快速打开线上应用：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">heroku open</span><br></pre></td></tr></table></figure>
+<p>至此，完成了OLAINDEX应用的部署，下面就是直接线上的账号绑定，和其他的云盘类似的过程。</p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><hr>
+<ul>
+<li>Heroku部署的应用在30分钟内没有访问，则会自动休眠，网上提供的方法是将站点加入云监控。此处，博主也是采用了类似的方法，可惜没有成功；</li>
+<li>Heroku重启或者更新后数据会恢复到初始状态，需要重新配置，所以还是建议用VPS搭建站点。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>建站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在Centos上使用魔改rclone挂载世纪互联Onedrive网盘</title>
+    <url>/2020/05/31/%E5%9C%A8Centos%E4%B8%8A%E4%BD%BF%E7%94%A8%E9%AD%94%E6%94%B9rclone%E6%8C%82%E8%BD%BD%E4%B8%96%E7%BA%AA%E4%BA%92%E8%81%94Onedrive%E7%BD%91%E7%9B%98/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>官方版本Rclone不支持挂载世纪互联版本的onedrive，大佬们修改并编译了支持世纪互联版本的Rclone，同时支持其他版本的储存方式。</p>
+<p>本教程使用 魔改的Rclone 挂载世纪互联版本的<a href="https://www.yiyi.one/aff.php?aff=141">Onedrive网盘</a>。</p>
+<h2 id="魔改版的rclone下载地址"><a href="#魔改版的rclone下载地址" class="headerlink" title="魔改版的rclone下载地址"></a>魔改版的rclone下载地址</h2><ul>
+<li>Rclone V1.50.2版：<ul>
+<li><a href="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-windows-amd64-21vianet.zip">window-64版</a></li>
+<li><a href="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-windows-386-21vianet.zip">window-32位</a></li>
+<li><a href="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-linux-amd64-21vianet.zip">linux-64位</a></li>
+<li><a href="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.50.2-linux-386-21vianet.zip">linux-32位</a></li>
+</ul>
+</li>
+<li>Rclone V1.51.0版：<ul>
+<li><a href="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.51.0-windows64-21vianet.zip">window-64位</a></li>
+<li><a href="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-download/rclone-v1.51.0-linux-amd64-21vianet.zip">linux-64位</a></li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+<h2 id="注册Azure应用"><a href="#注册Azure应用" class="headerlink" title="注册Azure应用"></a>注册Azure应用</h2><p>地址：<a href="https://portal.azure.cn/">https://portal.azure.cn/</a>，登录完成后按下列步骤进行：</p>
+<ol>
+<li>左侧找到 <code>Azure Active Directory</code>点击</li>
+<li>左侧找到 <code>应用注册</code></li>
+<li>上方找到 <code>新注册</code>点击<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807465068-1024x490.png" alt></li>
+<li>名字：<code>onedrive</code>（自取）</li>
+<li>受支持的账户类型：<code>任何组织目录(任何 Azure AD 目录 - 多租户)中的帐户</code>（第二个)</li>
+<li>重定向URL: <code>http://localhost:53682</code><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807475042-1024x774.png" alt></li>
+<li>点击注册 找到<code>应用程序（客户端）ID</code> <strong>复制Client_ID并保存</strong><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807490386.png" alt></li>
+<li>左下方找到<code>证书和密码</code>点击</li>
+<li>下方 客户端密码 - 新客户端密码</li>
+<li>说明： <code>onedrive</code></li>
+<li>截止期限：默认 <code>1年内</code><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807494729.png" alt></li>
+<li>点击 添加，<code>值</code> 客户端密码 <strong>复制client_secret保存</strong><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807502037-1024x251.png" alt></li>
+<li>左侧找到 <code>API 权限</code> 点击</li>
+<li>添加权限 - <code>Microsoft Graph</code> - 委托的权限 - <code>Files</code> (7)全部勾选</li>
+<li>选择应用程序权限 在下方Files里选择 <code>Files.Read.All</code>和<code>Files.ReadWrite.All</code><br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807505553-1024x606.png" alt></li>
+</ol>
+<p>回到界面<strong>如果</strong>会发现该权限处于未授权状态，我们需要全局管理员点击 <code>代表XXXX授予管理员同意</code><br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">Files.Read</span></span><br><span class="line"><span class="string">Files.Read.All</span></span><br><span class="line"><span class="string">Files.Read.Selected</span></span><br><span class="line"><span class="string">Files.ReadWrite</span></span><br><span class="line"><span class="string">Files.ReadWrite.All</span></span><br><span class="line"><span class="string">Files.ReadWrite.AppFolder</span></span><br><span class="line"><span class="string">Files.ReadWrite.Selected</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="申请access-token"><a href="#申请access-token" class="headerlink" title="申请access_token"></a>申请access_token</h2><p>由于vps上没有浏览器的客户端，不能申请<code>access_token</code>，所以需要借助<code>window</code>平台。</p>
+<p>下载完window相应的客户端文件，在Rclone所在的文件夹内，打开CMD，执行命令(替换相应的<strong>ID</strong>和<strong>Secret</strong>):<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">rclone</span> <span class="string">authorize</span> <span class="string">onedrive</span> <span class="string">&quot;应用程序(客户端) ID&quot;</span> <span class="string">&quot;客户端密码值&quot;</span> <span class="string">--onedrive-is-21vianet-version=true</span></span><br></pre></td></tr></table></figure></p>
+<p>之后会跳转到浏览器，登录账号之后返回 Windows 命令行，会返回 token，复制保存下来，后面要用。<br><img src="http://www.royonedrive.tk/%E5%9B%BE%E5%BA%8A/blog-picture/2020021807535362-1024x474.png" alt></p>
+<h2 id="安装配置VPS端的Rclone"><a href="#安装配置VPS端的Rclone" class="headerlink" title="安装配置VPS端的Rclone"></a>安装配置VPS端的Rclone</h2><p>下载相应的版本，并上传解压到<code>/url/bin</code>目录，然后</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">chmod</span> <span class="string">+x</span> <span class="string">/usr/bin/rclone</span></span><br><span class="line"><span class="string">rclone</span> <span class="string">config</span></span><br></pre></td></tr></table></figure>
+<p>就进入了和官方版 rclone 一样的挂载程序，和国际版 onedrive 不同的是：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">client_id填写应用程序(客户端)</span> <span class="string">ID，client_secret填写客户端密码。is_21vianet_version填true，Edit</span> <span class="string">advanced</span> <span class="string">config</span> <span class="string">以及</span> <span class="string">Use</span> <span class="string">auto</span> <span class="string">config</span> <span class="string">都选</span> <span class="literal">no</span><span class="string">，</span></span><br><span class="line"><span class="string">下一步粘贴上之前在</span> <span class="string">Windows</span> <span class="string">获取的</span> <span class="string">token(&#123;&quot;access_token&quot;:&quot;...&quot;,&quot;expriry&quot;:&quot;...&quot;&#125;)，继续按提示完成之后的步骤。</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><h3 id="挂载为磁盘"><a href="#挂载为磁盘" class="headerlink" title="挂载为磁盘"></a>挂载为磁盘</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装 fuse</span></span><br><span class="line"><span class="string">yum</span> <span class="string">install</span> <span class="string">fuse</span></span><br><span class="line"><span class="comment">#创建挂载目录,目录叫什么都可以</span></span><br><span class="line"><span class="string">mkdir</span> <span class="string">/root/OneDrive</span></span><br><span class="line"><span class="comment">#挂载为磁盘，下面的DriveName、Folder、LocalFolder参数根据说明自行替换</span></span><br><span class="line"><span class="string">rclone</span> <span class="string">mount</span> <span class="string">DriveName:Folder</span> <span class="string">LocalFolder</span> <span class="string">--copy-links</span> <span class="string">--no-gzip-encoding</span> <span class="string">--no-check-certificate</span> <span class="string">--allow-other</span> <span class="string">--allow-non-empty</span> <span class="string">--umask</span> <span class="number">000</span></span><br></pre></td></tr></table></figure>
+<p><code>DriveName</code>为初始化配置填的<code>name</code>，<code>Folder</code>为<code>OneDrive</code>里的文件夹，<code>LocalFolder</code>为<code>VPS</code>上的本地文件夹。</p>
+<p>如果挂载过程中出现<code>NOTICE: One drive root &#39;test&#39;: poll-interval is not supported by this remote</code>错误，可以无视该错误。</p>
+<p>挂载成功后，输入<code>df -h</code>命令查看即可！</p>
+<h3 id="卸载磁盘"><a href="#卸载磁盘" class="headerlink" title="卸载磁盘"></a>卸载磁盘</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fusermount -qzu LocalFolder</span><br></pre></td></tr></table></figure>
+<h2 id="开机自启（一种方式）"><a href="#开机自启（一种方式）" class="headerlink" title="开机自启（一种方式）"></a>开机自启（一种方式）</h2><p>使用<code>Systemctl</code>守护进程，也只适用于<code>CentOS 7</code>、<code>Debian 8+</code>、<code>Ubuntu 16+</code>。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#将后面修改成你上面手动运行命令中，除了rclone的全部参数</span></span><br><span class="line"><span class="string">command=&quot;mount</span> <span class="string">DriveName:Folder</span> <span class="string">LocalFolder</span> <span class="string">--copy-links</span> <span class="string">--no-gzip-encoding</span> <span class="string">--no-check-certificate</span> <span class="string">--allow-other</span> <span class="string">--allow-non-empty</span> <span class="string">--umask</span> <span class="number">000</span><span class="string">&quot;</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#以下是一整条命令，先修改DriveName:Folder和LocalFolder的值，再一起复制到SSH客户端运行</span></span><br><span class="line"><span class="string">cat</span> <span class="string">&gt;</span> <span class="string">/etc/systemd/system/rclone.service</span> <span class="string">&lt;&lt;EOF</span></span><br><span class="line">[<span class="string">Unit</span>]</span><br><span class="line"><span class="string">Description=Rclone</span></span><br><span class="line"><span class="string">AssertPathIsDirectory=LocalFolder</span></span><br><span class="line"><span class="string">After=network-online.target</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Service</span>]</span><br><span class="line"><span class="string">Type=simple</span></span><br><span class="line"><span class="string">ExecStart=/usr/bin/rclone</span> <span class="string">mount</span> <span class="string">DriveName:Folder</span> <span class="string">LocalFolder</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--umask</span> <span class="number">0000</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--default-permissions</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--allow-non-empty</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--allow-other</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--buffer-size</span> <span class="string">32M</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--dir-cache-time</span> <span class="string">12h</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--vfs-read-chunk-size</span> <span class="string">64M</span> <span class="string">\</span></span><br><span class="line"> <span class="string">--vfs-read-chunk-size-limit</span> <span class="string">1G</span></span><br><span class="line"><span class="string">ExecStop=/bin/fusermount</span> <span class="string">-u</span> <span class="string">LocalFolder</span></span><br><span class="line"><span class="string">Restart=on-abort</span></span><br><span class="line"><span class="string">User=root</span></span><br><span class="line"></span><br><span class="line">[<span class="string">Install</span>]</span><br><span class="line"><span class="string">WantedBy=default.target</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+<p>开始启动：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">systemctl</span> <span class="string">start</span> <span class="string">rclone</span></span><br></pre></td></tr></table></figure>
+<p>设置开机自启：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">systemctl</span> <span class="string">enable</span> <span class="string">rclone</span></span><br></pre></td></tr></table></figure><br>其他命令：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">重启：systemctl</span> <span class="string">restart</span> <span class="string">rclone</span></span><br><span class="line"><span class="string">停止：systemctl</span> <span class="string">stop</span> <span class="string">rclone</span></span><br><span class="line"><span class="string">状态：systemctl</span> <span class="string">status</span> <span class="string">rclone</span></span><br></pre></td></tr></table></figure></p>
+<p>如果你想挂载多个网盘，那么将<code>systemd</code>配置文件的<code>rclone.service</code>改成<code>rclone1.service</code>即可，重启动什么的同样换成<code>rclone1</code>。</p>
+<h2 id="其他玩法"><a href="#其他玩法" class="headerlink" title="其他玩法"></a>其他玩法</h2><p>在拥有国内较好的速度的世纪互联的Onedrive，还有其他的玩法，结合<code>Aria2</code>还有<code>Telegram</code>等，后面会慢慢补充。</p>
+]]></content>
+      <tags>
+        <tag>vps</tag>
+        <tag>onedrive</tag>
+        <tag>在线网盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大悬臂盖梁施工工艺调研</title>
+    <url>/2020/03/16/%E5%A4%A7%E6%82%AC%E8%87%82%E7%9B%96%E6%A2%81%E6%96%BD%E5%B7%A5%E5%B7%A5%E8%89%BA%E8%B0%83%E7%A0%94/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="《上海S7公路盖梁预制拼装施工工艺》-—查义强"><a href="#《上海S7公路盖梁预制拼装施工工艺》-—查义强" class="headerlink" title="《上海S7公路盖梁预制拼装施工工艺》 —查义强"></a>《上海S7公路盖梁预制拼装施工工艺》 —查义强</h1><ul>
+<li>上部结构高架桥标准段及匝道桥的上部结构，主要采用简支小箱梁结构，标准跨径在30~35m；</li>
+<li>下部结构采用预应力混凝土倒T盖梁+独柱墩的形式<span id="more"></span>
+<h2 id="标准盖梁预制"><a href="#标准盖梁预制" class="headerlink" title="标准盖梁预制"></a>标准盖梁预制</h2></li>
+<li>采用了<strong>高挡块</strong>和<strong>深埋锚</strong>构造；</li>
+<li>盖梁端部挡块高<font color="red">1.3m</font>：遮挡小箱梁和脊骨梁之间的缝隙；防止带防撞墙预制的边梁倾覆。</li>
+<li><p>标准盖梁构造：</p>
+<p><img src="/2020/03/16/%E5%A4%A7%E6%82%AC%E8%87%82%E7%9B%96%E6%A2%81%E6%96%BD%E5%B7%A5%E5%B7%A5%E8%89%BA%E8%B0%83%E7%A0%94/Snipaste_2020-03-16_16-43-43.png" alt></p>
+</li>
+</ul>
+<h2 id="盖梁模块体系"><a href="#盖梁模块体系" class="headerlink" title="盖梁模块体系"></a>盖梁模块体系</h2><ul>
+<li><font color="red">盖梁采用预制端板，提前水平预制端部挡板；</font></li>
+<li>浇筑完成达到龄期后起吊；</li>
+<li>插入盖梁钢筋模块并焊接；</li>
+<li>深埋锚在挡块浇筑时同步预埋；</li>
+</ul>
+<h2 id="混凝土浇筑及养护"><a href="#混凝土浇筑及养护" class="headerlink" title="混凝土浇筑及养护"></a>混凝土浇筑及养护</h2><ul>
+<li>采用高性能混凝土：<ul>
+<li>粗骨料选用精品石子（粒径不大于2cm）；</li>
+<li>针片状含量不大于6%，使用聚羧酸减水剂；</li>
+<li>水灰比控制在0.028以内，扩展度不低于650mm；</li>
+<li>C60高性能混凝土的供应由预制场内自建拌站提供。</li>
+</ul>
+</li>
+<li>盖梁浇筑采用大型料斗喂料：<ul>
+<li>盖梁一端（启始端）$\rightarrow$另外一端（结束端）：连续浇筑</li>
+<li>达到盖梁底部的预制浇筑限位后，返回起始端逐步浇筑两侧挡块</li>
+<li>盖梁底部浇筑到位后进行一次收水；</li>
+<li>在混凝土初凝前对脊骨梁后浇带充分拉毛，确保二次浇筑质量。</li>
+</ul>
+</li>
+<li>构件养护采用水管直接喷淋养护。<br><img src="/2020/03/16/%E5%A4%A7%E6%82%AC%E8%87%82%E7%9B%96%E6%A2%81%E6%96%BD%E5%B7%A5%E5%B7%A5%E8%89%BA%E8%B0%83%E7%A0%94/Snipaste_2020-03-16_17-13-40.png" alt></li>
+</ul>
+<h2 id="盖梁吊装和运输"><a href="#盖梁吊装和运输" class="headerlink" title="盖梁吊装和运输"></a>盖梁吊装和运输</h2><ul>
+<li>标准盖梁自重约为160t，采用两台160t行车抬吊;</li>
+<li>钢丝绳采用四根8m长双头钢丝绳，直径52mm；</li>
+<li>起重量35t，卸扣采用4个85t级，盖梁通过经专门设计的扁担起吊。</li>
+</ul>
+<h2 id="盖梁现场拼装"><a href="#盖梁现场拼装" class="headerlink" title="盖梁现场拼装"></a>盖梁现场拼装</h2><p><img src="/2020/03/16/%E5%A4%A7%E6%82%AC%E8%87%82%E7%9B%96%E6%A2%81%E6%96%BD%E5%B7%A5%E5%B7%A5%E8%89%BA%E8%B0%83%E7%A0%94/Snipaste_2020-03-17_10-28-47.png" alt></p>
+<h3 id="盖梁姿态测量与调节"><a href="#盖梁姿态测量与调节" class="headerlink" title="盖梁姿态测量与调节"></a>盖梁姿态测量与调节</h3><ul>
+<li>预制构件的测量就位是预制拼装施工控制的重点把控内容，预制盖梁的精准就位是保证设计道路线形的前提。</li>
+</ul>
+<ul>
+<li>对于标准预制盖梁，沿道路前进方向和垂直道路前进方向的轴向测量是核心控制指标。</li>
+<li>盖梁姿态就位时，放置在盖梁横向中线和端部中轴线的荧光标志位置应符合设计参数，盖梁顶部标高河横向坡度作为辅助测量指标。<ul>
+<li>盖梁端部中轴线直接影响上部小箱梁的制作梁长，是最为关键的测量值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="垫层坐浆"><a href="#垫层坐浆" class="headerlink" title="垫层坐浆"></a>垫层坐浆</h3><ul>
+<li>立柱与盖梁之间坐浆之前：<ul>
+<li>安放调节垫块（200mm $\times$ 200mm $\times$ 21mm橡胶制作，地下可设置薄钢板）保证垫层厚度</li>
+<li>调整盖梁安装标高</li>
+</ul>
+</li>
+<li>立柱顶面应进行清洁：<ul>
+<li>采用高压水枪进行清尘及湿润</li>
+<li>采用高压气管将多余水清除，确保立柱顶面不留水迹</li>
+<li>在立柱顶安装挡浆模块</li>
+<li>浇筑垫层砂浆：强度应大于盖梁混凝土标号一个等级以上过。</li>
+</ul>
+</li>
+</ul>
+<h3 id="新型波纹管灌浆"><a href="#新型波纹管灌浆" class="headerlink" title="新型波纹管灌浆"></a>新型波纹管灌浆</h3><ul>
+<li>波纹管灌浆砂浆的性能和灌浆密实度是预制拼装结构的根本保障，灌浆工艺控制也是整个预制拼装施工工艺质量控制的重中之重。</li>
+<li>项目部根据预制拼装的工艺特点，配备了专业化的施工设备，并将整合成一体化作业平台。</li>
+<li><p>灌浆波纹管内砂浆采用C100高强无收缩水泥灌浆料。</p>
+<ul>
+<li>压浆过程为浆料从下部注砂浆孔压浆，上部出浆口出气；</li>
+<li>待浓浆流出，封堵出浆口并停止压浆；</li>
+<li>待压浆管压力稳定拔出压浆枪口封堵注浆口</li>
+</ul>
+<p><img src="/2020/03/16/%E5%A4%A7%E6%82%AC%E8%87%82%E7%9B%96%E6%A2%81%E6%96%BD%E5%B7%A5%E5%B7%A5%E8%89%BA%E8%B0%83%E7%A0%94/Snipaste_2020-03-17_10-55-05.png" alt="狭窄作业空间内的盖梁吊装"></p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>论文</tag>
+        <tag>施工</tag>
+        <tag>盖梁</tag>
+        <tag>拼装施工</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安装基于onedrive的在线网盘-—Pyone</title>
+    <url>/2019/05/17/%E5%AE%89%E8%A3%85%E5%9F%BA%E4%BA%8Eonedrive%E7%9A%84%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%9B%98-%E2%80%94Pyone/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>之前博主介绍过一个OneDrive网盘的目录索引程序OneIndex，而且发了不少安装和使用教程了，介绍查看：<a href="https://www.moerats.com/archives/592/">OneIndex</a>，今天再介绍个类似的工具<a href="https://wiki.pyone.me/">PyOne</a>，基于Flask开发的，由于是模仿的OneIndex，自然功能就差不多，就是界面好看很多，后台也可以直接上传编辑文件，目前作者新增多网盘和离线下载，该功能刚出来，BUG肯定是有的，可以向作者反映修复下，这里说一下安装教程。</p>
+<h1 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h1><hr>
+<p><img src="/2019/05/17/%E5%AE%89%E8%A3%85%E5%9F%BA%E4%BA%8Eonedrive%E7%9A%84%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%9B%98-%E2%80%94Pyone/pyone网盘图.jpg" alt="picture"><br><img src="/2019/05/17/%E5%AE%89%E8%A3%85%E5%9F%BA%E4%BA%8Eonedrive%E7%9A%84%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%9B%98-%E2%80%94Pyone/pyone网盘图2.jpg" alt="picture"><br><span id="more"></span></p>
+<h1 id="Demo地址"><a href="#Demo地址" class="headerlink" title="Demo地址"></a>Demo地址</h1><hr>
+<p><a href="https://www.pyone.me">https://www.pyone.me</a></p>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><hr>
+<p>1.简单易用。只需简单设置，即可做一个onedrive文件列表分享程序<br>2.后台强大。</p>
+<ul>
+<li>防盗链设置。</li>
+<li>后台上传文件。</li>
+<li>后台更新文件。</li>
+<li>后台设置统计代码</li>
+<li>后台管理onedrive文件。<ul>
+<li>删除onedrive文件</li>
+<li>直接在后台给文件夹添加<code>.password</code>和<code>README</code>和<code>HEAD</code></li>
+<li>直接在后台编辑文本文件。</li>
+<li>上传本地文件至onedrive(2018.10.18更新）</li>
+<li>支持创建文件夹(2018.10.19更新）</li>
+<li>支持移动文件（仅限单文件）(2018.10.19更新）</li>
+</ul>
+</li>
+<li>支持绑定多网盘！！！（2018.11.15更新）</li>
+<li>支持搜索文件！！！（2019.01.18更新）</li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><hr>
+<p>Github地址：<a href="https://github.com/abbeyokgo/PyOne">https://github.com/abbeyokgo/PyOne</a><br>帮助文档：<a href="https://wiki.pyone.me/">https://wiki.pyone.me/</a><br>账号支持：只支持<code>onedrive</code>上夜班、教育版、个人版<br>环境要求：<code>Python2.7</code>、<code>Redis</code>、<code>Mongodb</code>、<code>Nginx</code></p>
+<ol>
+<li>安装<a href="https://www.bt.cn/">宝塔</a> <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Centos系统</span></span><br><span class="line"><span class="string">yum</span> <span class="string">install</span> <span class="string">-y</span> <span class="string">wget</span> <span class="string">&amp;&amp;</span> <span class="string">wget</span> <span class="string">-O</span> <span class="string">install.sh</span> <span class="string">http://download.bt.cn/install/install_6.0.sh</span> <span class="string">&amp;&amp;</span> <span class="string">bash</span> <span class="string">install.sh</span></span><br><span class="line"><span class="comment">#Ubuntu系统</span></span><br><span class="line"><span class="string">wget</span> <span class="string">-O</span> <span class="string">install.sh</span> <span class="string">http://download.bt.cn/install/install-ubuntu_6.0.sh</span> <span class="string">&amp;&amp;</span> <span class="string">sudo</span> <span class="string">bash</span> <span class="string">install.sh</span></span><br><span class="line"><span class="comment">#Debian系统</span></span><br><span class="line"><span class="string">wget</span> <span class="string">-O</span> <span class="string">install.sh</span> <span class="string">http://download.bt.cn/install/install-ubuntu_6.0.sh</span> <span class="string">&amp;&amp;</span> <span class="string">bash</span> <span class="string">install.sh</span></span><br></pre></td></tr></table></figure>
+ 安装完成后，不需要进行初设置的那些安装。点击左侧软件管理，然后安装<code>Redis</code>、<code>Mongodb</code>、<code>Nginx</code>，其中<code>Debian</code>的linux版本安装<code>Mongodb</code>之前需要使用<code>apt install sudo</code>，不然可能出现<code>Mongodb</code>启动不了的情况。</li>
+<li>拉取源码 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">clone</span> <span class="string">https://github.com/abbeyokgo/PyOne.git</span></span><br></pre></td></tr></table></figure></li>
+<li><p>安装依赖<br> 进入Pyone的文件夹，运行代码如下：</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">cd</span> <span class="string">/root/PyOne</span></span><br><span class="line"><span class="string">pip</span> <span class="string">install</span> <span class="string">-r</span> <span class="string">requirements.txt</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开始运行</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#复制配置文件</span></span><br><span class="line"><span class="string">cp</span> <span class="string">self_config.py.sample</span> <span class="string">self_config.py</span></span><br><span class="line"><span class="string">cp</span> <span class="string">supervisord.conf.sample</span> <span class="string">supervisord.conf</span></span><br><span class="line"><span class="string">touch</span> <span class="string">.install</span></span><br></pre></td></tr></table></figure>
+<p> 请保证运行的目录在root的目录下，不然则需要修改<code>self_config.py</code>中的<code>config_dir</code>参数和<code>supervisord.conf</code>的<code>directory</code>参数为正确的目录。</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#运行</span></span><br><span class="line"><span class="string">gunicorn</span> <span class="string">-w4</span> <span class="string">-b</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:34567</span> <span class="string">run:app</span></span><br></pre></td></tr></table></figure></li>
+<li>安装Aria2 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">clone</span> <span class="string">https://github.com/abbeyokgo/aria2_installer.git</span></span><br><span class="line"><span class="string">cd</span> <span class="string">aria2_installer</span></span><br><span class="line"><span class="string">sh</span> <span class="string">install_aria2.sh</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="域名设置"><a href="#域名设置" class="headerlink" title="域名设置"></a>域名设置</h1><p>点击左侧网站，添加站点，然后再点击添加好了的域名名称，这时候就进入了站点配置，点击反向代理，目标URL填入<a href="http://127.0.0.1:34567，再启用反向代理即可。">http://127.0.0.1:34567，再启用反向代理即可。</a></p>
+<p>然后再点击配置文件，进行如下修改：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#加上中间三句</span></span><br><span class="line"><span class="string">location</span> <span class="string">/</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">...</span></span><br><span class="line">        </span><br><span class="line">        <span class="string">proxy_buffering</span> <span class="string">off;</span></span><br><span class="line">        <span class="string">proxy_cache</span> <span class="string">off;</span></span><br><span class="line">        <span class="string">proxy_set_header</span> <span class="string">X-Forwarded-Proto</span> <span class="string">$scheme;</span></span><br><span class="line">                </span><br><span class="line">        <span class="string">...</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><br>最后就可以进入域名打开授权页面了。<br><img src="/2019/05/17/%E5%AE%89%E8%A3%85%E5%9F%BA%E4%BA%8Eonedrive%E7%9A%84%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%9B%98-%E2%80%94Pyone/PyOne5.png" alt="picture"><img src="/2019/05/17/%E5%AE%89%E8%A3%85%E5%9F%BA%E4%BA%8Eonedrive%E7%9A%84%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%9B%98-%E2%80%94Pyone/PyOne6.png" alt="picture"><br>授权成功即可，首次访问，会显示登录后台，输入初始密码：<code>PyOne</code>后会自动跳转到绑定网盘页面。如果没有跳转到绑定网盘页面，可以按照：后台-文件管理-添加网盘进行下一步。</p>
+<h1 id="开机启动"><a href="#开机启动" class="headerlink" title="开机启动"></a>开机启动</h1><p>网站源码下有个<code>supervisord.conf</code>，主要内容如下：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">[<span class="string">program:pyone</span>]</span><br><span class="line"><span class="string">command</span> <span class="string">=</span> <span class="string">gunicorn</span> <span class="string">-k</span> <span class="string">eventlet</span> <span class="string">-b</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:34567</span> <span class="string">run:app</span></span><br><span class="line"><span class="string">directory</span> <span class="string">=</span> <span class="string">/root/PyOne</span></span><br><span class="line"><span class="string">autorestart</span> <span class="string">=</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure><br>主要修改两个地方<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">端口号：即34567那个端口号，修改为自己选的，或者不改动</span></span><br><span class="line"><span class="string">源码目录：directory修改为你选的网站目录</span></span><br></pre></td></tr></table></figure><br>修改之后运行下面的命令（记得修改为正确的目录），设置开机启动：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">echo</span> <span class="string">&quot;supervisord -c /root/PyOne/supervisord.conf&quot;</span> <span class="string">&gt;&gt;</span> <span class="string">/etc/rc.d/rc.local</span></span><br><span class="line"><span class="string">chmod</span> <span class="string">+x</span> <span class="string">/etc/rc.d/rc.local</span></span><br></pre></td></tr></table></figure><br>重启生效。</p>
+<p>本次不用重启生效的方法：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">supervisord</span> <span class="string">-c</span> <span class="string">/root/PyOne/supervisord.conf</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>目前来说该程序很不错，特别是加了多网盘和离线下载，作者更新也频繁，但BUG还是不少的，特别是离线下载。</p>
+]]></content>
+      <tags>
+        <tag>建站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工作伊始</title>
+    <url>/2019/09/03/%E5%B7%A5%E4%BD%9C%E4%BC%8A%E5%A7%8B/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>本来准备一个工作专门的blog，但是两个blog很难管理，而且内容也都不充实，所以现在也在这个blog中更新自己工作的内容，希望能和blog一起成长。</p>
+]]></content>
+      <tags>
+        <tag>工作</tag>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>新员工培训-桥梁</title>
+    <url>/2019/11/19/%E6%96%B0%E5%91%98%E5%B7%A5%E5%9F%B9%E8%AE%AD-%E6%A1%A5%E6%A2%81/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="设计程序及设计依据、工作方法"><a href="#设计程序及设计依据、工作方法" class="headerlink" title="设计程序及设计依据、工作方法"></a>设计程序及设计依据、工作方法</h1><p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;一般项目的工作程序分为：</p>
+<p>预可行性程序（代项目建议书）$\Rightarrow$</p>
+<h1 id="中小桥梁设计"><a href="#中小桥梁设计" class="headerlink" title="中小桥梁设计"></a>中小桥梁设计</h1><p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</p>
+<h1 id="独立桥梁设计"><a href="#独立桥梁设计" class="headerlink" title="独立桥梁设计"></a>独立桥梁设计</h1><h1 id="高架桥梁设计"><a href="#高架桥梁设计" class="headerlink" title="高架桥梁设计"></a>高架桥梁设计</h1>]]></content>
+      <tags>
+        <tag>桥梁设计</tag>
+        <tag>中小桥梁</tag>
+        <tag>独立桥梁</tag>
+        <tag>高架桥梁</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建Hexo博客</title>
+    <url>/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><hr>
+<p>我是一个入门的Blog主，暂时Blog中很多东西都是向其他博主那借鉴过来的，包括这篇搭建教程，很多内容也需要和大家一起探讨，blog的后续很多装饰也需要慢慢探索，希望大家能看到我的成长，最后自己生产出来一些内容，希望大家及时指正。</p>
+<span id="more"></span>
+<h2 id="Hexo的优势"><a href="#Hexo的优势" class="headerlink" title="Hexo的优势"></a>Hexo的优势</h2><hr>
+<ul>
+<li><p>本身的优势</p>
+<p>正如<a href="https://hexo.io/zh-cn/">Hexo官网</a>的描述：</p>
+<ul>
+<li>快速、简洁、高效的博客框架</li>
+<li>支持Markdown语法</li>
+<li>丰富的插件</li>
+</ul>
+</li>
+<li><p>与Jekyll的对比</p>
+<ul>
+<li>Hexo官方有中文开发文档，而JekyII只有中文翻译文档且更新慢</li>
+<li>JekyII的依赖环境总是出现问题</li>
+<li>Hexo有详细且丰富的第三方接口</li>
+</ul>
+</li>
+</ul>
+<h2 id="关于Github"><a href="#关于Github" class="headerlink" title="关于Github"></a>关于Github</h2><hr>
+<ul>
+<li><p>Github的优点</p>
+<ul>
+<li>Github是基于git实现的代码托管平台。git可能是目前最好用的版本控制系统，非常受欢迎。</li>
+<li>Github可以免费使用，并且快速稳定。</li>
+<li>Github上面有很多有趣的项目，也有很多和生活息息相关的内容，比如“996”(手动狗头)</li>
+</ul>
+</li>
+<li><p>关于Github Page</p>
+<ul>
+<li>Github Page是供用户编写的、托管在Github上的静态网页。</li>
+</ul>
+</li>
+<li><p>为什么选择Github Page</p>
+<ul>
+<li>可以绑定自己的域名</li>
+<li>简单便捷，使用Github Page可以为你提供给一个免费的服务器，免去了自己搭建服务器和写数据库的麻烦。</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装<code>Node.js</code></h2><hr>
+<p>在window上安装Node.js非常简单，在<a href="https://nodejs.org/en/download/">官网</a>下载文件并执行安装即可。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Node_webpage.png" alt="pict"><br>我是window 64位系统，直接下载相应的版本，无脑下一步就行了，不需要另外配置环境变量。</p>
+<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><hr>
+<p>去<a href="https://git-scm.com/download/win">Git官网</a>根据你的电脑参数，下载对应版本。</p>
+<p>下载完成，通过在命令行输入 <code>git version</code> 查看是否安装成功，有输出版本号说明安装成功。</p>
+<p>鼠标右键菜单里就多了<code>Git GUI Here</code>和<code>Git Bash Here</code>两个按钮，一个是图形界面的Git操作，一个是命令行，我们选择<code>Git Bash Here</code>。</p>
+<ul>
+<li>安装教程：<a href="https://link.juejin.im/?target=http%3A%2F%2Fjingyan.baidu.com%2Farticle%2F90895e0fb3495f64ed6b0b50.html">如何在windows下安装GIT</a></li>
+<li>Git入门教程：<a href="https://link.juejin.im/?target=http%3A%2F%2Fgit.oschina.net%2Fprogit%2F">Pro Git（中文版）</a>、<a href="https://www.bootcss.com/p/git-guide/">教学</a></li>
+</ul>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><hr>
+<p>Hexo是一个快速、简洁且高效的博客框架。Hexo使用Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<ul>
+<li>Hexo安装<br>桌面右键鼠标，点击 <code>Git Bash Here</code>，输入一下命令安装<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br></pre></td></tr></table></figure>
+第一句是安装Hexo，第二句是安装Hexo部署到git page的deployer，两个都需要安装。</li>
+</ul>
+<ul>
+<li><p>Hexo初始化配置</p>
+<ol>
+<li><p>创建Hexo文件夹</p>
+<p> 安装完成后，根据自己喜好建立目录（如D:\ROY\blog\myblog），直接进入D:\ROY\blog\myblog文件夹下右键鼠标，点击<code>Git Bash Here</code>，进入Git命令框，执行以下操作。</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">init</span></span><br></pre></td></tr></table></figure>
+<p> 安装完成后，Hexo将会在指定文件夹中新建所需的文件。Hexo文件夹下的目录如下图所示：<br> <img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/hexo_init_folder.png" alt="img"></p>
+</li>
+<li><p>本地查看效果</p>
+<p> 执行下面语句，执行完即可在浏览器中输入<code>localhost:4000</code>查看本地网页效果</p>
+ <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">hexo</span> <span class="string">g</span></span><br><span class="line"><span class="string">hexo</span> <span class="string">s</span></span><br></pre></td></tr></table></figure>
+<p> <img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_first_page.png" alt="img"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="创建Github-Page"><a href="#创建Github-Page" class="headerlink" title="创建Github Page"></a>创建Github Page</h2><hr>
+<p>那么现在本地的博客已经搭建起来了，但是我们只可以通过本地连接查看我们的博客。那么我们现在需要做的就是把本地的博客发布到服务器上，让别人也可以连接我们的博客，而Github Pages就帮我完成了这件事情。但是Github Pages的代码就是寄存在Github上面的。那么接下来我们需要在Github上面创建一个新的项目。</p>
+<h3 id="一、注册Github账户"><a href="#一、注册Github账户" class="headerlink" title="一、注册Github账户"></a>一、注册Github账户</h3><p>1.访问<a href="https://github.com">Github首页</a><br>2.点击右上角的Sign up，注册自己的账号</p>
+<h3 id="二、创建项目代码库"><a href="#二、创建项目代码库" class="headerlink" title="二、创建项目代码库"></a>二、创建项目代码库</h3><p>1.注册完登陆后，创建一个自己的Github Pages项目。点击 <code>New repository</code><br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/github_setting_new_rep.png" alt="imag"><br><strong>注意：Github中仅能使用一个同名仓库的代码托管一个静态站点。</strong><br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/github_setting.png" alt="imag"></p>
+<p>2.然后打开仓库创建一个<code>index.html</code>文件，先随意写上一些内容。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_first_index.png" alt><br>3.这时候打开 <code>http://你的用户名.github.io</code>就可以看到你的站点了。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/the_hello_world.png" alt><br>此时，只是暂时渲染了 <code>index.html</code>的内容，后面把<code>Hexo</code>的引擎渲染出来的文件部署上来就可以看到完整的blog内容了。</p>
+<h3 id="三、配置SSH-key"><a href="#三、配置SSH-key" class="headerlink" title="三、配置SSH key"></a>三、配置SSH key</h3><p>关于 ssh 连接到 <code>github</code>部分的内容，可以参考<a href="https://docs.github.com/cn/free-pro-team@latest/github/authenticating-to-github/connecting-to-github-with-ssh">官方的文档</a>，此处不多做赘述。</p>
+<h2 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h2><hr>
+<p>此处采用<a href="https://github.com/theme-next/hexo-theme-next"><code>Next</code></a>的blog模板进行部署。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Next_page.png" alt></p>
+<p>1、<code>clone</code>模板文件下载<br>    在 博客的源目录下面运行<br>    <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure><br>    此时文件夹的tree是<br>    <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">|-- _config.landscape.yml</span><br><span class="line">|-- _config.yml                ------&gt;  blog的配置文件</span><br><span class="line">|-- db.json</span><br><span class="line">|-- node_modules</span><br><span class="line">|   |-- JSONStream</span><br><span class="line">|   |-- ......</span><br><span class="line">|   `-- wrappy</span><br><span class="line">|-- package-lock.json</span><br><span class="line">|-- package.json</span><br><span class="line">|-- public                   -----&gt;  渲染出来的index.html放置文件夹</span><br><span class="line">|   |-- <span class="number">2020</span></span><br><span class="line">|   |-- archives</span><br><span class="line">|   |-- css</span><br><span class="line">|   |-- fancybox</span><br><span class="line">|   |-- index.html</span><br><span class="line">|   `-- js</span><br><span class="line">|-- scaffolds</span><br><span class="line">|   |-- draft.<span class="built_in">md</span></span><br><span class="line">|   |-- page.<span class="built_in">md</span></span><br><span class="line">|   `-- post.<span class="built_in">md</span></span><br><span class="line">|-- source                    ----&gt;  后面 内容编辑 文件夹</span><br><span class="line">|   `-- _posts</span><br><span class="line">`-- themes</span><br><span class="line">    `-- next                   ----&gt;  下载下来的 `next`模板</span><br><span class="line">        |-- LICENSE.<span class="built_in">md</span></span><br><span class="line">        |-- README.<span class="built_in">md</span></span><br><span class="line">        |-- _config.yml       -----&gt;  next模板的配置文件</span><br><span class="line">        |-- crowdin.yml</span><br><span class="line">        |-- docs</span><br><span class="line">        |-- gulpfile.js</span><br><span class="line">        |-- languages</span><br><span class="line">        |-- layout</span><br><span class="line">        |-- package.json</span><br><span class="line">        |-- scripts</span><br><span class="line">        `-- source</span><br><span class="line">        |-- css</span><br><span class="line">            |-- images         -----&gt; 主题的 picture目录</span><br><span class="line">            |-- js</span><br><span class="line">            `-- lib</span><br></pre></td></tr></table></figure></p>
+<p>2、<code>Next</code>安装配置</p>
+<ul>
+<li><p><strong>blog的配置文件</strong><code>_config.yml</code>中的修改</p>
+<ul>
+<li>使用 文本程序 打开当前目录下<em>blog的配置文件</em><code>_config.yml</code>文件，在底端可以找到<code>theme</code>键，修改为<code>next</code>。<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Change_ymal_theme_1.png" alt></li>
+<li>网页的总设置：<ul>
+<li>网站的标题、作者等<br><img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/blog_title_setting.png" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在 <strong>next模板的配置文件</strong> <code>_config.yml</code>中：</p>
+<ul>
+<li><code>Next</code>有4个分支主题，可以在修改配置文件中的<code>scheme</code>，激活一个你喜欢的分支主题；<br>  <img src="/2019/03/17/%E6%90%AD%E5%BB%BAHEXO%E5%8D%9A%E5%AE%A2/Change_ymal_next_1.png" alt></li>
+</ul>
+</li>
+<li>头像在<code>themes\next\source\images</code>中同名替换<code>avatar</code>文件</li>
+<li>网站标签页图片：<code>themes\next\source\images</code>中的<code>favicon-16x16-next.png</code>文件同名替换。</li>
+</ul>
+<p>3、网站关联GitHub</p>
+<ul>
+<li>在<strong>blog的配置文件</strong><code>_config.yml</code>中的最后修改为  <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:username/username.github.io.git</span></span><br><span class="line">  <span class="comment"># username是github用户名</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></li>
+<li>添加域名<ul>
+<li>在blog的源目录下 创建<code>CNRME</code>文件，无后缀，内容添加为 <code>域名</code></li>
+</ul>
+</li>
+</ul>
+<p>4、部署运行</p>
+<ul>
+<li><p><font color="red" size="5"><strong>安装上传git的插件</strong></font></p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在源目录下分别执行</p>
+  <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">hexo clean //清理缓存</span><br><span class="line">hexo g  //生成静态页面</span><br><span class="line">hexo d  // 网站push 到github上</span><br></pre></td></tr></table></figure>
+<p>这样就可在 你的域名上 欣赏你的blog了，加油，bloger！</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>建站</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>无用的『迷茫』，认清自己</title>
+    <url>/2022/10/16/%E6%97%A0%E7%94%A8%E7%9A%84%E8%BF%B7%E8%8C%AB%EF%BC%8C%E8%AE%A4%E6%B8%85%E8%87%AA%E5%B7%B1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote class="blockquote-center">
+It is not our abilities that show what we truly are. It is our choices.
+
+</blockquote>
+<span id="more"></span>
+
+
+<blockquote class="blockquote-center">
+Yesterday is history, tomorrow is a mystery, today is God's gift, that's why we call it the present.
+</blockquote>
+
+
+<p>迷茫是人生的伴侣，逃避是直觉的选择。但人生是一场注定了目的地的旅程，如果一直萎缩着不敢遥望窗外，那留下的就只有谢幕仪式。</p>
+]]></content>
+      <tags>
+        <tag>生活</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>权利的游戏 第八季</title>
+    <url>/2019/05/06/%E6%9D%83%E5%88%A9%E7%9A%84%E6%B8%B8%E6%88%8F-%E7%AC%AC%E5%85%AB%E5%AD%A3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>◎译    名  权力的游戏 第八季 / Game of Thrones: The Final Season / 权游8</p>
+<p>◎片    名  Game of Thrones Season 8</p>
+<p>◎年    代  2019</p>
+<p>◎产    地  美国</p>
+<p>◎类    别  剧情 / 奇幻 / 冒险</p>
+<p>◎语    言  英语</p>
+<p>◎上映日期  2019-04-14(美国)</p>
+<p>◎IMDb链接  <a href="http://www.imdb.com/title/tt5924366/">http://www.imdb.com/title/tt5924366/</a> </p>
+<p>◎豆瓣评分  0/10 from 0 users</p>
+<p>◎豆瓣链接  <a href="https://movie.douban.com/subject/26584183/">https://movie.douban.com/subject/26584183/</a> </p>
+<p>◎集    数  6</p>
+<p>◎片    长  60分钟(E1-E2) / 80分钟(E3-E6)</p>
+<p>◎导    演  米格尔·萨普什尼克 Miguel Sapochnik / 大卫·努特尔 David Nutter / 戴维·贝尼奥夫 David Benioff / D·B·威斯 D.B. Weiss</p>
+<p>◎编    剧  戴维·贝尼奥夫 David Benioff / D·B·威斯 D.B. Weiss / 乔治·马丁 George R.R. Martin</p>
+<p>◎主    演  艾米莉亚·克拉克 Emilia Clarke<br>                基特·哈灵顿 Kit Harington<br><br>                彼特·丁拉基 Peter Dinklage<br><br>                苏菲·特纳 Sophie Turner<br><br>                麦茜·威廉姆斯 Maisie Williams<br><br>                琳娜·海蒂 Lena Headey<br><br>                伊萨克·亨普斯特德-怀特 Isaac Hempstead-Wright<br><br>                尼古拉·科斯特-瓦尔道 Nikolaj Coster-Waldau<br><br>                约翰·C·布莱德利 John C. Bradley<br><br>                阿尔菲·艾伦 Alfie Allen<br><br>                皮鲁·埃斯贝克 Pilou Asbæk<br><br>                格温多兰·克里斯蒂 Gwendoline Christie<br><br>                利亚姆·坎宁安 Liam Cunningham<br></p>
+<p>◎标    签  权力的游戏 | HBO | 美剧 | 史诗 | 魔幻 | 经典 | 奇幻 | 美国</p>
+<p>◎简    介</p>
+<p>HBO剧集《权力的游戏》第八季将于2019年4月14日播出，本季共6集。</p>
+<p>故事发展至第八季，重返临冬城的琼恩·雪诺（基特·哈灵顿 Kit Harington 饰）在布兰·史塔克（伊萨克·亨普斯特德-怀特 Isaac Hempstead-Wright 饰）口中得知了自己身世的秘密，让他与丹妮莉丝·塔格利安（艾米莉亚·克拉克 Emilia Clarke 饰）的关系蒙上了一层冰霜。<br>詹姆·兰尼斯特（尼古拉·科斯特-瓦尔道 Nikolaj Coster-Waldau 饰）试图召集河间地驻军北伐异鬼，却发现艾德慕·徒利（托比亚斯·门基斯 Tobias Menzies 饰）已经包围你了奔流城。<br>攸伦·葛雷乔伊（皮鲁·埃斯贝克 Pilou Asbæ 饰）将黄金团带至君临获取了瑟曦（琳娜·海蒂 Lena Headey 饰）的信任，而实际上，他已经与无面者贾昆·赫加尔（汤姆·拉斯齐哈 Tom Wlaschiha 饰）私下达成了秘密协议。<br><span id="more"></span><br>◎获奖情况</p>
+<blockquote>
+<p>第5届豆瓣电影年度榜单(2018)<br>最值得期待的剧集(提名)</p>
+</blockquote>
+<p>◎ 剧集</p>
+<p><strong><a href="http://www.royonedrive.tk/A:/外语学/美帝/电视剧/权利的游戏/第八季/qldyx.s08e01/S08E01HD修正中英双字.mp4?action=share">第一集</a></strong><br><strong><a href="http://www.royonedrive.tk/A:/外语学/美帝/电视剧/权利的游戏/第八季/权力dyx.S08E02/S08E02未删减HD中英双字.mp4?action=share">第二集</a></strong><br><strong><a href="http://www.royonedrive.tk/A:/外语学/美帝/电视剧/权利的游戏/第八季/权力的游戏第八季第3集未删减版.Game.of.Thrones.Season.8.E03.2019.UNCUT.HD1080P.X264.AAC.English.CHS-ENG.mp4.torrent.mp4?action=share">第三集</a></strong><br><strong><a href="http://www.royonedrive.tk/A:/外语学/美帝/电视剧/权利的游戏/第八季/权力的游戏第八季第4集未删减版.Game.of.Thrones.Season.8.E04.2019.UNCUT.HD1080P.X264.AAC.English.CHS-ENG.mp4?action=share">第四集</a></strong> </p>
+]]></content>
+      <tags>
+        <tag>影视</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>桥墩盖梁计算(一)</title>
+    <url>/2019/09/03/%E6%A1%A5%E5%A2%A9%E7%9B%96%E6%A2%81%E8%AE%A1%E7%AE%97(%E4%B8%80)/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>按规范JTJ023—85第3.4.2条，对于双柱式墩台，当盖梁的刚度与柱的刚度比大于5时，盖梁可按简支梁计算。盖梁按简支梁计算，较易进行，本篇中不做示例。<br>桥台盖梁如    按钢构计算，由于桥台肋身系与基础固结，可以直接采用桥梁结构综合程序计算。桥墩刚构由于基础是桩基，现采用集成刚度法计算示例。<br><span id="more"></span></p>
+<h1 id="桥墩盖梁的荷载"><a href="#桥墩盖梁的荷载" class="headerlink" title="桥墩盖梁的荷载"></a>桥墩盖梁的荷载</h1><h2 id="1-恒载"><a href="#1-恒载" class="headerlink" title="1.恒载"></a>1.恒载</h2><p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;设定主梁及上部的恒载为1010.616kN，盖梁的自重为72.208kN/m。</p>
+<h2 id="2-活载"><a href="#2-活载" class="headerlink" title="2.活载"></a>2.活载</h2><p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;上部结构设定为主梁桥面板，设定为简支板，汽车-超20级轮重力自简支板传至主梁，再由主梁传至盖梁。<br><strong>盖梁</strong><br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;设定跨中最大弯矩的梁压力（活载布置A）：P1=P1’= 22.104kN，P2=P2’=412.606kN，P3 =486.285kN。<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;支点（柱顶）最小负弯矩的梁压力（活载布置B）:P1 = 419.974kN，P2 = 482.601kN,P3 = 412.606kN，P2’=40.524kN，P1’=0。<br><img src="https://upload.cc/i1/2019/08/25/QLmjek.png" alt="img"></p>
+<hr>
+<h1 id="盖梁、柱、桩的几何尺寸及有关系数"><a href="#盖梁、柱、桩的几何尺寸及有关系数" class="headerlink" title="盖梁、柱、桩的几何尺寸及有关系数"></a>盖梁、柱、桩的几何尺寸及有关系数</h1><p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;盖梁、柱、桩的几何尺寸如下图所示，作为示例，假定桩顶出土2m。</p>
+<ul>
+<li>盖梁尺寸：$1.2m（高）\times 2.4m（宽）\times 10.5m(长)$</li>
+<li>墩柱直径：$1.5m$</li>
+<li>基桩直径：$1.8m$</li>
+<li>桩如土：$28m$</li>
+<li>盖梁、墩柱、基桩均为25号混凝土，弹性模量为<br>$2.85 \times 10^7 kN/m^2$ 。参考《铁路桥涵设计规范》中规定，弹性模量乘以0.8，盖梁弹性模量与惯性矩乘积的$0.8$ 倍为：<script type="math/tex">0.8 \times E_{ab} I_{ab} = 0.8 \times 2.85\times 10^7\times \frac{1}{12}\times 2.4\times 1.2^3 =7880\times 10^3 kN.m</script></li>
+<li>$ab、be$ 柱弹性模量与惯性乘积的$0.8$ 倍为：$0.8\times2.85\times 10^7\times 0.04909\times1.5^4=5\,666\times 10^3kN.m^2$</li>
+<li>$d、e$ 桩弹性模量与惯性矩乘积的$0.8$ 倍为： $0.8\times2.85\times 10^7\times 0.04909\times1.8^4=11\,759\times 10^3kN.m^2$</li>
+<li>桩基变形系数  $\alpha =0.366 \quad  1/m$<br> $\alpha h=0.336\times 28 =9.408&gt;4$，以4计。<br><img src="/2019/09/03/%E6%A1%A5%E5%A2%A9%E7%9B%96%E6%A2%81%E8%AE%A1%E7%AE%97(%E4%B8%80)/Snipaste_2019-09-04_10-04-30.png" width="800" height="450"></li>
+</ul>
+<hr>
+<h1 id="盖梁、柱、桩的弹性常数"><a href="#盖梁、柱、桩的弹性常数" class="headerlink" title="盖梁、柱、桩的弹性常数"></a>盖梁、柱、桩的弹性常数</h1><p>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;盖梁、桩的弹性尝试按《换算刚度法及其在结构中的应用》第一章计算。</p>
+<ul>
+<li>$ab、ba$ 梁抗弯刚度:<script type="math/tex; mode=display">S_{ab} =S_{ba} =4 {\it{EI}}/l =4\times 0.8\times E_{ab}I_{ab}/l_{ab}=4\times 7\,880\times 10^3/6.1 =5\,167.2\times 10^3 kN/弧度</script></li>
+<li><p>$ab、ba$梁相干系数：</p>
+<script type="math/tex; mode=display">
+T_{ab}=T_{ba} =6EI/l_{ab}^2 = 6\times 0.8\times E_{ab}I_{ab}/l_{ab}^2
+=6\times 7\,880\times 10^3/6.1^2 = 1\,270.63\times 10^3 kN/m 或kN/弧度</script></li>
+<li><p>墩柱抗推刚度：</p>
+<script type="math/tex; mode=display">
+K_{ad} = K_{da} =K_{be} = K_{eb} =12EI/l^3=12\times 0.8\times E_{ad}I_{ad}/l_{ad}^3 = 12\times 5\,666\times 10^3/8^3 =132.80\times10^3 kN/m</script></li>
+<li>墩柱的抗弯刚度:<script type="math/tex; mode=display">S_{ad} = S_{da}=S_{be} = S_{eb} = 4EI/l = 4\times 0.8 \times E_{ad}I_{ad}/l_{ad} = 4\times 5\,666\times 10^3/8 = 2833.0\times 10^3 kN.m/弧度</script></li>
+<li>墩柱的传递抗弯刚度：<script type="math/tex; mode=display">
+CS_{ad} =CS_{da} =CS_{be} =CS_{eb} = 0.5\times 2\,833.0\times 10^3 =1\,416.5\times 10^310^3 kN.m/弧度</script></li>
+<li>墩柱的相干系数：<script type="math/tex; mode=display">
+T_{ad} =T_{da} =T_{be} = T_{eb} = 6EI/l^2 =6E_{ad}\times I_{ad}/l_{ad}^2 = 6\times 5\,666\times 10^3/e^2 = 531.19\times 10^3 kN.m/m 或kN/弧度</script></li>
+<li>两桩尺寸及地基土相同，桩顶自由长度$l_0=2m$，$\alpha l_0=0.336\times =0.672$。桩顶的弹性常数，即抗推刚度$\rho_2$、相干系数$\rho_3$、抗弯刚度$\rho_4$，可由《基础工程》中查表得 ，此处列出作参考。<script type="math/tex; mode=display">
+\rho_2 = \alpha^3\times 0.8E_{d}I_{d}x_{Q} =0.336^3\times 11\,749\times 10^3\times 0.577644 = 257.44kN/m</script><script type="math/tex; mode=display">
+\rho_3 = \alpha^2\times 0.8E_{d}I_{d}x_{m} =0.336^2 \times 11\,749\times 10^3\times 0.7186424 = 953.22kN.m/m 或kN/弧度</script><script type="math/tex; mode=display">
+\rho_3 = \alpha\times 0.8E_{d}I_{d}\phi_{m} =0.336 \times 11\,749\times 10^3\times 1.3036612 = 5\,166.2kN/m</script></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>桥梁设计</tag>
+        <tag>盖梁计算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>离开「上海」</title>
+    <url>/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>6月7日，怀着 别扭的 心情，乘上了 上海虹桥开往山东济南的高铁。说起别样，一半是 感觉离开了上海两个月，应该能避开接下来一系列的〝骚操作〞;一半是对到达山东之后的，又不知道会如何处置。虽说，打了一万份的心理准备，全国人民对上海还是非常〝热情〞的，但人，总是扭捏地面对一个未知的处置。</p>
+<span id="more"></span>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/出发准备.jpg" width="50%"></p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/虹桥站.jpg" width="50%"></p>
+<p>去山东的高铁上，坐满了归乡的打工人。对一个封闭了近三个月的人来说，这也是一个大场面了。这些谈笑的老男孩，脸上挂着的不知道是离开的惬意，还是接下来的无奈。隔壁的大哥，看我提着一个大箱子，背着一个大包，又穿着大白服，问我:〝带的东西挺全啊。〞我尴尬的回着:〝之前看微博上说，方舱里面什么都没有，我就什么都带了。〞大哥尴尬的说:〝不会吧，我就带了一个小包。你去哪的啊。〞〝济南，终点站。你呢〞我回着。〝我在前一站，泰安。〞我坐进了靠窗的a座，戴上了耳机，等待着列车的启动。</p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/排队上车月台.jpg" width="50%"></p>
+<p>车上坐满了人，大多都是打工人，车上的氛围还是比较轻松的，这些跟我爸差不多年纪的〝老男孩〞恰然地谈论着，有些是开了一个月的工，有些是半个月，有个说只干了不到5天就关了。还讨论了那些日子，一天吃几顿，说完哈哈哈大笑。或许此时他们是放松的，心里还是怀着能回家的喜悦，岁月给这些老男孩留下了许多印记，也添加了一份谈资，或许就是下次教训家里后辈的时候，说出来的例子了。</p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/出发.jpg" width="50%"></p>
+<p>前面的大哥，打了个电话，对面大概是家里的老婆，电话里安慰着家里人，没事的，回家了之后再考虑去那继续拼搏。两个多月，对他们这种全勤的人来说，意味着太多了。</p>
+<p>下午的五点多，到里济南，下站的人被简单的排好队之后，就被拉到了淄博，9点多终于下车了，这就是我要待首个7天的地方。</p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/济南落地.jpg" width="50%"></p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/排队上车转移.jpg" width="50%"></p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/排队进入房间.jpg" width="50%"></p>
+<p><img src="/2022/06/16/%E7%A6%BB%E5%BC%80%E3%80%8C%E4%B8%8A%E6%B5%B7%E3%80%8D/单间.jpg" width="50%"></p>
+]]></content>
+      <tags>
+        <tag>生活</tag>
+        <tag>疫情</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论中国人痴迷的“国外来函”</title>
+    <url>/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>前段时间，在家族微信群中看到一条<a href="1608542717.mp4">抖音</a>，大体讲的是2007年底，上海市政工程管理局收到英国霍华思公司发来“提醒函”，提醒外白渡桥的使用年限到期，需要修缮，并且寄来设计图纸。内心百感交集，为什么在2020年的今天，国人还在痴迷着“青岛排水系统”的传说，不假思索。笔者便借此机会，将外白渡桥的修缮历史梳理一下。<br><span id="more"></span></p>
+<h2 id="上海外白渡桥"><a href="#上海外白渡桥" class="headerlink" title="上海外白渡桥"></a>上海外白渡桥</h2><p><img src="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/外白渡桥.jpg" alt="image"> <a href="#refer-anchor-1"><sup>1</sup></a></p>
+<p><strong>外白渡桥</strong> ，是中国第一座全钢结构铆接桥梁<a href="#refer-anchor-2"><sup>2</sup></a>和仅存的<em>不等高桁架结构桥</em>，同时也是自1856年以来的在苏州河河口附近同样位置落成的第四座桥梁。由于处于苏州河与黄浦江的交界处，因此成为链接黄埔与虹口的重要交通要道。</p>
+<p>现在的外白渡桥于1908年1月20日落成通车。由于其丰富的历史和独特的设计，外白渡桥成为上海的标志之一，同时也是上海的现代化和工业化的象征。</p>
+<p><img src="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/外白渡桥_2.jpg" alt></p>
+<h2 id="外白渡桥的修缮历史"><a href="#外白渡桥的修缮历史" class="headerlink" title="外白渡桥的修缮历史"></a>外白渡桥的修缮历史</h2><p>一个屹立于上海滩100年的外白渡桥，其使用年限本只有50年，要想保证可靠的工作状态，早就经历过几次维修。<br>自1940年代以来，外白渡桥共经历五次主要的维修，最近的一次便是2008年的大修。</p>
+<h3 id="1947年"><a href="#1947年" class="headerlink" title="1947年"></a>1947年</h3><p>在1947年，也就是通车40年之时，上海市政府做了一次检查，发现桥梁的结构出现沉降，较之1907年的时候，桥基础已经下沉将近12.7厘米。1947年6月，市政府与一家私营公司签订合同，由该公司负责对桥梁的维修，以加固桥梁结构，防止进一步下沉。此后，除了1949年扩大人行道以外，该公司再未进行进一步的维修。</p>
+<h3 id="1949年至1980年"><a href="#1949年至1980年" class="headerlink" title="1949年至1980年"></a>1949年至1980年</h3><ul>
+<li>1957年，上海市人民政府工程局联合上海市工程设计研究院，对外白渡桥进行了一次深入的研究，随后采取了一定措施，防止桥梁老化，使该桥能继续使用50年。</li>
+<li>1964年，外白渡桥拆除，移入造船厂进行大修，这次大修以后，取消了原先经由外白渡桥通行的电车线路。</li>
+<li>1965年，木质的人行道拆除，更换为钢筋混凝土材质的人行道，同时对桥梁进行了一次粉刷。<!-- + 1967年，由于大陆进入文革时期，作为资本主义列强再中国的象征之一，外白渡桥也不免成为批斗的对象。 --></li>
+<li>1970年，外白渡桥再度进行了喷漆维修，这次修缮工作主要是将生锈的部分钢结构替换，并喷涂锌质防锈液。</li>
+<li>1977年，上海市政设计研究院则对大桥的横梁进行了一次加固措施。<a href="#refer-anchor-3"><sup>3</sup></a></li>
+</ul>
+<h3 id="百年大修（2008年至2009年）"><a href="#百年大修（2008年至2009年）" class="headerlink" title="百年大修（2008年至2009年）"></a>百年大修（2008年至2009年）</h3><p>前几次的修缮工作，从未传出由什么原来的设计公司送来 <strong>“提醒函”</strong> ，唯独着百年大修却传出了这个令人感慨的 <em>事件</em>。</p>
+<p>由于上海将于2010年举办 <strong>上海世博会</strong> ，同时鉴于中山东一路地区的交通压力，上海市政府决定对外滩地区进行交通综合改造。由于新建的外滩通道将穿越外白渡桥下方，加之外白渡桥的桥墩经过勘察发现已经老化严重，因此市政府决定对外白渡桥进行大修。</p>
+<p>根据2008年《上海日报》的报道：“尽管桥龄已逾100年，但最近的一份质量检查结果显示，即使不对桥梁进行较大的维修，外白渡桥扔能安全地使用30年。”此次大修地主旨是“恢复和加强原有的风格”，这次大修经国家文物局批准，唯一地限制是“桥身与水面净高不变”。</p>
+<p>2009年2月25日6时30分，在民生码头经过为期一年左右地大修，外白渡桥北跨开始移桥复位。晚上18时许<br>，北跨桥身完成固定。翌日，南跨也回归原址。4月8日，大修完成后的外白渡桥重新向行人开放。<br>4月11日凌晨，外白渡桥恢复机车通行。此次长达10个月大修，是自1907年外白渡桥建成以来，对这座重约1000多吨地老桥最彻底地一次维修。</p>
+<h2 id="针对“提醒函”的几点说明"><a href="#针对“提醒函”的几点说明" class="headerlink" title="针对“提醒函”的几点说明"></a>针对“提醒函”的几点说明</h2><ul>
+<li>自1907年外白渡桥建成以来，外白渡桥先后经历过5次大维修，都是组织国内的专家进行，并且从未有传出什么国外的原设计单位送来图纸以及“提醒函”的传说。</li>
+<li>并且外白渡桥的实际设计年限是50年，那么送来“提醒函”的准确时间应该时上个世纪60年代，而不是2008年。</li>
+<li>2008年对外白渡桥的维修时机，也不是针对的所谓的100年的设计年限来临，而是为了解决2010年的上海世博会期间的交通压力等更为实际的原因。</li>
+</ul>
+<p>那么这封 神秘的<strong>提醒函</strong>的消息到底是怎么传出来的呢？笔者从网上进行搜索，发现网上确实都是这样的消息，但是都是一样的说辞，却没有一个说出消息的来源。但能找到的最早的消息包括以下两个：</p>
+<ul>
+<li><img src="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/Snipaste_2020-06-29_21-18-44.png" alt></li>
+<li><img src="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/Snipaste_2020-06-29_21-20-28.png" alt></li>
+</ul>
+<p>以上一个是 东方网 的一篇由实习生选稿的 新闻，一个是刊登在《工业安全与环保》的2008年第06期的 唐宗礼的稿件，但是其中也是用了 <code>据报道</code>这样没有出处的字眼，提到的时间是<br><code>去年年底</code>。由于作者没有留下任何的通讯方式，以及刊物不太会受理查询此事，也只能就此作罢。<br><img src="/2020/06/29/%E8%AE%BA%E4%B8%AD%E5%9B%BD%E4%BA%BA%E7%97%B4%E8%BF%B7%E7%9A%84%E2%80%9C%E5%9B%BD%E5%A4%96%E6%9D%A5%E5%87%BD%E2%80%9D/Snipaste_2020-06-29_21-23-17.png" alt></p>
+<h2 id="类似的传说4-5"><a href="#类似的传说4-5" class="headerlink" title="类似的传说4,5"></a>类似的传说<a href="#refer-anchor-4"><sup>4,5</sup></a></h2><ul>
+<li>青岛的“德国下水道”</li>
+<li>“90岁”的北京“洋灰桥”</li>
+<li>“96岁”的武汉景明大楼</li>
+<li>“80岁”的广州海珠桥</li>
+</ul>
+<p>以上，是收集到的网络上盛传的“提醒函”事件，其中大部分都是：直接开始“讲故事”，没有确切的事件的出处，然后吐槽国内。荒唐的是故事中的主角有：“钢材企业”，“设计师的后人”等，各种角度刁钻的人物，其实细想都是漏洞百出，有些都不管“时间”上的漏洞，直接硬说硬来。</p>
+<h2 id="行业的思考"><a href="#行业的思考" class="headerlink" title="行业的思考"></a>行业的思考</h2><p>首先，作为土木行业的一员，针对出现的这种荒唐的现象，其实是有些羞愧的。在基建快速发展的那些年，由于国内的需求快速爆发，并且施工工期短，监督机制的缺失，资金大量的聚集，确实出现了很多“豆腐渣”工程，但这是一个国家发展过程中的“阵痛”现象。就像<a href="https://m.douban.com/movie/subject/4724460/">丑陋的美国人</a>、<a href="https://m.douban.com/book/subject/3105926/">丑陋的日本人</a>到<a href="https://m.douban.com/book/subject/3067169/">丑陋的中国人</a>的传递发展一样，这些在相应的时期出现的问题本身就需要通过一代人的时间去消化。</p>
+<p>其次，这两年出现的事故：<a href="https://baike.baidu.com/item/10%C2%B710%E6%97%A0%E9%94%A1%E9%AB%98%E6%9E%B6%E6%A1%A5%E4%BE%A7%E7%BF%BB%E4%BA%8B%E6%95%85/23794275?fr=aladdin">“江苏无锡312国道侧翻事故”</a>、”虎门大桥的‘涡振’事件“，这些事件确实刺激着人民的神经，其中夹杂着设计、施工、运营等的多方面的问题，也在很大程度上警示着从业人员，道路阻且长。</p>
+<p>再次，是媒体集聚效应。一个热点的出现，往往带来更多相关的热点，这在一定程度上对行业起到了监督的作用，但是由于一些媒体对自己不熟悉的专业上，发表的不专业的评论，引导了群众产生了一定程度的“偏见”。并且，由于如今的网络时代的大爆发，很多“故事”就那么顺利的传递开了，自古以来也是如此。</p>
+<p>最后，作为一个“桥梁人”，对于生命线工程的桥梁，确实承担着很大的责任，任重而道远。加油，打工人！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><div id="refer-anchor-1"></div>
+
+<ul>
+<li>[1] <a href="https://zh.wikipedia.org/wiki/%E5%A4%96%E7%99%BD%E6%B8%A1%E6%A1%A5">Wikipedia</a></li>
+</ul>
+<div id="refer-anchor-2"></div>
+
+<ul>
+<li>[2] 《上海年鉴》编纂委员会. <a href="http://www.shtong.gov.cn/newsite/node2/node19828/node71798/node71839/node71983/userobject1ai77137.html">二十八、城市管理&gt;&gt;（八）市政设施管理</a>.《上海年鉴（2004）》. 上海年鉴社. [2004] [2016-11-14]. ISSN 1008-1046</li>
+</ul>
+<div id="refer-anchor-3"></div>
+
+<ul>
+<li>[3] <a href="http://www.godpp.gov.cn/yxzp_/2008-02/29/content_12577903.htm">上海外白渡桥：百年老图纸成为“镇馆之宝”-2008年2月29日《解放军报》</a></li>
+</ul>
+<div id="refer-anchor-4"></div>
+
+<ul>
+<li>[4] <a href="http://opinion.china.com.cn/opinion_25_87725.html">旧管道需要安全提醒函 - 张田勘</a></li>
+<li>[5] <a href="http://blog.sciencenet.cn/blog-903722-734225.html">我们离“安全提醒函”有多远 - 李健 </a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>施工</tag>
+        <tag>桥梁</tag>
+        <tag>媒体</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>雷霆沙赞2019</title>
+    <url>/2019/06/07/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E2019/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="影片基本信息"><a href="#影片基本信息" class="headerlink" title="影片基本信息"></a>影片基本信息</h1><hr>
+<p>【导演】:大卫·F·桑德伯格<br>【主演】: 扎克瑞·莱维/马克·斯特朗/亚瑟·安其/杰克·迪伦·格雷泽<br>【标签】: 动作/奇幻/冒险<br>【制片地区/国家】:美国<br>【年份】:2019<br>【语言】:英语<br>【上映时间】: 2019-04-05(美国/中国大陆)<br>【片长】: 132<br>【原名】:Shazam!<br>【又名】:沙赞！神力集结(港)/沙赞！(台)/雷霆沙赞/沙赞/神奇上尉/奇迹队长/Billy Batson and the Legend of Shazam!/Franklin<br>【评分】:豆瓣：6.8 ，IMDB：8.5<br>【IMDb链接】: <a href="http://www.imdb.com/title/tt0448115">tt0448115</a><br>【编辑整理】: <a href="http://www.xiepp.com/">[下片片网]www.xiepp.com</a> </p>
+<span id="more"></span>
+<h1 id="剧情介绍-剧照"><a href="#剧情介绍-剧照" class="headerlink" title="剧情介绍/剧照"></a>剧情介绍/剧照</h1><hr>
+<p>在这部雷霆沙赞！动作/奇幻/冒险片中,每个人身体里都潜藏着一位超级英雄，只需要一点魔力便能将其释放。14岁的街头小混混比利·巴特森(亚瑟·安其饰)通过大喊“沙赞”这个词，就可以变身为成年超级英雄沙赞(扎克瑞·莱维饰)，这是一种来自于古老巫师的恩惠。如神一般的肌肉身体里，仍存有一颗孩子心，他开心地与超能力为伴。他能飞吗？他能X光透视吗？他能从手中射出闪电吗？他能不用再考试了吗？沙赞以孩子般轻率又鲁莽的方式，开始测试他的能力极限。但他需要尽快掌握这些力量，以对抗塞迪斯·希瓦纳博士控制的邪恶势力。</p>
+<p>We all have a superhero inside us, it just takes a bit of magic to bring it out. In Billy Batson’s case, by shouting out one word - SHAZAM! - this streetwise fourteen-year-old foster kid can turn into the adult superhero Shazam.</p>
+<p>正义联盟集结！细数《雷霆沙赞！》中的DC彩蛋！。关于神奇队长你想了解的知识。超级英雄们搞笑起来，再厉害的反派也拦不住。《雷霆沙赞》，集智慧与文体于一身！海王之后，华纳两开花！！。希望你和伊冯娜能带热超市特工。他会成为下一个励志王吗？超级孩子气SHAZAM！。DC爆出超级英雄沙赞，他是被哈莉·奎茵唯一爱过的正派男人。DCEU沙赞的造型，让我忍不住想高歌一首………。沙赞，DC最「沙雕」超级英雄！超人的能力，骚年的心！。</p>
+<p><img src="/2019/06/07/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E2019/p2553012824.webp" alt="沙赞1"><br><img src="/2019/06/07/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E2019/p2551667570.webp" alt="沙赞2"><br><img src="/2019/06/07/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E2019/p2551584006.webp" alt="沙赞3"><br><img src="/2019/06/07/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E2019/p2551584003.webp" alt="沙赞3"></p>
+<h1 id="在线观看-资源下载"><a href="#在线观看-资源下载" class="headerlink" title="在线观看/资源下载"></a>在线观看/资源下载</h1><hr>
+<!-- <div id="dplayer2" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer2 = new DPlayer({"element":document.getElementById("dplayer2"),"autoplay":0,"theme":"#FADFA3","loop":1,"video":{"url":"https://alphaone-my.sharepoint.cn/personal/royonedrive_vip_tg/_layouts/15/download.aspx?UniqueId","pic":"https://img9.doubanio.com/view/photo/l/public/p2563001765.webp"}});</script><!-- dplayer used1 --> -->
+<p><strong><a href="http://royolaindex.wonzan.com/?/%E5%A4%96%E8%AF%AD%E5%AD%A6/%E7%BE%8E%E5%B8%9D/%E7%94%B5%E5%BD%B1/DC/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E.Shazam.2019.HD1080P.x265.HEVC.%E8%8B%B1%E8%AF%AD%E4%B8%AD%E6%96%87%E5%AD%97%E5%B9%95.Eng.CHS.Korean.aac.btzimu/%E9%9B%B7%E9%9C%86%E6%B2%99%E8%B5%9E.Shazam.2019.HD1080P.x265.HEVC.%E8%8B%B1%E8%AF%AD%E4%B8%AD%E6%96%87%E5%AD%97%E5%B9%95.Eng.CHS.Korean.aac.btzimu.mp4">直连下载</a></strong></p>
+<p><strong><a href="magnet:?xt=urn:btih:1A48787A9B39CA3DBBD86B125311C7262769E75A">种子文件</a></strong> </p>
+<h1 id="观影小结"><a href="#观影小结" class="headerlink" title="观影小结"></a>观影小结</h1><hr>
+<p><strong>雷霆沙赞</strong>在国内和国外的评分呈两极化。就国内而言，漫威的宇宙体系显得更为成熟，内容也更为丰富；而国外，由于对DC的漫画有着一批更为痴迷的漫迷，所以这部DC的英雄，也有更多的受众。当然，每个地方都有各自的市场和受众，虽然我没有时间进入电影院进行观看，但是我觉得沙赞这个人物的塑造也是成功的，对DC未来的影片也更为期待。</p>
+]]></content>
+      <tags>
+        <tag>影视</tag>
+        <tag>动漫</tag>
+        <tag>DC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>陈一发-谢谢你的爱</title>
+    <url>/2019/05/05/%E9%99%88%E4%B8%80%E5%8F%91-%E8%B0%A2%E8%B0%A2%E4%BD%A0%E7%9A%84%E7%88%B1/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><strong>永远的67373</strong><br><!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/iF5IKRUj-2E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --></p>
+<!-- <div id="dplayer3" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer3 = new DPlayer({"element":document.getElementById("dplayer3"),"autoplay":0,"theme":"#FADFA3","loop":1,"video":{"url":"http://www.royonedrive.tk/SJHL/%E5%9B%BE%E5%BA%8A/021309b9283fc1e86169a35fd51486f2.mp4","pic":"15270359193790494.jpg"}});</script><!-- dplayer used1 --> -->
+<div id="dplayer4" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer4 = new DPlayer({"element":document.getElementById("dplayer4"),"autoplay":0,"theme":"#FADFA3","loop":1,"video":{"url":"/2019/05/05/陈一发-谢谢你的爱/谢谢你的爱_陈一发.mp4","pic":"15270359193790494.jpg"}});</script><!-- dplayer used1 -->
+<!-- <div id="dplayer5" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer5 = new DPlayer({"element":document.getElementById("dplayer5"),"video":{"url":"https://dl.sm9.top/Video/2018/KeyCastOW.mp4"}});</script><!-- dplayer used1 -->  -->
+<!-- <div id="dplayer6" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer6 = new DPlayer({"element":document.getElementById("dplayer6"),"autoplay":0,"theme":"#FADFA3","loop":1,"video":{"url":"https://image.suxingboke.com/down/480P/%E5%B0%84%E9%9B%95%E8%8B%B1%E9%9B%84%E4%BC%A0/01.mp4","pic":"15270359193790494.jpg"}});</script><!-- dplayer used1 --> -->
+<!-- <div id="dplayer7" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer7 = new DPlayer({"element":document.getElementById("dplayer7"),"autoplay":0,"theme":"#FADFA3","loop":1,"video":{"url":"http://devtest.qiniudn.com/若能绽放光芒.mp4","pic":"http://devtest.qiniudn.com/若能绽放光芒.png"},"danmaku":{"api":"http://dplayer.daoapp.io","id":"9E2E3368B56CDBB4","token":"tokendemo","addition":["https://dplayer.daoapp.io/bilibili?aid"]}});</script><!-- dplayer used1 --> -->
+]]></content>
+      <tags>
+        <tag>视频</tag>
+      </tags>
+  </entry>
+</search>
